@@ -1,43 +1,35 @@
 # vega-lite-linter
-Fixing your visualization design written in Vega-Lite based on the answer set programming
+Fixing your visualization design written in Vega-Lite based on the answer set programming.
 
-## develop pipeline
-### Step 1: vl2asp Translator
-input: vega-lite json  
-output: facts in asp format
+## Usage
+```python
+from vega_lite_linter import Lint 
 
-### Step 2: Linter
-**Rules**  
-Define rules with detailed description (such as ESLint).
+vega_json = {
+    "data": {
+        "url": "data/cars.json"
+    },
+    "mark": "point",
+    "encoding": {
+        "x": {
+            "field": "Acceleration",
+            "type": "quantitative"
+        },
+        "y": {
+            "field": "Origin",
+            "type": "nominal",
+            "scale": {
+                "zero": true
+            }
+        }
+    }
+}
 
-**Linter**  
-A function to dectect which rules are violated by the input vis specifaction.
+lint = Lint(vega_json)
+# show rules that the input vega-lite json violates
+violate_rules = lint.lint()
 
-### Step 3: Fixer
-**Optimization**  
-Find best actions with max score using linear programming
+# show quick-fix result
+fix = lint.fix()
 
-**Action Adaptor**  
-Given the recommended action, what specific parameters should be used, such as field name, aggregation function.
-
-## install Clingo
-First, you need to install Clingo.
-
-For MacOS
-```
-brew install clingo
-```
-
-Or using Conda
-```
-conda install -c potassco clingo
-```
-
-For other system, please look up to https://potassco.org/clingo/
-
-## Python ENV setup
-```
-virtualenv ENV
-source ./ENV/bin/activate
-pip install -r requirements.txt 
 ```
