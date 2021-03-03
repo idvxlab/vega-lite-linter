@@ -1,0 +1,12 @@
+{
+    "data": {
+        "url": "data/cars.json"
+    },
+    "mark": "point",
+    "encoding": {
+        "size": {
+            "field": "Horsepower",
+            "type": "quantitative"
+        }
+    }
+}
