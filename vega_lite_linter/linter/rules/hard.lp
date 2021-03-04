@@ -74,8 +74,8 @@ hard(bar_tick_continuous_x_y) :- mark(bar;tick), channel_continuous(x), channel_
 hard(bar_tick_area_line_without_continuous_x_y) :- mark(bar;tick;area;line), not channel_continuous(x), not channel_continuous(y).
 
 % @constraint Bar and area mark requires scale of continuous to start at zero.
-hard(bar_area_without_zero_1, x) :- mark(bar;area), channel(E,x), orientation(horizontal), not zero(E).
-hard(bar_area_without_zero_2, y) :- mark(bar;area), channel(E,y), orientation(vertical), not zero(E).
+hard(bar_area_without_zero_1, x) :- mark(bar;area), channel(E,x), orientation(horizontal), not zero(E), channel_continuous(x).
+hard(bar_area_without_zero_2, y) :- mark(bar;area), channel(E,y), orientation(vertical), not zero(E), channel_continuous(y).
 
 % @constraint Size only works with some marks. Vega-Lite can also size lines, and ticks but that would violate best practices.
 hard(size_without_point_text, size) :- channel(_,size), not mark(point), not mark(text).
@@ -88,7 +88,8 @@ hard(same_field_x_and_y) :- field(E1,F1), channel(E1,x); field(E2,F2), channel(E
 hard(count_on_x_and_y):- channel(EX,x), channel(EY,y), aggregate(EX,count), aggregate(EY,count).
 
 % @constraint If we use aggregation, then all continuous fields need to be aggeragted.
-hard(aggregate_not_all_continuous, C):- aggregate(_,_), continuous(E), not aggregate(E,_), channel(E, C).
+% hard(aggregate_not_all_continuous, C):- aggregate(_,_), continuous(E), not aggregate(E,_), channel(E, C), not aggregate(_, count).
+% hard(aggregate_not_all_continuous, C):- aggregate(_,_), continuous(E), not aggregate(E,_), channel(E, C).
 
 % @constraint Don't use count twice.
 % hard(count_twice) :- { aggregate(_,count) } = 2, channel(_, C).
@@ -107,8 +108,11 @@ hard(stack_without_bar_area, C) :- stack(E, _), not mark(bar), not mark(area), c
 % @constraint Don't stack if aggregation is not summative (summative are count, sum, distinct, valid, missing).
 hard(stack_without_summative_agg,C,A) :- stack(E,_), aggregate(E,A), not summative_aggregate_op(A), channel(E, C).
 
-% @constraint Can only use stack if we also use discrete color, or detail.
-hard(stack_without_discrete_color_or_detail, color) :- stack(_), not channel_discrete(color), not channel(_,detail).
+% @constraint Can only use stack if we also use discrete color, or detail. stack need color 
+hard(stack_without_discrete_color_1, color) :- stack(_), not channel_discrete(color), channel(_,color).
+
+hard(stack_without_discrete_color_2, C, color) :- stack(_), not channel(_,color), channel(_, C), C!=x, C!=y.
+% hard(stack_without_discrete_color_or_detail, color) :- stack(_), not channel_discrete(color), not channel(_,color).
 
 % @constraint Stack can only be on continuous.
 hard(stack_discrete,C) :- stack(E,_), discrete(E), channel(E, C).
@@ -133,5 +137,5 @@ hard(invalid_type,C,T) :- type(E,T), not type(T), channel(E, C).
 hard(invalid_agg,C,A) :- aggregate(E,A), not aggregate_op(A), channel(E, C).
 hard(invalid_bin,C,B) :- bin(E,B), not B >= 0, channel(E, C).  % @constraint Bin has to be a natural number.
 
-% must have mark
-hard(have_mark) :- not mark(_).
+% % must have mark
+% hard(have_mark) :- not mark(_).

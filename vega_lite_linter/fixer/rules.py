@@ -7,7 +7,10 @@ class Rules:
         # count_q_without_field_2
         # size_negative
         # repeat_channel
-        # line_area_with_discrete 和 bar_tick_area_line_without_continuous_x_y 重复
+        # line_area_with_discrete 和 bar_tick_area_line_without_continuous_x_y 重复 几条关于xy的rule之间有耦合
+        # aggregate_not_all_continuous 的意义
+        # stack_without_bar_area
+
         
 
     rules = {
@@ -108,11 +111,11 @@ class Rules:
             "actions": [Actions.CHANGE_MARK, Actions.CHANGE_FIELD_X, Actions.ADD_COUNT_X, Actions.CHANGE_FIELD_Y, Actions.ADD_COUNT_Y]
         },
         "bar_area_without_zero_1": {
-            "source": "hard(bar_area_without_zero_1, x) :- mark(bar;area), channel(E,x), orientation(horizontal), not zero(E).",
+            "source": "hard(bar_area_without_zero_1, x) :- mark(bar;area), channel(E,x), orientation(horizontal), not zero(E), channel_continuous(x).",
             "actions": [Actions.ZERO]
         },
         "bar_area_without_zero_2": {
-            "source": "hard(bar_area_without_zero_2, y) :- mark(bar;area), channel(E,y), orientation(vertical), not zero(E).",
+            "source": "hard(bar_area_without_zero_2, y) :- mark(bar;area), channel(E,y), orientation(vertical), not zero(E), channel_continuous(y).",
             "actions": [Actions.ZERO]
         },
         "size_without_point_text": {
@@ -128,7 +131,7 @@ class Rules:
             "actions": [Actions.REMOVE_COUNT_X, Actions.REMOVE_COUNT_Y]
         },
         "aggregate_not_all_continuous": {
-            "source": "hard(aggregate_not_all_continuous, C):- aggregate(_,_), continuous(E), not aggregate(E,_), channel(E, C).",
+            "source": "hard(aggregate_not_all_continuous, C):- aggregate(_,_), continuous(E), not aggregate(E,_), channel(E, C), not aggregate(_, count).",
             "actions": [Actions.AGGREGATE]
         },
         "count_twice": {
@@ -147,9 +150,13 @@ class Rules:
             "source": "hard(stack_without_summative_agg,C,A) :- stack(E,_), aggregate(E,A), not summative_aggregate_op(A), channel(E, C).",
             "actions": [Actions.REMOVE_STACK, Actions.CHANGE_AGGREGATE]
         },
-        "stack_without_discrete_color_or_detail": {
-            "source": "hard(stack_without_discrete_color_or_detail, color) :- stack(_), not channel_discrete(color), not channel(_,detail).",
-            "actions": [Actions.REMOVE_STACK, Actions.CHANGE_FIELD, Actions.BIN]
+        "stack_without_discrete_color_1": {
+            "source": "hard(stack_without_discrete_color_or_detail, color) :- stack(_), not channel_discrete(color), not channel(_,detail), not .",
+            "actions": [Actions.CHANGE_FIELD, Actions.BIN]
+        },
+        "stack_without_discrete_color_2": {
+            "source": "hard(stack_without_discrete_color_or_detail, color) :- stack(_), not channel_discrete(color), not channel(_,detail), not .",
+            "actions": [Actions.MOVE_CHANNEL]
         },
         "stack_discrete": {
             "source": "hard(stack_discrete,C) :- stack(E,_), discrete(E), channel(E, C).",

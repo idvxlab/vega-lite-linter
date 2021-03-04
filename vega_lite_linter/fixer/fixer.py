@@ -57,7 +57,7 @@ def fixer(vl, facts, v_rules, allFields):
     res = {
         'fixable': True if optimizeActions else False,
         'optimize_spec': newvl if optimizeActions else {},
-        'optimize_actions': optimizeActionsSet,
+        'optimize_actions': list(optimizeActionsSet),
         'possible_actions': updateActions,
         'violate_rules': v_rules,
         'origin_spec': vl
@@ -76,7 +76,20 @@ def getActions(vl, rid, param1="", param2=""):
             if 'CHANGE_MARK' in action:
                 actions.extend(getMarkActions(vl, rid))
             elif 'CHANGE_CHANNEL' in action:
-                actions.extend(getChangeChannelActions(vl, rid, param1))
+                actions.extend(getChangeChannelActions(vl, rid, param1, param2))
+            elif 'REMOVE_STACK' in action:
+                stacked = ''
+                for encoding in vl['encoding']:
+                    if "stack" in vl['encoding'][encoding]:
+                        stacked = encoding
+                        break
+                if stacked:
+                    actions.append({
+                        "action": "REMOVE_STACK",
+                        "param1": stacked,
+                        "param2": "",
+                        "rid": rid
+                    })
             else:
                 if '(' in action:
                     presetParam = action.split("'")[1].lower()
@@ -110,7 +123,11 @@ def getMarkActions(vl, rid):
 
     return actions
 
-def getChangeChannelActions(vl, rid, channel):
+def getChangeChannelActions(vl, rid, channel, param2=""):
+    if rid == 'stack_without_discrete_color_2':
+        if 'color' not in vl['encoding']:
+            actions = [{"action": "MOVE_"+channel.upper()+"_COLOR", "param1": channel, "param2": param2, "rid": rid, "originAction": "CHANGE_CHANNEL"}]
+            return actions
     channels = ["X", "Y", "SIZE", "COLOR"]
     channelUsed = [channel.upper() for channel in list(vl["encoding"].keys())]
 

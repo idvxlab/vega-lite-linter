@@ -1,0 +1,16 @@
+{
+    "data": {
+        "url": "data/cars.json"
+    },
+    "mark": "bar",
+    "encoding": {
+        "x": {
+            "field": "Origin",
+            "type": "nominal"
+        },
+        "y": {
+            "field": "Cylinders",
+            "type": "ordinal"
+        }
+    }
+}
