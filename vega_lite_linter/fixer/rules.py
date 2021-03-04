@@ -10,6 +10,7 @@ class Rules:
         # line_area_with_discrete 和 bar_tick_area_line_without_continuous_x_y 重复 几条关于xy的rule之间有耦合
         # aggregate_not_all_continuous 的意义
         # stack_without_bar_area
+        # 有stack_with_non_positional_non_agg
 
         
 
@@ -152,11 +153,11 @@ class Rules:
         },
         "stack_without_discrete_color_1": {
             "source": "hard(stack_without_discrete_color_or_detail, color) :- stack(_), not channel_discrete(color), not channel(_,detail), not .",
-            "actions": [Actions.CHANGE_FIELD, Actions.BIN]
+            "actions": [Actions.CHANGE_FIELD, Actions.BIN, Actions.REMOVE_STACK]
         },
         "stack_without_discrete_color_2": {
             "source": "hard(stack_without_discrete_color_or_detail, color) :- stack(_), not channel_discrete(color), not channel(_,detail), not .",
-            "actions": [Actions.MOVE_CHANNEL]
+            "actions": [Actions.MOVE_CHANNEL, Actions.REMOVE_STACK]
         },
         "stack_discrete": {
             "source": "hard(stack_discrete,C) :- stack(E,_), discrete(E), channel(E, C).",

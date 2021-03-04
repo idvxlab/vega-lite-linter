@@ -232,7 +232,7 @@ def ADD_CHANNEL(vl, action, allFields):
 def REMOVE_CHANNEL(vl, action, rid):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
-    
+    print(vl)
     if param1:
         if rid == 'repeat_channel':   
             # repeat了channel 删除带有dupl标签的
@@ -240,7 +240,7 @@ def REMOVE_CHANNEL(vl, action, rid):
                 if param1 + '_dupl_' in channel:
                     # that's it
                     newvl['encoding'].pop(channel)
-        else:
+        elif param1.lower() in newvl['encoding']:
             newvl['encoding'].pop(param1.lower())
     
     return newvl

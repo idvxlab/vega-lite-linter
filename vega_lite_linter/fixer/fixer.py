@@ -44,7 +44,6 @@ def fixer(vl, facts, v_rules, allFields):
     updateActions, optimizeActions = optimize(detailActions)
     # remove duplicate actions
     optimizeActionsSet = set()
-
     newvl = copy.deepcopy(vl)
     for action in optimizeActions:
         actionsParam = (action['action'], action['param1'], action['param2'])
