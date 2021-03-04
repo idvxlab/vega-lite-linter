@@ -186,8 +186,14 @@ def REMOVE_STACK(vl, action):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
 
-    if param1 and param1 in newvl['encoding']:
-        newvl['encoding'][param1].pop('stack')
+    # find stacked channel
+    stacked = ''
+    for encoding in vl['encoding']:
+        if 'stack' in vl['encoding'][encoding]:
+            stacked = encoding
+
+    if stacked and stacked in newvl['encoding']:
+        newvl['encoding'][stacked].pop('stack')
     
     return newvl
 
@@ -226,7 +232,7 @@ def ADD_CHANNEL(vl, action, allFields):
 def REMOVE_CHANNEL(vl, action, rid):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
-    
+    print(vl)
     if param1:
         if rid == 'repeat_channel':   
             # repeat了channel 删除带有dupl标签的
@@ -234,7 +240,7 @@ def REMOVE_CHANNEL(vl, action, rid):
                 if param1 + '_dupl_' in channel:
                     # that's it
                     newvl['encoding'].pop(channel)
-        else:
+        elif param1.lower() in newvl['encoding']:
             newvl['encoding'].pop(param1.lower())
     
     return newvl
@@ -331,7 +337,7 @@ def CHANGE_FIELD(vl, action, rid, allFields):
         currType = newvl['encoding'][param1]['type']
         qField = {}
         for field in allFields:
-            if field['fieldtype'] == currType and field['field'] not in usedFields:
+            if field['type'] == currType and field['field'] not in usedFields:
                 qField = field
                 break
         if qField:

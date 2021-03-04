@@ -1,4 +1,5 @@
 from .run_clingo import run
+from .rules.intro import RuleIntro
 def linter(spec):
     violates = run(spec)
     # format the violate rules from strings to objects
@@ -25,6 +26,8 @@ def formatRules(rules):
                 ruleOjb["param1"] = params[i]
             elif i == 2:
                 ruleOjb["param2"] = params[i]
+        
+        ruleOjb['explain'] = RuleIntro[ruleOjb["id"]]
         
         if ruleOjb['id'] == 'count_twice':
             if not HAS_COUNT_TWICE:

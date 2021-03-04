@@ -1,20 +1,21 @@
 {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "data": {"url": "data/barley.json"},
+    "data": {
+        "url": "data/cars.json"
+    },
     "mark": "bar",
     "encoding": {
         "x": {
-            "field": "variety",
-            "type": "nominal"
-        },
-        "y": {
+            "field": "Origin",
             "aggregate": "sum",
-            "field": "yield",
+            "type": "nominal"
+        }
+        ,
+        "y": {
             "type": "quantitative",
+            "aggregate": "sum",
             "scale": {
                 "zero": false
             }
         }
     }
-  }
-  
+}

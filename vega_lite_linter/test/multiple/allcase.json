@@ -1,0 +1,29 @@
+{
+    "test1": {
+        "rules": ["same_field_x_and_y", "log_zero", "log_discrete"]
+    },
+    "test2": {
+        "rules": ["count_on_x_and_y", "bar_tick_continuous_x_y", "count_twice", "count_q_without_field_1"]
+    },
+    "test3": {
+        "rules": ["bar_area_without_zero_2", "encoding_no_field_and_not_count", "aggregate_nominal"]
+    },
+    "test4": {
+        "rules": ["aggregate_nominal", "bin_and_aggregate", "bin_q_o"]
+    },
+    "test5": {
+        "rules": ["stack_discrete", "stack_without_discrete_color_or_detail", "aggregate_nominal"]
+    },
+    "test6": {
+        "rules": ["stack_without_discrete_color_or_detail", "stack_without_bar_area", "aggregate_nominal"]
+    },
+    "test7": {
+        "rules": ["bar_tick_continuous_x_y", "size_without_point_text", "size_nominal"]
+    },
+    "test8": {
+        "rules": ["", "", ""]
+    },
+    "test9": {
+        "rules": ["", "", ""]
+    }
+}

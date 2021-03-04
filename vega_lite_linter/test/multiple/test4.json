@@ -1,0 +1,20 @@
+{
+    "data": {
+        "url": "data/cars.json"
+    },
+    "mark": "area",
+    "encoding": {
+        "x": {
+            "field": "Origin",
+            "aggregate": "sum",
+            "bin": true,
+            "type": "nominal"
+        }
+        ,
+        "y": {
+            "field": "Housepower",
+            "type": "quantitative",
+            "aggregate": "sum"
+        }
+    }
+}

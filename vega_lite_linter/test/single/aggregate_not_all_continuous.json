@@ -1,0 +1,17 @@
+{
+    "data": {
+        "url": "data/cars.json"
+    },
+    "mark": "point",
+    "encoding": {
+        "x": {
+            "field": "Miles_per_Gallon",
+            "type": "quantitative",
+            "aggregate": "sum"
+        },
+        "y": {
+            "field": "Horsepower",
+            "type": "quantitative"
+        }
+    }
+}
