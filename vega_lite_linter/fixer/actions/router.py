@@ -232,7 +232,6 @@ def ADD_CHANNEL(vl, action, allFields):
 def REMOVE_CHANNEL(vl, action, rid):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
-    print(vl)
     if param1:
         if rid == 'repeat_channel':   
             # repeat了channel 删除带有dupl标签的
@@ -356,7 +355,7 @@ def CHANGE_FIELD(vl, action, rid, allFields):
             newvl['encoding'][param1]['type'] = qField['type']
 
     # TODO "log_non_positive" need extent calculation
-
+    
 
     return newvl
 
@@ -397,12 +396,15 @@ def CORRECT_CHANNEL(vl, action):
     param2 = action['param2'].lower()
 
     possibleChannel = ['x', 'y', 'size', 'color']
+    for channel in vl['encoding']:
+        if channel in possibleChannel:
+            possibleChannel.remove(channel)
     score = []
     for channel in possibleChannel:
         score.append(similar(param1, channel))
     
     maxPChannel = possibleChannel[score.index(max(score))]
-    newvl['encoding'][maxPChannel] = newvl['encoding'].pop(param2)
+    newvl['encoding'][maxPChannel] = newvl['encoding'].pop(param1)
     return newvl
 
 def CORRECT_TYPE(vl, action):
@@ -438,7 +440,7 @@ def CORRECT_AGGREGATE(vl, action):
 def CORRECT_BIN(vl, action):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
-    param2 = action['param2']
+    param2 = int(action['param2'])
 
     if param2 < 0:
         newvl['encoding'][param1]['bin']['maxbins'] = -param2

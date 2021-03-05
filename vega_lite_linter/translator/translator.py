@@ -1,5 +1,4 @@
 def translator(spec, allFields):
-    # TODO avoid duplicate field(F)
     facts = []
 
     facts.append('mark(' + spec['mark'] + ').')
@@ -68,7 +67,7 @@ def translator(spec, allFields):
             elif field == 'field':
                 # fields can have spaces and start with capital letters
                 facts.append(field + '(' + eid + ',' + fieldContent.lower() +').')
-                facts.append('field(' + fieldContent.lower() + ').')
+                # facts.append('field(' + fieldContent.lower() + ').')
                 if len(allFields):
                     for field in allFields:
                         if field['field'] == fieldContent:
@@ -81,8 +80,7 @@ def translator(spec, allFields):
                     facts.append('type' +'(' + eid + ',' + encFieldType + ').')
                 elif field != 'bin':
                     facts.append(field +'(' + eid + ',' + fieldContent.lower() + ').')
-                    # TODO avoid duplicate field(F)
-                    facts.append('field(' + fieldContent.lower() + ').')
+                    # facts.append('field(' + fieldContent.lower() + ').')
 
         if encFieldType == 'quantitative' and encZero is None and encBinned is None:
             facts.append('zero(' + eid + ').')

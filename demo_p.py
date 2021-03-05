@@ -9,7 +9,7 @@ print(demo)
 
 lint = Lint(demo)
 result = lint.lint()
-print('lint rules: ', '-'*20)
+print('lint rules: ', '-'*20, len(result))
 print(result)
 
 fix = lint.fix()
@@ -23,3 +23,18 @@ if fix['fixable']:
     new_result = new_lint.lint()
     print('new lint rules: ', '-'*20)
     print(new_result)
+    # new_fix = new_lint.fix()
+    # for key in new_fix:
+    #     print('---- ', key, new_fix[key])
+    
+    # if new_fix['fixable']:
+    #     newvl1 = new_fix['optimize_spec']
+    #     new_lint1 = Lint(newvl1)
+    #     new_result1 = new_lint1.lint()
+    #     print('new lint rules: ', '-'*20)
+    #     print(new_result1)
+
+
+    
+
+    

@@ -109,9 +109,9 @@ hard(stack_without_bar_area, C) :- stack(E, _), not mark(bar), not mark(area), c
 hard(stack_without_summative_agg,C,A) :- stack(E,_), aggregate(E,A), not summative_aggregate_op(A), channel(E, C).
 
 % @constraint Can only use stack if we also use discrete color, or detail. stack need color 
-hard(stack_without_discrete_color_1, color) :- stack(_), not channel_discrete(color), channel(_,color).
-
-hard(stack_without_discrete_color_2, C, color) :- stack(_), not channel(_,color), channel(_, C), C!=x, C!=y.
+hard(stack_without_discrete_color_1,color) :- stack(_), not channel_discrete(color), channel(_,color).
+hard(stack_without_discrete_color_2,C,color) :- stack(_), not channel(_,color), channel(_, C), C!=x, C!=y.
+hard(stack_without_discrete_color_3, color) :- stack(_), 1 { channel(_,C) } 2, channel(_, (x;y)).
 % hard(stack_without_discrete_color_or_detail, color) :- stack(_), not channel_discrete(color), not channel(_,color).
 
 % @constraint Stack can only be on continuous.

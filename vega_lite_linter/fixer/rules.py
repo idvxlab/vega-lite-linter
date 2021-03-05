@@ -159,13 +159,17 @@ class Rules:
             "source": "hard(stack_without_discrete_color_or_detail, color) :- stack(_), not channel_discrete(color), not channel(_,detail), not .",
             "actions": [Actions.MOVE_CHANNEL, Actions.REMOVE_STACK]
         },
+        "stack_without_discrete_color_3": {
+            "source": "hard(stack_without_discrete_color_or_detail, color) :- stack(_), not channel_discrete(color), not channel(_,detail), not .",
+            "actions": [Actions.ADD_CHANNEL_COLOR, Actions.REMOVE_STACK]
+        },
         "stack_discrete": {
             "source": "hard(stack_discrete,C) :- stack(E,_), discrete(E), channel(E, C).",
             "actions": [Actions.REMOVE_STACK, Actions.REMOVE_BIN, Actions.CHANGE_FIELD]
         },
         "stack_without_x_y": {
             "source": "hard(stack_without_x_y,C) :- stack(E,_), not channel(E,x), not channel(E,y), channel(E, C).",
-            "actions": [Actions.REMOVE_STACK, Actions.MOVE_CHANNEL]
+            "actions": [Actions.REMOVE_STACK] # , Actions.MOVE_CHANNEL
         },
         "stack_with_non_positional_non_agg": {
             "source": "hard(stack_with_non_positional_non_agg,C) :- stack(_), non_positional(C), channel(E,C), not aggregate(E,_), continuous(E).",

@@ -1,0 +1,17 @@
+{
+    "data": {
+        "url": "data/cars.json"
+    },
+    "mark": "point",
+    "encoding": {
+        "y": {
+            "field": "Acceleration",
+            "type": "quantitative",
+            "aggregate": "mxx"
+        },
+        "x": {
+            "field": "Year",
+            "type": "temporal"
+        }
+    }
+}

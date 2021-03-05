@@ -1,7 +1,7 @@
 RuleIntro = {
     "enc_type_valid_1": "Primitive type has to support data type. fieldtype应该是数据的类型：字符 布尔等",
     "enc_type_valid_2": "Primitive type has to support data type.",
-    "bin_q_o,T": "Can only bin quantitative or ordinal.",
+    "bin_q_o": "Can only bin quantitative or ordinal.",
     "log_q": "Can only use log with quantitative.",
     "zero_q": "Can only use zero with quantitative.",
     "log_discrete": "Cannot use log scale with discrete (which includes binned).",
@@ -35,6 +35,7 @@ RuleIntro = {
     "stack_without_summative_agg": "Don't stack if aggregation is not summative (summative are count, sum, distinct, valid, missing).",
     "stack_without_discrete_color_1": "Can only use stack if we also use discrete color",
     "stack_without_discrete_color_2": "Can only use stack if we also use discrete color",
+    "stack_without_discrete_color_3": "Can only use stack if we also use discrete color",
     "stack_discrete": "Stack can only be on continuous.",
     "stack_without_x_y": "Stack can only be on x or y.",
     "stack_with_non_positional_non_agg": "Cannot use non positional continuous with stack unless it's aggregated.",

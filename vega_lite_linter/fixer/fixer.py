@@ -34,8 +34,8 @@ def fixer(vl, facts, v_rules, allFields):
             else:
                 action['reward'] = 0
             
-            w1 = 0.7
-            w2 = 0.3
+            w1 = 0.8
+            w2 = 0.2
             action['score'] = w1 * action['reward'] - w2 * action['transition']
 
     # 3. use linear programming to find optimal set of actions
@@ -106,7 +106,6 @@ def getActions(vl, rid, param1="", param2=""):
                         "rid": rid
                     })
     else:
-        # TODO bar_area_overlap
         actions.append(getActionsForOverlap(rid, param1, param2))
     return actions
 
