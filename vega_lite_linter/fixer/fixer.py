@@ -18,7 +18,7 @@ def fixer(vl, facts, v_rules, allFields):
     # two parts of score:
     #   1. reward = 动作减少的违背 - alpha * 动作增加的违背
     #   2. cost = 动作的transition cost from Graphscape
-    for rule in detailActions:
+    for index, rule in enumerate(detailActions):
         for action in rule:
             rid = action['rid']
             # todo 测试所有action的transitioncost正常计算得到
@@ -28,15 +28,18 @@ def fixer(vl, facts, v_rules, allFields):
             else:
                 action['transition'] = 1
 
-            actionReward = getActionReward(vl, v_rules, rid, action, allFields)
+            actionReward, fixActions = getActionReward(vl, v_rules, rid, action, allFields)
             if actionReward:
                 action['reward'] = actionReward
             else:
                 action['reward'] = 0
-            
+
             w1 = 0.8
             w2 = 0.2
             action['score'] = w1 * action['reward'] - w2 * action['transition']
+
+            action['fix'] = fixActions
+            action['rid_idx'] = index
 
     # 3. use linear programming to find optimal set of actions
     # add action attribute 'apply' 
@@ -129,7 +132,7 @@ def getChangeChannelActions(vl, rid, channel, param2=""):
     channels = ["X", "Y", "SIZE", "COLOR"]
     channelUsed = [channel.upper() for channel in list(vl["encoding"].keys())]
 
-    actions = [{"action": (('MOVE_' + channel + '_' + newChannel).upper()), "param1": "", "param2": "", "rid": rid, "originAction": "CHANGE_CHANNEL"} for newChannel in channels if newChannel not in channelUsed]
+    actions = [{"action": (('MOVE_' + channel + '_' + newChannel).upper()), "param1": channel, "param2": channel, "rid": rid, "originAction": "CHANGE_CHANNEL"} for newChannel in channels if newChannel not in channelUsed]
 
     return actions
 
@@ -169,11 +172,16 @@ def getActionReward(vl, currRules, rid, action, allFields):
     # 3. compare two rule set 
     # |c_i - c_i+1| / |c_i| - alpha * |c_i+1 - c_i| / |c_i+1|
     alpha = 0.05
+
+    fixRules = []
     
     desSize = 0
     incSize = 0
-    for curr in currRules:
+    for index in range(len(currRules)):
+        curr = currRules[index]
         if curr not in newRules:
+            # fixRules.append((curr['id'], curr['param1'], curr['param2']))
+            fixRules.append(index)
             desSize += 1
     for newr in newRules:
         if newr not in currRules:
@@ -184,6 +192,5 @@ def getActionReward(vl, currRules, rid, action, allFields):
     else:
         reward = desSize / len(currRules)
     
-    
-    return reward
+    return reward, fixRules
 
