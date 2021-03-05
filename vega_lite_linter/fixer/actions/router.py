@@ -232,7 +232,6 @@ def ADD_CHANNEL(vl, action, allFields):
 def REMOVE_CHANNEL(vl, action, rid):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
-    print(vl)
     if param1:
         if rid == 'repeat_channel':   
             # repeat了channel 删除带有dupl标签的
@@ -356,7 +355,7 @@ def CHANGE_FIELD(vl, action, rid, allFields):
             newvl['encoding'][param1]['type'] = qField['type']
 
     # TODO "log_non_positive" need extent calculation
-
+    
 
     return newvl
 

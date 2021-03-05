@@ -9,7 +9,6 @@ class Lint():
         self.origin_spec = vl
         self.all_fields = getFieldsFromData(self.origin_spec)
         self.origin_asp = translator(self.origin_spec, self.all_fields)
-        print('..'*10, self.origin_asp)
 
     def lint(self):
         violates = linter(self.origin_asp)
