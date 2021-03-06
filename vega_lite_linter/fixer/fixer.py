@@ -28,7 +28,7 @@ def fixer(vl, facts, v_rules, allFields):
             else:
                 action['transition'] = 1
 
-            actionReward = getActionReward(vl, v_rules, rid, action, allFields)
+            actionReward, newvl = getActionReward(vl, v_rules, rid, action, allFields)
             if actionReward:
                 action['reward'] = actionReward
             else:
@@ -37,6 +37,7 @@ def fixer(vl, facts, v_rules, allFields):
             w1 = 0.8
             w2 = 0.2
             action['score'] = w1 * action['reward'] - w2 * action['transition']
+            action['newvl'] = newvl
 
     # 3. use linear programming to find optimal set of actions
     # add action attribute 'apply' 
@@ -185,5 +186,5 @@ def getActionReward(vl, currRules, rid, action, allFields):
         reward = desSize / len(currRules)
     
     
-    return reward
+    return reward, newvl
 
