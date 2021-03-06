@@ -12,7 +12,7 @@ install_requires = [
 
 setuptools.setup(
     name="vega-lite-linter",
-    version="0.0.8",
+    version="0.0.9",
     author="fuling sun",
     author_email="fulingsun515@gmail.com",
     description="a python package for vega-lite lint and quick-fix",
