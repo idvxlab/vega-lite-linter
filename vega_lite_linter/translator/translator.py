@@ -74,7 +74,7 @@ def translator(spec, allFields):
                             facts.append('fieldtype(' + fieldContent.lower() + ', ' + field['fieldtype'] + ').')
                             if 'fieldtype' in field and field['fieldtype'] == 'number':
                                 facts.append('enc_extent(' + eid + ', ' + str(int(field['min'])) + ', ' + str(int(field['max'])) + ').')
-                            elif 'fieldtype' in field and field['fieldtype'] == 'string':
+                            if channel == 'color':
                                 facts.append('enc_cardinality(' + eid + ', ' + str(field['cardinality']) + ').')
                             break
 

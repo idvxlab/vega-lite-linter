@@ -66,13 +66,15 @@ def getFields(data):
             fields.append({
                 "field": column,
                 "fieldtype": "boolean",
-                "type": "nominal"
+                "type": "nominal",
+                "cardinality": getDistinct(df[column])
             })
         elif is_datetime64_any_dtype(df[column]):
             fields.append({
                 "field": column,
                 "fieldtype": "datetime",
-                "type": "temporal"
+                "type": "temporal",
+                "cardinality": getDistinct(df[column])
             })
         elif is_numeric_dtype(df[column]):
             _min, _max = getExtent(df[column])
@@ -81,14 +83,16 @@ def getFields(data):
                 "fieldtype": "number",
                 "type": "quantitative",
                 "min": _min,
-                "max": _max
+                "max": _max,
+                "cardinality": getDistinct(df[column])
             })
         elif is_string_dtype(df[column]):
             if isDateColumns(df[column]):
                 fields.append({
                     "field": column,
                     "fieldtype": "datetime",
-                    "type": "temporal"
+                    "type": "temporal",
+                    "cardinality": getDistinct(df[column])
                 })
             else:
                 fields.append({

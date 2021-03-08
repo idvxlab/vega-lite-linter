@@ -2,7 +2,7 @@ from vega_lite_linter import Lint
 import json
 
 
-with open('./vega_lite_linter/test/single/stack_with_non_positional_non_agg.json') as json_file:
+with open('./vega_lite_linter/test/multiple/test9.json') as json_file:
     demo = json.load(json_file)
 
 print(demo)

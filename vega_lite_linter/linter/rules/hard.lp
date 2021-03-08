@@ -124,7 +124,7 @@ hard(stack_without_x_y,C) :- stack(E,_), not channel(E,x), not channel(E,y), cha
 hard(stack_with_non_positional_non_agg,C) :- stack(_), non_positional(C), channel(E,C), not aggregate(E,_), continuous(E).
 
 % @constraint At most 20 categorical colors.
-hard(color_with_cardinality_gt_twenty,C) :- channel(E,color), discrete(E), enc_cardinality(E,C), C > 20.
+hard(color_with_cardinality_gt_twenty,color) :- channel(E,color), discrete(E), enc_cardinality(E,N), N > 20.
 
 % === Type checks ===
 
