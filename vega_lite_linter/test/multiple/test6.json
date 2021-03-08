@@ -11,7 +11,7 @@
         }
         ,
         "y": {
-            "field": "Housepower",
+            "field": "Horsepower",
             "type": "quantitative",
             "stack": "normalize",
             "aggregate": "sum"

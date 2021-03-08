@@ -72,6 +72,11 @@ def translator(spec, allFields):
                     for field in allFields:
                         if field['field'] == fieldContent:
                             facts.append('fieldtype(' + fieldContent.lower() + ', ' + field['fieldtype'] + ').')
+                            if 'fieldtype' in field and field['fieldtype'] == 'number':
+                                facts.append('enc_extent(' + eid + ', ' + str(int(field['min'])) + ', ' + str(int(field['max'])) + ').')
+                            elif 'fieldtype' in field and field['fieldtype'] == 'string':
+                                facts.append('enc_cardinality(' + eid + ', ' + str(field['cardinality']) + ').')
+                            break
 
             else:
                 # translate normal fields               
@@ -84,5 +89,6 @@ def translator(spec, allFields):
 
         if encFieldType == 'quantitative' and encZero is None and encBinned is None:
             facts.append('zero(' + eid + ').')
-             
+
+   
     return facts

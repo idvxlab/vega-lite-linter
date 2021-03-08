@@ -12,7 +12,7 @@
         }
         ,
         "y": {
-            "field": "Housepower",
+            "field": "Horsepower",
             "type": "quantitative",
             "aggregate": "sum"
         }
