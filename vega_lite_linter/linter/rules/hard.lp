@@ -98,7 +98,7 @@ hard(count_twice, C) :- aggregate(E1, count), aggregate(E2, count), channel(E1, 
 % === Global properties ===
 
 % @constraint Bars and area cannot overlap.
-hard(bar_area_overlap) :- mark(bar;area), overlap.
+% hard(bar_area_overlap) :- mark(bar;area), overlap.
 
 % == Stacking ==
 
