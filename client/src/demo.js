@@ -1,0 +1,25 @@
+const demo = {
+    "data": {
+        "url": "data/cars.json"
+    },
+    "mark": "bar",
+    "encoding": {
+        "x": {
+            "field": "Displacement",
+            "type": "quantitative",
+            "aggregate": "count",
+            "scale": {
+                "zero": false
+            }
+        },
+        "y": {
+            "type": "quantitative",
+            "aggregate": "count",
+            "scale": {
+                "zero": false
+            }
+        }
+    }
+}
+
+export default demo;

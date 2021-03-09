@@ -1,3 +1,0 @@
-clyngor
-pandas
-pulp
