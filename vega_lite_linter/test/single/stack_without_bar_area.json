@@ -14,7 +14,7 @@
             "stack": "zero"
         },
         "size": {
-            "field": "Cylinders",
+            "field": "Acceleration",
             "type": "quantitative"
         }
     }

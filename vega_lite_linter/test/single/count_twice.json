@@ -14,7 +14,7 @@
             "aggregate": "count"
         },
         "size": {
-            "field": "Cylinders",
+            "field": "Acceleration",
             "type": "quantitative",
             "aggregate": "count"
         }

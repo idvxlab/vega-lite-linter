@@ -2,12 +2,33 @@ from vega_lite_linter import Lint
 import json
 
 
-with open('./vega_lite_linter/test/multiple/test9.json') as json_file:
-    demo = json.load(json_file)
+# with open('./vega_lite_linter/test/multiple/test9.json') as json_file:
+#     demo = json.load(json_file)
 
-print(demo)
+# print(demo)
+demo = {
+    "data": {
+        "url": "data/cars.json"
+    },
+    "mark": "bar",
+    "encoding": {
+        "x": {
+            "field": "Origin",
+            "aggregate": "sum",
+            "stack": "normalize",
+            "type": "nominal"
+        }
+        ,
+        "y": {
+            "field": "Horsepower",
+            "type": "quantitative",
+            "aggregate": "sum"
+        }
+    }
+}
 
 lint = Lint(demo)
+
 result = lint.lint()
 print('lint rules: ', '-'*20, len(result))
 print(result)

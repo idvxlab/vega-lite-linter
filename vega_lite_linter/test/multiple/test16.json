@@ -1,0 +1,13 @@
+{
+    "data": {
+        "url": "data/cars.json"
+    },
+    "mark": "area",
+    "encoding": {
+        "color": {
+            "field": "Origin",
+            "type": "ordinal",
+            "stack": "center"
+        }
+    }
+}

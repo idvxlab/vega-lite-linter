@@ -6,20 +6,14 @@
     "encoding": {
         "x": {
             "field": "Origin",
-            "type": "nominal",
-            "aggregate": "min"
+            "type": "temporal"
         },
-        "y": {
-            "field": "Miles_per_Gallon",
+        "yy": {
             "type": "quantitative",
-            "stack": "normalize",
+            "aggregate": "count",
             "scale": {
                 "zero": false
             }
-        },
-        "color": {
-            "field": "Acceleration",
-            "type": "quantitative"
         }
     }
 }

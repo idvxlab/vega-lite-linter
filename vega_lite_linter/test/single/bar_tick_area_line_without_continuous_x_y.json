@@ -9,7 +9,7 @@
             "type": "nominal"
         },
         "y": {
-            "field": "Cylinders",
+            "field": "Acceleration",
             "type": "ordinal"
         }
     }

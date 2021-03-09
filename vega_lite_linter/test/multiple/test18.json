@@ -1,0 +1,20 @@
+{
+    "data": {
+        "url": "data/cars.json"
+    },
+    "mark": "point",
+    "encoding": {
+        "y": {
+            "field": "Cylinders",
+            "type": "ordinal",
+            "aggregate": "sum"
+        },
+        "x": {
+            "field": "Horsepower",
+            "type": "quantitive",
+            "bin": {
+                "maxbins": -10
+            }
+        }
+    }
+}

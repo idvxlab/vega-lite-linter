@@ -1,0 +1,20 @@
+{
+    "data": {
+        "url": "data/airports.csv"
+    },
+    "mark": "point",
+    "encoding": {
+        "y": {
+            "field": "latitude",
+            "type": "quantitative"
+        },
+        "x": {
+            "field": "latitude",
+            "type": "quantitative"
+        },
+        "color": {
+            "field": "state",
+            "type": "nominal"
+        }
+    }
+}

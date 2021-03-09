@@ -45,7 +45,7 @@ class Rules:
         },
         "log_non_positive": {
             "source": "hard(log_non_positive,C) :- log(E), field(E,F), extent(F,MIN,_), MIN <= 0, channel(E, C).",
-            "actions": [Actions.REMOVE_LOG, Actions.CHANGE_FIELD]
+            "actions": [Actions.REMOVE_LOG]
         },
         "bin_and_aggregate": {
             "source": "hard(bin_and_aggregate,C) :- bin(E,_), aggregate(E,_), channel(E, C).",
@@ -177,7 +177,7 @@ class Rules:
         },
         "color_with_cardinality_gt_twenty": {
             "source": "hard(color_with_cardinality_gt_twenty,C) :- channel(E,color), discrete(E), enc_cardinality(E,C), C > 20.",
-            "actions": [Actions.MOVE_CHANNEL]
+            "actions": [Actions.MOVE_CHANNEL, Actions.REMOVE_CHANNEL]
         },
         "invalid_mark": {
             "source": "hard(invalid_mark,M) :- mark(M), not marktype(M).",

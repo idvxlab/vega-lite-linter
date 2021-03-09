@@ -15,7 +15,7 @@
             "aggregate": "min"
         },
         "color": {
-            "field": "Cylinders",
+            "field": "Acceleration",
             "type": "quantitative"
         }
     }

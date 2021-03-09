@@ -1,25 +1,24 @@
 {
     "data": {
-        "url": "data/cars.json"
+        "url": "data/seattle-weather.csv"
     },
-    "mark": "bar",
+    "mark": "point",
     "encoding": {
         "x": {
-            "field": "Origin",
-            "type": "nominal",
-            "aggregate": "min"
+            "field": "date",
+            "type": "temporal",
+            "aggregate": "mean"
         },
         "y": {
-            "field": "Miles_per_Gallon",
+            "field": "temp_min",
             "type": "quantitative",
-            "stack": "normalize",
             "scale": {
-                "zero": false
+                "type": "log"
             }
         },
-        "color": {
-            "field": "Displacement",
-            "type": "ordinal"
+        "size": {
+            "field": "weather",
+            "type": "nominal"
         }
     }
 }

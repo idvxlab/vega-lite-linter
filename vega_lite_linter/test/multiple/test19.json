@@ -1,21 +1,22 @@
 {
     "data": {
-        "url": "data/cars.json"
+        "url": "data/seattle-weather.csv"
     },
     "mark": "point",
     "encoding": {
         "x": {
-            "field": "Origin",
+            "field": "weather",
             "type": "nominal",
-            "stack": "zero"
+            "scale": {
+                "zero": true
+            }
         },
         "y": {
-            "field": "Horsepower",
+            "field": "wind",
             "type": "quantitative"
-            
         },
         "size": {
-            "field": "Acceleration",
+            "field": "temp_min",
             "type": "quantitative"
         }
     }

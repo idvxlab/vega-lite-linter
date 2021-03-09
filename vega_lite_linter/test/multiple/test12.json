@@ -5,12 +5,12 @@
     "mark": "line",
     "encoding": {
         "x": {
-            "field": "Acceleration",
-            "type": "ordinal"
+            "field": "Horsepower",
+            "type": "quantitative"
         },
         "y": {
-            "field": "Origin",
-            "type": "nominal"
+            "type": "quantative",
+            "aggregate": "count"
         }
     }
 }

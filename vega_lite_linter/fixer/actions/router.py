@@ -153,8 +153,9 @@ def REMOVE_COUNT(vl, action, rid):
 def REMOVE_LOG(vl, action):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
-    if param1:
-        newvl['encoding'][param1]['scale'].pop("type") # { "type": "log" }
+    if param1 and param1 in newvl['encoding']:
+        if 'scale' in newvl['encoding'][param1] and 'type' in newvl['encoding'][param1]['scale']:
+            newvl['encoding'][param1]['scale'].pop("type") # { "type": "log" }
     
     return newvl
 
