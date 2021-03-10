@@ -14,9 +14,8 @@ demo = {
     "encoding": {
         "x": {
             "field": "Origin",
-            "aggregate": "sum",
             "stack": "normalize",
-            "type": "nominal"
+            "type": "quantitative"
         }
         ,
         "y": {

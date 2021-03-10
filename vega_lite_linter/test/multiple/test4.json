@@ -2,7 +2,7 @@
     "data": {
         "url": "data/cars.json"
     },
-    "mark": "area",
+    "mark": "bar",
     "encoding": {
         "x": {
             "field": "Origin",
