@@ -10,7 +10,8 @@ hard(enc_type_valid_2,C,F) :- type(E,temporal), field(E,F), not fieldtype(F,date
 hard(bin_q_o,C,T) :- type(E,T), bin(E,_), T != quantitative, T != ordinal, channel(E, C).
 
 % @constraint Can only use log with quantitative.
-hard(log_q,C) :- log(E), not type(E,quantitative), channel(E, C).
+% Note: for TRAINING, it represents the same idea of `log_discrete`
+% hard(log_q,C) :- log(E), not type(E,quantitative), channel(E, C).
 
 % @constraint Can only use zero with quantitative.
 hard(zero_q,C) :- zero(E), not type(E,quantitative), channel(E, C).
@@ -65,7 +66,8 @@ hard(point_tick_bar_without_x_or_y) :- mark(point;tick;bar), not channel(_,x), n
 hard(line_area_without_x_y) :- mark(line;area), not channel(_,(x;y)).
 
 % @constraint Line and area cannot have two discrete.
-hard(line_area_with_discrete) :- mark(line;area), channel_discrete(x), channel_discrete(y).
+% Note: for TRAINING. it is covered by `bar_tick_area_line_without_continuous_x_y`
+% hard(line_area_with_discrete) :- mark(line;area), channel_discrete(x), channel_discrete(y).
 
 % @constraint Bar and tick cannot have both x and y continuous.
 hard(bar_tick_continuous_x_y) :- mark(bar;tick), channel_continuous(x), channel_continuous(y).
@@ -85,7 +87,8 @@ hard(same_field_x_and_y) :- field(E1,F1), channel(E1,x); field(E2,F2), channel(E
 % hard(same_field_x_and_y) :- { field(E,F) : channel(E,x); field(E,F) : channel(E,y) } >= 2, field(F).
 
 % @constraint Don't use count on x and y.
-hard(count_on_x_and_y):- channel(EX,x), channel(EY,y), aggregate(EX,count), aggregate(EY,count).
+% Note:for TRAINING. it is duplicated with `count_twice`
+% hard(count_on_x_and_y):- channel(EX,x), channel(EY,y), aggregate(EX,count), aggregate(EY,count).
 
 % @constraint If we use aggregation, then all continuous fields need to be aggeragted.
 % hard(aggregate_not_all_continuous, C):- aggregate(_,_), continuous(E), not aggregate(E,_), channel(E, C), not aggregate(_, count).
