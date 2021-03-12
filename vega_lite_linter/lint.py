@@ -7,6 +7,9 @@ from vega_lite_linter.fixer import fixer
 class Lint():
     def __init__(self, vl: dict):
         self.origin_spec = vl
+
+        if "encoding" not in self.origin_spec:
+            self.origin_spec['encoding'] = {}
         self.all_fields = getFieldsFromData(self.origin_spec)
         self.origin_asp = translator(self.origin_spec, self.all_fields)
 

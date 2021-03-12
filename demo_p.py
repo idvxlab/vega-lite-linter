@@ -7,24 +7,25 @@ import json
 
 # print(demo)
 demo = {
-    "data": {
-        "url": "data/cars.json"
-    },
-    "mark": "bar",
-    "encoding": {
-        "x": {
-            "field": "Origin",
-            "stack": "normalize",
-            "type": "quantitative"
+            "data": {
+                "url": "data/cars.json"
+            },
+            "mark": "bar",
+            "encoding": {
+                "x": {
+                    "field": "Origin",
+                    "aggregate": "sum",
+                    "bin": True,
+                    "type": "nominal"
+                }
+                ,
+                "y": {
+                    "field": "Horsepower",
+                    "type": "quantitative",
+                    "aggregate": "sum"
+                }
+            }
         }
-        ,
-        "y": {
-            "field": "Horsepower",
-            "type": "quantitative",
-            "aggregate": "sum"
-        }
-    }
-}
 
 lint = Lint(demo)
 

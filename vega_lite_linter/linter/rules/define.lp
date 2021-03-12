@@ -28,6 +28,8 @@ stacking(zero;normalize).
 % ====== Helpers ======
 
 discrete(E) :- type(E,(nominal;ordinal)).
+% check fieldtype for discrete
+discrete(E) :- fieldtype(F,string), field(E,F).
 discrete(E) :- bin(E,_).
 continuous(E) :- encoding(E), not discrete(E).
 

@@ -18,7 +18,7 @@ def fixer(vl, facts, v_rules, allFields):
     # two parts of score:
     #   1. reward = 动作减少的违背 - alpha * 动作增加的违背
     #   2. cost = 动作的transition cost from Graphscape
-    for rule in detailActions:
+    for index, rule in enumerate(detailActions):
         for action in rule:
             rid = action['rid']
             # todo 测试所有action的transitioncost正常计算得到
@@ -28,7 +28,7 @@ def fixer(vl, facts, v_rules, allFields):
             else:
                 action['transition'] = 1
 
-            actionReward, newvl = getActionReward(vl, v_rules, rid, action, allFields)
+            actionReward, newvl, fixRules = getActionReward(vl, v_rules, rid, action, allFields)
             if actionReward:
                 action['reward'] = actionReward
             else:
@@ -38,11 +38,15 @@ def fixer(vl, facts, v_rules, allFields):
             w2 = 0.2
             action['score'] = w1 * action['reward'] - w2 * action['transition']
             action['newvl'] = newvl
+            action['fixRules'] = fixRules
+            action['rid_idx'] = index
+
 
     # 3. use linear programming to find optimal set of actions
     # add action attribute 'apply' 
     
     updateActions, optimizeActions = optimize(detailActions)
+
     # remove duplicate actions
     optimizeActionsSet = set()
     newvl = copy.deepcopy(vl)
@@ -173,8 +177,10 @@ def getActionReward(vl, currRules, rid, action, allFields):
     
     desSize = 0
     incSize = 0
-    for curr in currRules:
+    fixRules = []
+    for index, curr in enumerate(currRules):
         if curr not in newRules:
+            fixRules.append(index)
             desSize += 1
     for newr in newRules:
         if newr not in currRules:
@@ -185,6 +191,5 @@ def getActionReward(vl, currRules, rid, action, allFields):
     else:
         reward = desSize / len(currRules)
     
-    
-    return reward, newvl
+    return reward, newvl, fixRules
 

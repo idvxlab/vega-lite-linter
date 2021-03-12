@@ -88,7 +88,7 @@ def BIN(vl, action):
 def REMOVE_BIN(vl, action):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
-    if param1:
+    if param1 and param1 in newvl['encoding']:
         if 'bin' in newvl['encoding'][param1]:
             newvl['encoding'][param1].pop('bin')
     
@@ -99,19 +99,15 @@ def AGGREGATE(vl, action, rid):
     param1 = action['param1'].lower()
 
     if rid in ['aggregate_not_all_continuous', 'stack_with_non_positional_non_agg']:
-        if param1:
+        if param1 and param1 in newvl['encoding']:
             newvl['encoding'][param1]['aggregate'] = 'min'
-
-    # TODO bar_area_overlap
-    # else: 
-    #     # bar_area_overlap
 
     return newvl
 
 def REMOVE_AGGREGATE(vl, action):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
-    if param1:
+    if param1 and param1 in newvl['encoding'] :
         newvl['encoding'][param1].pop('aggregate')
     
     return newvl
@@ -119,16 +115,17 @@ def REMOVE_AGGREGATE(vl, action):
 def CHANGE_AGGREGATE(vl, action, rid):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
-    if rid == 'aggregate_o_valid':
-        # hard(aggregate_o_valid,C,A) :- type(E,ordinal), aggregate(E,A), A != min, A != max, A != median, channel(E, C).
-        newvl['encoding'][param1]['aggregate'] = 'min'
-    elif rid == 'aggregate_t_valid':
-        # hard(aggregate_t_valid,C,A) :- type(E,temporal), aggregate(E,A), A != min, A != max, channel(E, C).
-        newvl['encoding'][param1]['aggregate'] = 'min'
-    elif rid == 'stack_without_summative_agg':
-        # hard(stack_without_summative_agg,C,A) :- stack(E,_), aggregate(E,A), not summative_aggregate_op(A), channel(E, C).
-        # summative_aggregate_op(count;sum).
-        newvl['encoding'][param1]['aggregate'] = 'sum'
+    if param1 and param1 in newvl['encoding']:
+        if rid == 'aggregate_o_valid':
+            # hard(aggregate_o_valid,C,A) :- type(E,ordinal), aggregate(E,A), A != min, A != max, A != median, channel(E, C).
+            newvl['encoding'][param1]['aggregate'] = 'min'
+        elif rid == 'aggregate_t_valid':
+            # hard(aggregate_t_valid,C,A) :- type(E,temporal), aggregate(E,A), A != min, A != max, channel(E, C).
+            newvl['encoding'][param1]['aggregate'] = 'min'
+        elif rid == 'stack_without_summative_agg':
+            # hard(stack_without_summative_agg,C,A) :- stack(E,_), aggregate(E,A), not summative_aggregate_op(A), channel(E, C).
+            # summative_aggregate_op(count;sum).
+            newvl['encoding'][param1]['aggregate'] = 'sum'
     
     return newvl
 
@@ -143,10 +140,12 @@ def ADD_COUNT(vl, action):
 def REMOVE_COUNT(vl, action, rid):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
-    if rid == 'count_on_x_and_y':
-        newvl['encoding'][param1].pop("aggregate")
-    else:
-        newvl['encoding'][param1].pop("aggregate")
+    if param1 and param1 in newvl['encoding']:
+        if rid == 'count_on_x_and_y' and "aggregate" in newvl['encoding'][param1]:
+            newvl['encoding'][param1].pop("aggregate")
+        else:
+            if param1 and param1 in newvl['encoding'] and "aggregate" in newvl['encoding'][param1]:
+                newvl['encoding'][param1].pop("aggregate")
     
     return newvl
 
@@ -163,23 +162,24 @@ def ZERO(vl, action):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
     # 需要加zero 说明原来写了"zero: false"
-    if param1:
-        newvl['encoding'][param1]['scale'].pop('zero')
+    if param1 and param1 in newvl['encoding']:
+        if 'scale' in newvl['encoding'][param1] and 'zero' in newvl['encoding'][param1]['scale']:
+            newvl['encoding'][param1]['scale']['zero'] = True
     
     return newvl
 
 def REMOVE_ZERO(vl, action):
-    # TODO 确认zero的用例
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
     # 需要删除zero，说明zero在这个情况下的声明不合法
-    if param1:
-        newvl['encoding'][param1]['scale'].pop('zero')
+    if param1 and param1 in newvl['encoding']:
+        if 'scale' in newvl['encoding'][param1] and 'zero' in newvl['encoding'][param1]['scale']:
+            newvl['encoding'][param1]['scale'].pop('zero')
     
     return newvl
 
 def STACK(vl, action):
-    # TODO bar_area_overlap
+    # no used
     newvl = copy.deepcopy(vl)
     return newvl
 
@@ -233,15 +233,15 @@ def ADD_CHANNEL(vl, action, allFields):
 def REMOVE_CHANNEL(vl, action, rid):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
-    if param1:
+    if param1 and param1 in newvl['encoding']:
         if rid == 'repeat_channel':   
             # repeat了channel 删除带有dupl标签的
             for channel in newvl['encoding'].keys():
                 if param1 + '_dupl_' in channel:
                     # that's it
                     newvl['encoding'].pop(channel)
-        elif param1.lower() in newvl['encoding']:
-            newvl['encoding'].pop(param1.lower())
+        elif param1 in newvl['encoding']:
+            newvl['encoding'].pop(param1)
     
     return newvl
 
@@ -264,6 +264,8 @@ def CHANGE_CHANNEL(vl, action, rid):
 def ADD_FIELD(vl, action, allFields):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
+    if param1 not in newvl['encoding']:
+        return newvl
 
     # hard(encoding_no_field_and_not_count,C) :- not field(E,_), not aggregate(E,count), encoding(E), channel(E, C).
     if not allFields:
@@ -288,7 +290,7 @@ def REMOVE_FIELD(vl, action):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
     
-    if param1:
+    if param1 and param1 in newvl['encoding'] and 'field' in newvl['encoding'][param1]:
         newvl['encoding'][param1].pop('field')
     
     return newvl
@@ -307,7 +309,7 @@ def CHANGE_FIELD(vl, action, rid, allFields):
             usedFields.append(vl['encoding'][encoding]["field"])
     
     if rid in ['bin_q_o', 'log_q', 'zero_q', 'log_discrete', 'line_area_with_discrete', 'bar_tick_area_line_without_continuous_x_y']:
-        if param1 in newvl['encoding']:
+        if param1 in newvl['encoding'] and 'field' in newvl['encoding'][param1]:
             currField = newvl['encoding'][param1]['field']
             qField = {}
             for field in allFields:
@@ -355,19 +357,16 @@ def CHANGE_FIELD(vl, action, rid, allFields):
             newvl['encoding'][param1]['field'] = qField['field']
             newvl['encoding'][param1]['type'] = qField['type']
 
-    # TODO "log_non_positive" need extent calculation
-    
-
     return newvl
 
 def CHANGE_TYPE(vl, action, allFields):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
 
-    if not allFields:
+    if not allFields or (param1 not in newvl['encoding']):
         return newvl
 
-    if 'aggregate' in vl['encoding'][param1] and vl['encoding'][param1]['aggregate'] == 'count':
+    if 'aggregate' in newvl['encoding'][param1] and newvl['encoding'][param1]['aggregate'] == 'count':
         newvl['encoding'][param1]['type'] = 'quantitative'
     else:
         currField = vl['encoding'][param1]['field']
@@ -396,6 +395,9 @@ def CORRECT_CHANNEL(vl, action):
     param1 = action['param1'].lower()
     param2 = action['param2'].lower()
 
+    if param1 not in newvl['encoding']:
+        return newvl
+
     possibleChannel = ['x', 'y', 'size', 'color']
     for channel in vl['encoding']:
         if channel in possibleChannel:
@@ -413,6 +415,9 @@ def CORRECT_TYPE(vl, action):
     param1 = action['param1'].lower()
     param2 = action['param2'].lower()
 
+    if param1 not in newvl['encoding']:
+        return newvl
+
     possibleType = ["quantitative", "ordinal", "nominal", "temporal"]
     score = []
     for ptype in possibleType:
@@ -428,6 +433,9 @@ def CORRECT_AGGREGATE(vl, action):
     param1 = action['param1'].lower()
     param2 = action['param2'].lower()
 
+    if param1 not in newvl['encoding']:
+        return newvl
+
     possibleAgg = ["count", "mean", "median", "min", "max", "stdev", "sum"]
     score = []
     for agg in possibleAgg:
@@ -442,6 +450,9 @@ def CORRECT_BIN(vl, action):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
     param2 = int(action['param2'])
+
+    if param1 not in newvl['encoding']:
+        return newvl
 
     if param2 < 0:
         newvl['encoding'][param1]['bin']['maxbins'] = -param2
