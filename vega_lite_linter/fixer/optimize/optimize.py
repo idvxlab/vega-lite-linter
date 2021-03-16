@@ -100,7 +100,6 @@ def checkConflict(ruleToActions, size):
 
     actionOfRules = [list(ruleToActions[rid]) for rid in ruleToActions ]
     actionOfRules.sort(key = lambda a: len(a))
-    print(actionOfRules)
     def find(x):
         if uf[x] != x:
             uf[x] = find(uf[x])
