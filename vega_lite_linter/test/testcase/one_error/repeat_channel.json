@@ -1,0 +1,16 @@
+{
+    "data": {
+        "url": "data/cars.json"
+    },
+    "mark": "point",
+    "encoding": {
+        "y": {
+            "field": "Horsepower",
+            "type": "quantitative"
+        },
+        "y": {
+            "field": "Acceleration",
+            "type": "quantitative"
+        }
+    }
+}

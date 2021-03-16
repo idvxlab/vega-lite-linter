@@ -54,6 +54,7 @@ def run(input_fact):
         logger.error(stderr)
 
     result = json_result["Result"]
+
     violated_rules = []
     if result == "UNSATISFIABLE":
         logger.info("Constraints are unsatisfiable.")
@@ -66,5 +67,5 @@ def run(input_fact):
 
         logger.debug(answers["Value"])
         violated_rules = answers["Value"]
-    
+
     return violated_rules

@@ -1,0 +1,12 @@
+{
+    "data": {
+        "url": "data/cars.json"
+    },
+    "mark": "line",
+    "encoding": {
+        "x": {
+            "field": "Year",
+            "type": "temporal"
+        }
+    }
+}

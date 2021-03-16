@@ -23,16 +23,24 @@ def fixer(vl, facts, v_rules, allFields):
             rid = action['rid']
             # todo 测试所有action的transitioncost正常计算得到
             transitionCost = getTransitionCost(action)
+
             if transitionCost:
                 action['transition'] = transitionCost / 4.71
             else:
                 action['transition'] = 1
 
-            actionReward, newvl, fixRules = getActionReward(vl, v_rules, rid, action, allFields)
+            actionReward, newvl, fixRules, intro = getActionReward(vl, v_rules, rid, action, allFields)
             if actionReward:
                 action['reward'] = actionReward
             else:
                 action['reward'] = 0
+            
+            # 如果这个action intro 为空字符，说明无法执行这个动作
+            # 从动作空间剔除掉
+            if intro:
+                action['delete'] = False
+            else:
+                action['delete'] = True
             
             w1 = 0.8
             w2 = 0.2
@@ -40,22 +48,26 @@ def fixer(vl, facts, v_rules, allFields):
             action['newvl'] = newvl
             action['fixRules'] = fixRules
             action['rid_idx'] = index
+            action['action_intro'] = intro
+    detailActions[0].append({
+        "delete": True
+    })
 
+    detailActionsFilter = [[action for action in rule if not action['delete']] for rule in detailActions]
 
     # 3. use linear programming to find optimal set of actions
     # add action attribute 'apply' 
-    
-    updateActions, optimizeActions = optimize(detailActions)
+    updateActions, optimizeActions = optimize(detailActionsFilter)
 
     # remove duplicate actions
     optimizeActionsSet = set()
     newvl = copy.deepcopy(vl)
     for action in optimizeActions:
-        actionsParam = (action['action'], action['param1'], action['param2'])
+        actionsParam = (action['action'], action['param1'], action['param2'], action['action_intro'])
         if actionsParam in optimizeActionsSet:
             continue
         
-        newvl = applyActions(newvl, action['rid'], action, allFields)
+        newvl, _ = applyActions(newvl, action['rid'], action, allFields)
         optimizeActionsSet.add(actionsParam)
 
     res = {
@@ -75,71 +87,80 @@ def fixer(vl, facts, v_rules, allFields):
 def getActions(vl, rid, param1="", param2=""):
     generalActions = Rules.rules[rid]["actions"]
     actions = []
-    if rid != 'bar_area_overlap':
-        for action in generalActions:
-            if 'CHANGE_MARK' in action:
-                actions.extend(getMarkActions(vl, rid))
-            elif 'CHANGE_CHANNEL' in action:
-                actions.extend(getChangeChannelActions(vl, rid, param1, param2))
-            elif 'REMOVE_STACK' in action:
-                stacked = ''
-                for encoding in vl['encoding']:
-                    if "stack" in vl['encoding'][encoding]:
-                        stacked = encoding
-                        break
-                if stacked:
-                    actions.append({
-                        "action": "REMOVE_STACK",
-                        "param1": stacked,
-                        "param2": "",
-                        "rid": rid
-                    })
+    
+    for action in generalActions:
+        if 'CHANGE_MARK' in action:
+            actions.extend(getMarkActions(vl, rid))
+        elif 'CHANGE_CHANNEL' in action:
+            actions.extend(getChangeChannelActions(vl, rid, param1, param2))
+        elif 'REMOVE_STACK' in action:
+            stacked = ''
+            for encoding in vl['encoding']:
+                if "stack" in vl['encoding'][encoding]:
+                    stacked = encoding
+                    break
+            if stacked:
+                actions.append({
+                    "action": "REMOVE_STACK",
+                    "param1": stacked,
+                    "param2": "",
+                    "rid": rid})
+        else:
+            if '(' in action:
+                presetParam = action.split("'")[1].lower()
+                actions.append({
+                    "action": action.split('(')[0],
+                    "param1": presetParam,
+                    "param2": "",
+                    "rid": rid
+                })
             else:
-                if '(' in action:
-                    presetParam = action.split("'")[1].lower()
-                    actions.append({
-                        "action": action.split('(')[0],
-                        "param1": presetParam,
-                        "param2": "",
-                        "rid": rid
-                    })
-                else:
-                    actions.append({
-                        "action": action,
-                        "param1": param1,
-                        "param2": param2,
-                        "rid": rid
-                    })
-    else:
-        actions.append(getActionsForOverlap(rid, param1, param2))
+                actions.append({
+                    "action": action,
+                    "param1": param1,
+                    "param2": param2,
+                    "rid": rid
+                })
     return actions
 
-def getActionsForOverlap(rid, param1="", param2=""):
-    # todo
-    return [{}]
 
 def getMarkActions(vl, rid):
     marks = ['area', 'bar', 'line', 'point', 'tick']
     # todo 默认一定有mark吗
     prevMark = vl['mark']
-    actions = [{"action": ((prevMark + '_' + nextMark).upper()), "param1": "", "param2": "", "rid": rid, "originAction": "CHANGE_MARK"} for nextMark in marks if nextMark != prevMark]
+    actions = [{"action": ((prevMark + '_' + nextMark).upper()), 
+                "param1": "", 
+                "param2": "", 
+                "rid": rid, 
+                "originAction": "CHANGE_MARK"} for nextMark in marks if nextMark != prevMark]
 
     return actions
 
 def getChangeChannelActions(vl, rid, channel, param2=""):
     if rid == 'stack_without_discrete_color_2':
         if 'color' not in vl['encoding']:
-            actions = [{"action": "MOVE_"+channel.upper()+"_COLOR", "param1": channel, "param2": param2, "rid": rid, "originAction": "CHANGE_CHANNEL"}]
+            actions = [{"action": "MOVE_"+channel.upper()+"_COLOR", 
+                        "param1": channel, 
+                        "param2": param2, 
+                        "rid": rid, 
+                        "originAction": "CHANGE_CHANNEL"}]
             return actions
     channels = ["X", "Y", "SIZE", "COLOR"]
     channelUsed = [channel.upper() for channel in list(vl["encoding"].keys())]
 
-    actions = [{"action": (('MOVE_' + channel + '_' + newChannel).upper()), "param1": "", "param2": "", "rid": rid, "originAction": "CHANGE_CHANNEL"} for newChannel in channels if newChannel not in channelUsed]
+    actions = [{"action": (('MOVE_' + channel + '_' + newChannel).upper()), 
+                "param1": "", 
+                "param2": "", 
+                "rid": rid, 
+                "originAction": "CHANGE_CHANNEL"}
+                for newChannel in channels if newChannel not in channelUsed]
 
     return actions
 
 def getTransitionCost(action):
-    if 'MOVE_' in action['action'] and not 'REMOVE_' in action['action']:
+    if "originAction" in action and action['originAction'] == "CHANGE_MARK":
+        return getattr(TransitionCost, action["action"])
+    elif 'MOVE_' in action['action'] and not 'REMOVE_' in action['action']:
         return getattr(TransitionCost, action["action"])
     elif 'CHANGE_TYPE' in action['action'] or ('CORRECT' in action['action']):
         return getattr(TransitionCost, action["action"])
@@ -167,7 +188,7 @@ def getActionReward(vl, currRules, rid, action, allFields):
 
     """
     # 1. get new vl after performing action
-    newvl = applyActions(vl, rid, action, allFields)
+    newvl, intro = applyActions(vl, rid, action, allFields)
     # 2. get new rules of new vl from linter
     newSpec = translator(newvl, allFields)
     newRules = linter(newSpec)
@@ -191,5 +212,5 @@ def getActionReward(vl, currRules, rid, action, allFields):
     else:
         reward = desSize / len(currRules)
     
-    return reward, newvl, fixRules
+    return reward, newvl, fixRules, intro
 
