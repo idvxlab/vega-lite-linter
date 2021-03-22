@@ -49,9 +49,6 @@ def fixer(vl, facts, v_rules, allFields):
             action['fixRules'] = fixRules
             action['rid_idx'] = index
             action['action_intro'] = intro
-    detailActions[0].append({
-        "delete": True
-    })
 
     detailActionsFilter = [[action for action in rule if not action['delete']] for rule in detailActions]
 
