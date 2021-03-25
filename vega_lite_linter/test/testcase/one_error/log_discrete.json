@@ -1,0 +1,22 @@
+{
+    "data": {
+        "url": "data/cars.json"
+    },
+    "mark": "point",
+    "encoding": {
+        "x": {
+            "field": "Acceleration",
+            "type": "quantitative"
+        },
+        "y": {
+            "field": "Horsepower",
+            "type": "quantitative",
+            "bin": {
+                "maxbins": 10
+            },
+            "scale": {
+                "type": "log"
+            }
+        }
+    }
+}

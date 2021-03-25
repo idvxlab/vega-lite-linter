@@ -46,7 +46,6 @@ def optimize(actions):
                 ruleToActions['rid_' + str(rid)].add(index)
 
     isAllConflict = checkConflict(ruleToActions, ACTION_SIZE)
-
     # 如果出现不可解的情况
     if isAllConflict:
         # actions from same rule only take one
@@ -101,7 +100,6 @@ def checkConflict(ruleToActions, size):
 
     actionOfRules = [list(ruleToActions[rid]) for rid in ruleToActions ]
     actionOfRules.sort(key = lambda a: len(a))
-
     def find(x):
         if uf[x] != x:
             uf[x] = find(uf[x])

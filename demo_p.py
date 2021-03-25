@@ -28,7 +28,6 @@ demo = {
         }
 
 lint = Lint(demo)
-
 result = lint.lint()
 print('lint rules: ', '-'*20, len(result))
 print(result)

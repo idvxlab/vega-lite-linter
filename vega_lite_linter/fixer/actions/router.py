@@ -14,149 +14,164 @@ def applyActions(vl, rid, action, allFields):
     actionName = action['action']
     if 'originAction' in action.keys():
         if action['originAction'] == "CHANGE_MARK":
-            newvl = CHANGE_MARK(vl, action)
+            newvl, intro = CHANGE_MARK(vl, action)
         elif action['originAction'] == "CHANGE_CHANNEL":
-            newvl = CHANGE_CHANNEL(vl, action, rid)
+            newvl, intro = CHANGE_CHANNEL(vl, action, rid)
     elif actionName == 'BIN':
-        newvl = BIN(vl, action)
+        newvl, intro = BIN(vl, action)
     elif actionName == 'REMOVE_BIN':
-        newvl = REMOVE_BIN(vl, action)
+        newvl, intro = REMOVE_BIN(vl, action)
     elif actionName.startswith("AGGREGATE"): # AGGREGATE_[]
-        newvl = AGGREGATE(vl, action, rid)
+        newvl, intro = AGGREGATE(vl, action, rid)
     elif actionName.startswith('REMOVE_AGGREGATE'): # REMOVE_AGGREGATE_[]
-        newvl = REMOVE_AGGREGATE(vl, action)
+        newvl, intro = REMOVE_AGGREGATE(vl, action)
     elif actionName.startswith('CHANGE_AGGREGATE'):
-        newvl = CHANGE_AGGREGATE(vl, action, rid)
+        newvl, intro = CHANGE_AGGREGATE(vl, action, rid)
     elif actionName.startswith("ADD_COUNT"):
-        newvl = ADD_COUNT(vl, action)
+        newvl, intro = ADD_COUNT(vl, action)
     elif actionName.startswith("REMOVE_COUNT"):
-        newvl = REMOVE_COUNT(vl, action, rid)
+        newvl, intro = REMOVE_COUNT(vl, action, rid)
     elif actionName.startswith('REMOVE_LOG'): # 没有LOG
-        newvl = REMOVE_LOG(vl, action)
+        newvl, intro = REMOVE_LOG(vl, action)
     elif actionName.startswith("ZERO"):
-        newvl = ZERO(vl, action)
+        newvl, intro = ZERO(vl, action)
     elif actionName.startswith("REMOVE_ZERO"):
-        newvl = REMOVE_ZERO(vl, action)
+        newvl, intro = REMOVE_ZERO(vl, action)
     elif actionName.startswith("STACK"):
-        newvl = STACK(vl, action)
+        newvl, intro = STACK(vl, action)
     elif actionName.startswith("REMOVE_STACK"):
-        newvl = REMOVE_STACK(vl, action)
+        newvl, intro = REMOVE_STACK(vl, action)
     elif actionName.startswith("ADD_CHANNEL"):
-        newvl = ADD_CHANNEL(vl, action, allFields)
+        newvl, intro = ADD_CHANNEL(vl, action, allFields)
     elif actionName.startswith("REMOVE_CHANNEL"):
-        newvl = REMOVE_CHANNEL(vl, action, rid)
+        newvl, intro = REMOVE_CHANNEL(vl, action, rid)
     elif actionName.startswith("ADD_FIELD"):
-        newvl = ADD_FIELD(vl, action, allFields)
+        newvl, intro = ADD_FIELD(vl, action, allFields)
     elif actionName.startswith("REMOVE_FIELD"):
-        newvl = REMOVE_FIELD(vl, action)
-    elif actionName.startswith("CHANGE_FIELD"):
-        newvl = CHANGE_FIELD(vl, action, rid, allFields)
+        newvl, intro = REMOVE_FIELD(vl, action)
+    elif actionName.startswith("CHANGE_FIELD"):       
+        newvl, intro = CHANGE_FIELD(vl, action, rid, allFields)
     elif actionName.startswith("CHANGE_TYPE"):
-        newvl = CHANGE_TYPE(vl, action, allFields)
+        newvl, intro = CHANGE_TYPE(vl, action, allFields)
     elif actionName.startswith("CORRECT_MARK"):
-        newvl = CORRECT_MARK(vl, action)
+        newvl, intro = CORRECT_MARK(vl, action)
     elif actionName.startswith("CORRECT_CHANNEL"):
-        newvl = CORRECT_CHANNEL(vl, action)
+        newvl, intro = CORRECT_CHANNEL(vl, action)
     elif actionName.startswith("CORRECT_TYPE"):
-        newvl = CORRECT_TYPE(vl, action)
+        newvl, intro = CORRECT_TYPE(vl, action)
     elif actionName.startswith("CORRECT_AGGREGATE"):
-        newvl = CORRECT_AGGREGATE(vl, action)
+        newvl, intro = CORRECT_AGGREGATE(vl, action)
     elif actionName.startswith("CORRECT_BIN"):
-        newvl = CORRECT_BIN(vl, action)
+        newvl, intro = CORRECT_BIN(vl, action)
     else:
-        # TODO default case
-        # what to do?
         newvl = copy.deepcopy(vl)
+        intro = ""
 
-    return newvl
+    return newvl, intro
 
 def CHANGE_MARK(vl, action):
+    oldMark = vl['mark']
     newvl = copy.deepcopy(vl)
     newMark = action['action'].split('_')[1]
     newvl['mark'] = newMark.lower()
+    intro = "Change mark type from " + oldMark + " to " + newMark + "."
 
-    return newvl
+    return newvl, intro.capitalize()
 
 def BIN(vl, action):
     newvl = copy.deepcopy(vl)
+    intro = ""
     param1 = action['param1'].lower()
     if param1 and param1 in newvl['encoding']:
-        newvl['encoding'][param1]['bin'] = {"maxbins": 10}
-    
-    return newvl
+        newvl['encoding'][param1]['bin'] = True
+        intro = "Use bin in the channel " + param1 + '.'
+    return newvl, intro.capitalize()
 
 def REMOVE_BIN(vl, action):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
+    intro = ""
     if param1 and param1 in newvl['encoding']:
         if 'bin' in newvl['encoding'][param1]:
             newvl['encoding'][param1].pop('bin')
-    
-    return newvl
+            intro = "Remove bin in the channel " + param1 + '.'
+
+    return newvl, intro.capitalize()
 
 def AGGREGATE(vl, action, rid):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
-
+    intro = ""
     if rid in ['aggregate_not_all_continuous', 'stack_with_non_positional_non_agg']:
         if param1 and param1 in newvl['encoding']:
             newvl['encoding'][param1]['aggregate'] = 'min'
-
-    return newvl
+            intro = "Use min aggregation for the data in the channel " + param1 + '.'
+    return newvl, intro.capitalize()
 
 def REMOVE_AGGREGATE(vl, action):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
+    intro = ""
     if param1 and param1 in newvl['encoding'] :
         newvl['encoding'][param1].pop('aggregate')
-    
-    return newvl
+        intro = "Remove aggregation in the channel " + param1 + '.'
+    return newvl, intro.capitalize()
 
 def CHANGE_AGGREGATE(vl, action, rid):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
+    intro = ""
     if param1 and param1 in newvl['encoding']:
         if rid == 'aggregate_o_valid':
             # hard(aggregate_o_valid,C,A) :- type(E,ordinal), aggregate(E,A), A != min, A != max, A != median, channel(E, C).
             newvl['encoding'][param1]['aggregate'] = 'min'
+            intro = "Use min aggregation for the data in the channel " + param1 + ' instead.'
         elif rid == 'aggregate_t_valid':
             # hard(aggregate_t_valid,C,A) :- type(E,temporal), aggregate(E,A), A != min, A != max, channel(E, C).
             newvl['encoding'][param1]['aggregate'] = 'min'
+            intro = "Use min aggregation for the data in the channel " + param1 + ' instead.'
         elif rid == 'stack_without_summative_agg':
             # hard(stack_without_summative_agg,C,A) :- stack(E,_), aggregate(E,A), not summative_aggregate_op(A), channel(E, C).
             # summative_aggregate_op(count;sum).
             newvl['encoding'][param1]['aggregate'] = 'sum'
+            intro = "Use sum aggregation for the data in the channel " + param1 + ' instead.'
     
-    return newvl
+    return newvl, intro.capitalize()
 
 def ADD_COUNT(vl, action):
     newvl = copy.deepcopy(vl)
     param1 = action["param1"].lower()
+    intro = ""
     if param1 and param1 in newvl['encoding']:
         newvl['encoding'][param1]['aggregate'] = 'count'
+        intro = "Use count aggregation for the data in the channel " + param1 + '.'
     
-    return newvl
+    return newvl, intro.capitalize()
 
 def REMOVE_COUNT(vl, action, rid):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
+    intro = ""
     if param1 and param1 in newvl['encoding']:
         if rid == 'count_on_x_and_y' and "aggregate" in newvl['encoding'][param1]:
             newvl['encoding'][param1].pop("aggregate")
+            intro = "Remove count aggregation in the channel " + param1 + '.'
         else:
             if param1 and param1 in newvl['encoding'] and "aggregate" in newvl['encoding'][param1]:
                 newvl['encoding'][param1].pop("aggregate")
+                intro = "Remove count aggregation in the channel " + param1 + '.'
     
-    return newvl
+    return newvl, intro.capitalize()
 
 def REMOVE_LOG(vl, action):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
+    intro = ""
     if param1 and param1 in newvl['encoding']:
         if 'scale' in newvl['encoding'][param1] and 'type' in newvl['encoding'][param1]['scale']:
             newvl['encoding'][param1]['scale'].pop("type") # { "type": "log" }
-    
-    return newvl
+            intro = "Remove log scale in the channel " + param1 + '.'
+    return newvl, intro.capitalize()
 
 def ZERO(vl, action):
     newvl = copy.deepcopy(vl)
@@ -165,8 +180,8 @@ def ZERO(vl, action):
     if param1 and param1 in newvl['encoding']:
         if 'scale' in newvl['encoding'][param1] and 'zero' in newvl['encoding'][param1]['scale']:
             newvl['encoding'][param1]['scale']['zero'] = True
-    
-    return newvl
+            intro = "Set the zero baseline in the scale of channel " + param1 + '.'
+    return newvl, intro.capitalize()
 
 def REMOVE_ZERO(vl, action):
     newvl = copy.deepcopy(vl)
@@ -175,18 +190,19 @@ def REMOVE_ZERO(vl, action):
     if param1 and param1 in newvl['encoding']:
         if 'scale' in newvl['encoding'][param1] and 'zero' in newvl['encoding'][param1]['scale']:
             newvl['encoding'][param1]['scale'].pop('zero')
+            intro = "Remove the zero baseline in the scale of channel " + param1 + '.'
     
-    return newvl
+    return newvl, intro.capitalize()
 
 def STACK(vl, action):
     # no used
     newvl = copy.deepcopy(vl)
-    return newvl
+    return newvl, ""
 
 def REMOVE_STACK(vl, action):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
-
+    intro = ""
     # find stacked channel
     stacked = ''
     for encoding in vl['encoding']:
@@ -195,8 +211,9 @@ def REMOVE_STACK(vl, action):
 
     if stacked and stacked in newvl['encoding']:
         newvl['encoding'][stacked].pop('stack')
+        intro = "Remove stack in the channel " + stacked + '.'
     
-    return newvl
+    return newvl, intro.capitalize()
 
 def ADD_CHANNEL(vl, action, allFields):
     # hard(no_encodings) :- not encoding(_).
@@ -206,10 +223,10 @@ def ADD_CHANNEL(vl, action, allFields):
     param1 = action['param1'].lower()
 
     if not allFields:
-        return newvl
+        return newvl, ""
     if param1 in newvl['encoding']:
         # already have [param1] encoding
-        return newvl
+        return newvl, ""
 
     if not param1:
         param1 = 'x'
@@ -228,11 +245,16 @@ def ADD_CHANNEL(vl, action, allFields):
         "field": useF['field'],
         "type": useF['type']
     }
-    return newvl
+
+    if useF['type'] == "quantitative":
+        newvl['encoding'][param1]['aggregate'] = "mean"
+    intro = "Add channel " + param1 + " with data field " + useF['field'] + "."
+    return newvl, intro.capitalize()
 
 def REMOVE_CHANNEL(vl, action, rid):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
+    intro = ""
     if param1 and param1 in newvl['encoding']:
         if rid == 'repeat_channel':   
             # repeat了channel 删除带有dupl标签的
@@ -240,36 +262,42 @@ def REMOVE_CHANNEL(vl, action, rid):
                 if param1 + '_dupl_' in channel:
                     # that's it
                     newvl['encoding'].pop(channel)
+                    
         elif param1 in newvl['encoding']:
             newvl['encoding'].pop(param1)
+        
+        intro = "Remove channel " + param1 + "."
     
-    return newvl
+    return newvl, intro.capitalize()
 
 def CHANGE_CHANNEL(vl, action, rid):
     newvl = copy.deepcopy(vl)
     prevChannel = action['action'].split('_')[1].lower()
     newChannel = action['action'].split('_')[2].lower()
+    intro = ""
     if rid == 'repeat_channel':
         # repeat了channel 替换带有dupl标签的
         for channel in newvl['encoding'].keys():
             if prevChannel + '_dupl_' in channel:
                 # that's it
                 newvl['encoding'][newChannel] = newvl['encoding'].pop(channel)
+                intro = "Change channel " + prevChannel + " to " + newChannel + '.'
 
     else:
         newvl['encoding'][newChannel] = newvl['encoding'].pop(prevChannel)
+        intro = "Change channel " + prevChannel + " to " + newChannel + '.'
 
-    return newvl
+    return newvl, intro.capitalize()
 
 def ADD_FIELD(vl, action, allFields):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
     if param1 not in newvl['encoding']:
-        return newvl
+        return newvl, ""
 
     # hard(encoding_no_field_and_not_count,C) :- not field(E,_), not aggregate(E,count), encoding(E), channel(E, C).
     if not allFields:
-        return newvl
+        return newvl, ""
 
     # prefer to add quantitative?
     useF = {}
@@ -283,26 +311,28 @@ def ADD_FIELD(vl, action, allFields):
     
     newvl['encoding'][param1]['field'] = useF['field']
     newvl['encoding'][param1]['type'] = useF['type']
-
-    return newvl
+    intro = "Add field " + useF['field'] + " in the channel " + param1 + "."
+    return newvl, intro.capitalize()
 
 def REMOVE_FIELD(vl, action):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
+    intro = ""
     
     if param1 and param1 in newvl['encoding'] and 'field' in newvl['encoding'][param1]:
         newvl['encoding'][param1].pop('field')
+        intro = "Remove field in the channel " + param1 + "."
     
-    return newvl
+    return newvl, intro.capitalize()
 
 def CHANGE_FIELD(vl, action, rid, allFields):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
 
     if not allFields:
-        return newvl
+        return newvl, ""
     if param1 not in newvl['encoding']:
-        return newvl
+        return newvl, ""
     usedFields = []
     for encoding in vl['encoding']:
         if 'field' in vl['encoding'][encoding]:
@@ -357,17 +387,19 @@ def CHANGE_FIELD(vl, action, rid, allFields):
             newvl['encoding'][param1]['field'] = qField['field']
             newvl['encoding'][param1]['type'] = qField['type']
 
-    return newvl
+    intro = "Change data field of the channel " + param1 + "."
+    return newvl, intro.capitalize()
 
 def CHANGE_TYPE(vl, action, allFields):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
 
     if not allFields or (param1 not in newvl['encoding']):
-        return newvl
+        return newvl, ""
 
     if 'aggregate' in newvl['encoding'][param1] and newvl['encoding'][param1]['aggregate'] == 'count':
         newvl['encoding'][param1]['type'] = 'quantitative'
+        intro = "Change the type of the channel " + param1 + " to quantitative."
     else:
         currField = vl['encoding'][param1]['field']
         correctType = ""
@@ -375,8 +407,9 @@ def CHANGE_TYPE(vl, action, allFields):
             if field['field'] == currField:
                 correctType = field['type']
                 newvl['encoding'][param1]['type'] = correctType
+                intro = "Change the type of the channel " + param1 + " to " + correctType + "."
 
-    return newvl
+    return newvl, intro.capitalize()
 
 def CORRECT_MARK(vl, action):
     newvl = copy.deepcopy(vl)
@@ -388,7 +421,8 @@ def CORRECT_MARK(vl, action):
         score.append(similar(param1, mark))
     maxPMark = possibleMark[score.index(max(score))]
     newvl['mark'] = maxPMark
-    return newvl
+    intro = "Correct the mark type from " + param1 + " to " + maxPMark + "."
+    return newvl, intro.capitalize()
 
 def CORRECT_CHANNEL(vl, action):
     newvl = copy.deepcopy(vl)
@@ -396,7 +430,7 @@ def CORRECT_CHANNEL(vl, action):
     param2 = action['param2'].lower()
 
     if param1 not in newvl['encoding']:
-        return newvl
+        return newvl, ""
 
     possibleChannel = ['x', 'y', 'size', 'color']
     for channel in vl['encoding']:
@@ -408,7 +442,8 @@ def CORRECT_CHANNEL(vl, action):
     
     maxPChannel = possibleChannel[score.index(max(score))]
     newvl['encoding'][maxPChannel] = newvl['encoding'].pop(param1)
-    return newvl
+    intro = "Correct the channel name from " + param1 + " to " + maxPChannel + "."
+    return newvl, intro.capitalize()
 
 def CORRECT_TYPE(vl, action):
     newvl = copy.deepcopy(vl)
@@ -416,7 +451,7 @@ def CORRECT_TYPE(vl, action):
     param2 = action['param2'].lower()
 
     if param1 not in newvl['encoding']:
-        return newvl
+        return newvl, ""
 
     possibleType = ["quantitative", "ordinal", "nominal", "temporal"]
     score = []
@@ -425,8 +460,8 @@ def CORRECT_TYPE(vl, action):
     
     maxPType = possibleType[score.index(max(score))]
     newvl['encoding'][param1]['type'] = maxPType
-    
-    return newvl
+    intro = "Correct the type of the channel " + param1 + " from " + param2 + " to " + maxPType + "." 
+    return newvl, intro.capitalize()
 
 def CORRECT_AGGREGATE(vl, action):
     newvl = copy.deepcopy(vl)
@@ -434,7 +469,7 @@ def CORRECT_AGGREGATE(vl, action):
     param2 = action['param2'].lower()
 
     if param1 not in newvl['encoding']:
-        return newvl
+        return newvl, ""
 
     possibleAgg = ["count", "mean", "median", "min", "max", "stdev", "sum"]
     score = []
@@ -443,8 +478,9 @@ def CORRECT_AGGREGATE(vl, action):
     
     maxPAgg = possibleAgg[score.index(max(score))]
     newvl['encoding'][param1]['aggregate'] = maxPAgg
+    intro = "Correct the aggregation of the channel " + param1 + " from " + param2 + " to " + maxPAgg + "." 
     
-    return newvl
+    return newvl, intro.capitalize()
 
 def CORRECT_BIN(vl, action):
     newvl = copy.deepcopy(vl)
@@ -452,7 +488,7 @@ def CORRECT_BIN(vl, action):
     param2 = int(action['param2'])
 
     if param1 not in newvl['encoding']:
-        return newvl
+        return newvl, ""
 
     if param2 < 0:
         newvl['encoding'][param1]['bin']['maxbins'] = -param2
@@ -460,7 +496,9 @@ def CORRECT_BIN(vl, action):
         newvl['encoding'][param1]['bin']['maxbins'] = 10
 
     
-    return newvl
+    intro = "Correct the bin amount of the channel " + param1 + " from " + param2 + " to " + str(newvl['encoding'][param1]['bin']['maxbins']) + "." 
+    
+    return newvl, intro.capitalize()
 
 def similar(a, b):
     return SequenceMatcher(None, a, b).ratio()

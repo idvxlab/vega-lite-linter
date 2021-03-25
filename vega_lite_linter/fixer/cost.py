@@ -16,6 +16,11 @@ class TransitionCost:
     LINE_POINT = 0.03
     LINE_TICK = 0.03
 
+    POINT_AREA = 0.04
+    POINT_BAR = 0.02
+    POINT_LINE = 0.03
+    POINT_TICK = 0.01
+
     TICK_AREA = 0.04
     TICK_BAR = 0.02
     TICK_LINE = 0.03
