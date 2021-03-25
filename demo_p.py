@@ -18,7 +18,6 @@ demo = {
         "type": "nominal",
       },
       "y": {
-        "field": "wind",
         "aggregate": "count",
         "type": "quantitative"
       }

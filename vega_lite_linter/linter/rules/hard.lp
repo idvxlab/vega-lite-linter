@@ -39,7 +39,7 @@ hard(aggregate_nominal,C) :- aggregate(E,_), type(E,nominal), channel(E, C).
 
 % @constraint Count has to be quantitative and not use a field.
 hard(count_q_without_field_1,C) :- aggregate(E,count), field(E,_), channel(E, C).
-hard(count_q_without_field_2,C) :- aggregate(E,count), not type(E,quantitative), channel(E, C).
+hard(count_q_without_field_2,C) :- aggregate(E,count), not type(E,quantitative), channel(E, C), not field(E,_).
 
 % @constraint Size implies order so nominal is misleading.
 % add E 

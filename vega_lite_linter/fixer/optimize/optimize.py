@@ -12,10 +12,9 @@ def optimize(actions):
     # set LP variables
     X = [LpVariable("action_{}".format(i), lowBound = 0,  upBound = 1, cat='Binary') for i in range(len(flatAction))]
     X.sort(key=lambda x: int(x.name.split('_')[1]))
-
     # set objective
     z = 0
-    for i in range(len(flatAction)):
+    for i in range(ACTION_SIZE):
         z += X[i] * flatAction[i]['score']
     prob += z
 
@@ -72,9 +71,11 @@ def optimize(actions):
 
     if LpStatus[status] != 'Optimal':
         return [], []
-
     result = [0] * len(flatAction)
+
     for i in prob.variables():
+        if 'dummy' in i.name:
+            continue
         index = int(i.name.split('_')[1])
         result[index] = i.varValue
 

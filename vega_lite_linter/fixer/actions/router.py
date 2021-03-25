@@ -176,6 +176,7 @@ def REMOVE_LOG(vl, action):
 def ZERO(vl, action):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
+    intro=""
     # 需要加zero 说明原来写了"zero: false"
     if param1 and param1 in newvl['encoding']:
         if 'scale' in newvl['encoding'][param1] and 'zero' in newvl['encoding'][param1]['scale']:
@@ -186,6 +187,7 @@ def ZERO(vl, action):
 def REMOVE_ZERO(vl, action):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
+    intro=""
     # 需要删除zero，说明zero在这个情况下的声明不合法
     if param1 and param1 in newvl['encoding']:
         if 'scale' in newvl['encoding'][param1] and 'zero' in newvl['encoding'][param1]['scale']:
