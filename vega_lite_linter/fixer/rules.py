@@ -69,7 +69,7 @@ class Rules:
         },
         "count_q_without_field_2": {
             "source": "hard(count_q_without_field_2,C) :- aggregate(E,count), not type(E,quantitative), channel(E, C).",
-            "actions": [Actions.CHANGE_TYPE]
+            "actions": [Actions.CHANGE_TYPE, Actions.REMOVE_COUNT]
         },
         "size_nominal": {
             "source": "hard(size_nominal,C) :- channel(E,size), type(E,nominal), channel(E, C).",

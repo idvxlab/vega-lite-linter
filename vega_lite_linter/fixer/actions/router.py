@@ -112,7 +112,7 @@ def REMOVE_AGGREGATE(vl, action):
     newvl = copy.deepcopy(vl)
     param1 = action['param1'].lower()
     intro = ""
-    if param1 and param1 in newvl['encoding'] :
+    if param1 and param1 in newvl['encoding'] and 'aggregate' in newvl['encoding'][param1]:
         newvl['encoding'][param1].pop('aggregate')
         intro = "Remove aggregation in the channel " + param1 + '.'
     return newvl, intro.capitalize()
@@ -155,11 +155,11 @@ def REMOVE_COUNT(vl, action, rid):
     if param1 and param1 in newvl['encoding']:
         if rid == 'count_on_x_and_y' and "aggregate" in newvl['encoding'][param1]:
             newvl['encoding'][param1].pop("aggregate")
-            intro = "Remove count aggregation in the channel " + param1 + '.'
+            intro = "Remove aggregation in the channel " + param1 + '.'
         else:
             if param1 and param1 in newvl['encoding'] and "aggregate" in newvl['encoding'][param1]:
                 newvl['encoding'][param1].pop("aggregate")
-                intro = "Remove count aggregation in the channel " + param1 + '.'
+                intro = "Remove aggregation in the channel " + param1 + '.'
     
     return newvl, intro.capitalize()
 

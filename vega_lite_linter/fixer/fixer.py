@@ -60,7 +60,8 @@ def fixer(vl, facts, v_rules, allFields):
     optimizeActionsSet = set()
     newvl = copy.deepcopy(vl)
     for action in optimizeActions:
-        actionsParam = (action['action'], action['param1'], action['param2'], action['action_intro'])
+        actionName = action['action'] if action['action']!="REMOVE_COUNT" else "REMOVE_AGGREGATE"
+        actionsParam = (actionName, action['param1'], action['param2'], action['action_intro'])
         if actionsParam in optimizeActionsSet:
             continue
         
