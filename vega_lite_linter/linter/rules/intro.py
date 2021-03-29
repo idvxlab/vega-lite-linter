@@ -4,7 +4,7 @@ RuleIntro = {
     "bin_q_o": "Only use bin on quantitative or ordinal data. ",
     "log_q": "Only use log scale with quantitative data.",
     "zero_q": "Only include zero baseline in the scale domain with quantitative data.",
-    "log_discrete": "Ues log scale with non-discrete data.",
+    "log_discrete": "Only use log scale with non-discrete data.",
     "log_zero": "A log scale cannot have a zero baseline in the scale domain.",
     "log_non_positive": "Use log scale on data that are all positive.",
     "bin_and_aggregate": "Use both bin and aggregate on the data in the same time is illegal.",
@@ -22,7 +22,7 @@ RuleIntro = {
     "line_area_without_x_y": "Use x and y channels for mark 'line' and 'area'.",
     "line_area_with_discrete": "Use no more than one discrete data in x and y channels for mark 'line' and 'area'.",
     "bar_tick_continuous_x_y": "Use no more than one continuous data in the x and y channels for mark 'bar' and 'tick'.",
-    "bar_tick_area_line_without_continuous_x_y": "Bar, tick, line, area require some continuous variable on x or y.",
+    "bar_tick_area_line_without_continuous_x_y": "Mark 'bar', 'tick', 'line', 'area' require some continuous variable on x or y.",
     "bar_area_without_zero_1": "Mark 'bar' and 'area' require the scale of x axis to start at zero.",
     "bar_area_without_zero_2": "Mark 'bar' and 'area' require the scale of y axis to start at zero.",
     "size_without_point_text": "Use size channel with mark 'point' would be better.",
@@ -43,6 +43,6 @@ RuleIntro = {
     "invalid_mark": "Use valid mark type, including 'area', 'bar', 'line', 'point', 'tick'.",
     "invalid_channel": "Use valid channels, including x, y, color, size.",
     "invalid_type": "Use valid types, including quantitative, nominal, ordinal, temporal.",
-    "invalid_agg": "Use valid aggregation, including count, mean, median, min, max, stdev, sum.",
+    "invalid_agg": "Use valid aggregation, including count, mean, median, min, max, stdev, sum, etc.",
     "invalid_bin": "Use non-negative number for bin amounts (maxbins)."
 }
