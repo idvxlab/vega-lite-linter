@@ -6,11 +6,8 @@ services:
         container_name: vizfixer-nginx
         ports:
             - 8007:80
-            - 8008:443
         depends_on: 
             - vizfixer
-        # volumes:
-        #     - "./services/nginx/certs:/etc/nginx/certs"
 
     vizfixer:
         build: ./server
@@ -18,5 +15,3 @@ services:
         command: gunicorn -c gunicorn.py app:app
         ports:
             - 6040:6040
-        # depends_on: 
-        #     - clingo
