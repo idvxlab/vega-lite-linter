@@ -6,6 +6,7 @@ services:
         container_name: vizfixer-nginx
         ports:
             - 8007:80
+            - 8008:443
         depends_on: 
             - vizfixer
 
