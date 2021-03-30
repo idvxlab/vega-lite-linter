@@ -7,6 +7,8 @@ services:
         ports:
             - 8007:80
             - 8008:443
+        volumes:
+            - "./nginx/certs:/etc/nginx/certs"
         depends_on: 
             - vizfixer
 
