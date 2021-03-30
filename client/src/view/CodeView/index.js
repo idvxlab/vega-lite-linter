@@ -2,10 +2,9 @@ import React, { Component } from 'react'
 import './index.css'
 // import Editor from "@monaco-editor/react";
 // import Editor, { DiffEditor, useMonaco, loader } from "@monaco-editor/react";
-import { MonacoDiffEditor } from 'react-monaco-editor';
+import MonacoEditor, { MonacoDiffEditor } from 'react-monaco-editor';
 
 export default class index extends Component {
-
     editorDidMount(editor, monaco) {
         editor.focus();
     }
@@ -37,42 +36,33 @@ export default class index extends Component {
     }
 
     render() {
-        let spec = this.props.spec;
+        let {spec, isPreview, linterSpec} = this.props;
         let originalSpec = this.props.originalSpec;
         const options = {
-            // renderSideBySide: false
+            renderSideBySide: false,
+            readOnly: true
         };
+
+        let editor = isPreview ? <MonacoDiffEditor
+            height="79vh"
+            language="json"
+            original={JSON.stringify(originalSpec, null, 2)}
+            value={JSON.stringify(linterSpec, null, 2)}
+            options={options}
+            onChange={this.onChange.bind(this)}
+        // editorDidMount={this.editorDidMount}
+        /> :
+            <MonacoEditor
+                height="79vh"
+                language="json"
+                value={JSON.stringify(spec, null, 2)}
+                onChange={this.onChange.bind(this)}
+                editorDidMount={this.editorDidMount}
+            />
+
         return (
             <div>
-                {/* <Editor
-                    height="80vh"
-                    defaultLanguage="json"
-                    defaultValue={JSON.stringify(spec, null, 2)}
-                    onChange={this.handleEditorChange}
-                    ref={(node) => this.node = node}
-                /> */}
-
-                <div>
-                    <div className="editor-title">Original Code(read-only)</div>
-                    <div className="editor-title">Current Code(editable)</div>
-                </div>
-
-                {/* <DiffEditor
-                    height="80vh"
-                    language="json"
-                    original={JSON.stringify(spec, null, 2)}
-                    modified={JSON.stringify(spec, null, 2)}
-                /> */}
-
-                <MonacoDiffEditor
-                    height="80vh"
-                    language="json"
-                    original={JSON.stringify(originalSpec, null, 2)}
-                    value={JSON.stringify(spec, null, 2)}
-                    options={options}
-                    onChange={this.onChange.bind(this)}
-                    // editorDidMount={this.editorDidMount}
-                />
+                {editor}        
             </div>
         )
     }

@@ -5,19 +5,16 @@ const demo = {
     "mark": "bar",
     "encoding": {
         "x": {
-            "field": "Displacement",
-            "type": "quantitative",
-            "aggregate": "count",
+            "field": "Origin",
+            "type": "nominal",
             "scale": {
-                "zero": false
+                "type": "log"
             }
         },
         "y": {
+            "field": "Acceleration",
             "type": "quantitative",
-            "aggregate": "count",
-            "scale": {
-                "zero": false
-            }
+            "aggregate": "mn"
         }
     }
 }
