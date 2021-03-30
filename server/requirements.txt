@@ -1,3 +1,6 @@
-vega-lite-linter==0.0.12
+vega-lite-linter==0.0.40
 flask
 flask-cors
+pulp
+gunicorn==20.0.4
+# clingo-cffi
