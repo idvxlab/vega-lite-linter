@@ -18,7 +18,8 @@ export default class index extends Component {
       optimizeActions: [],
       fixable: false,
       optimizeSpec: {},
-      enablePreview: false
+      enablePreview: false,
+      showAccept: false
     }
   }
 
@@ -52,6 +53,9 @@ export default class index extends Component {
   showPreview = () => {
     this.props.togglePreview();
     this.props.setLinterSpec(this.state.optimizeSpec)
+    this.setState({
+      showAccept: !this.stateshowAccept
+    })
   }
 
   acceptSuggestion = () => {
@@ -61,6 +65,9 @@ export default class index extends Component {
     } catch (error) {
       console.log("json parse error:" + error);
     }
+    this.setState({
+      showAccept: false
+    })
   }
 
   handleOk = () => {
@@ -73,16 +80,21 @@ export default class index extends Component {
     } catch (error) {
       console.log("json parse error:" + error);
     }
-
+    this.setState({
+      showAccept: false
+    })
   };
 
   handleCancel = () => {
     this.props.togglePreview();
+    this.setState({
+      showAccept: false
+    })
   };
 
   render() {
     let spec = this.props.spec;
-    let { enablePreview } = this.state;
+    let { enablePreview, showAccept } = this.state;
     return (
       <div>
         <Button danger onClick={() => this.getLint(spec)}>
@@ -122,8 +134,8 @@ export default class index extends Component {
             <InfoCircleOutlined color='#08c' height='1em' width='1em' style={{ marginLeft: 10 }} />
           </Tooltip>
 
-          <Button onClick={this.acceptSuggestion} type="primary" style={{ marginLeft: 20 }}>Accept</Button>
-          <Button onClick={this.handleCancel} >Reject</Button>
+          <Button onClick={this.acceptSuggestion} type="primary" style={{ marginLeft: 20, visibility: showAccept ? 'visible' : 'hidden' }}>Accept</Button>
+          <Button onClick={this.handleCancel} style={{visibility: showAccept ? 'visible' : 'hidden' }}>Reject</Button>
         </div>
       </div>
     )

@@ -46,7 +46,7 @@ export default class index extends Component {
         let editor = isPreview ? <MonacoDiffEditor
             height="79vh"
             language="json"
-            original={JSON.stringify(originalSpec, null, 2)}
+            original={JSON.stringify(spec, null, 2)}
             value={JSON.stringify(linterSpec, null, 2)}
             options={options}
             onChange={this.onChange.bind(this)}

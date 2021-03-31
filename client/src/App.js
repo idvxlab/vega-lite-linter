@@ -55,7 +55,7 @@ export default class App extends React.Component {
             </div>
           </Header>
           <Layout>
-            <Sider className="CodeView-container" theme="light" width={570}>
+            <Sider className="CodeView-container" theme="light" width={500}>
               <div style={{marginBottom: 15, marginLeft: 29, fontWeight: 800, fontFamily: 'Avenir'}}>
                 Examples:
                 <Select defaultValue="barchart" style={{ width: 120, marginLeft: 5 }} onChange={this.handleChange}>
