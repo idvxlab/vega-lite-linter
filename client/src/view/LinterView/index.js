@@ -19,14 +19,27 @@ export default class index extends Component {
       fixable: false,
       optimizeSpec: {},
       enablePreview: false,
-      showAccept: false
+      showAccept: false,
+      showRulesAndActions: false
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if(nextProps.currentCase !== this.props.currentCase) {
+      this.setState({
+        violatedRules: [],
+        optimizeActions: [],
+        showRulesAndActions: false
+      })
+    }
+    return true
   }
 
   getLint = async (spec) => {
     let response = await getLinter(spec);
     this.setState({
-      violatedRules: response.data
+      violatedRules: response.data,
+      showRulesAndActions: true
     })
   }
 
@@ -37,7 +50,8 @@ export default class index extends Component {
         fixable: true,
         optimizeActions: response.data.optimize_actions,
         optimizeSpec: response.data.optimize_spec,
-        enablePreview: true
+        enablePreview: true,
+        showRulesAndActions: true
       })
     }
   }
@@ -66,7 +80,10 @@ export default class index extends Component {
       console.log("json parse error:" + error);
     }
     this.setState({
-      showAccept: false
+      showAccept: false,
+      showRulesAndActions: false,
+      violatedRules: [],
+      optimizeActions: []
     })
   }
 
@@ -94,7 +111,7 @@ export default class index extends Component {
 
   render() {
     let spec = this.props.spec;
-    let { enablePreview, showAccept } = this.state;
+    let { enablePreview, showAccept, showRulesAndActions } = this.state;
     return (
       <div>
         <Button danger onClick={() => this.getLint(spec)}>
@@ -104,7 +121,7 @@ export default class index extends Component {
           <InfoCircleOutlined fill='#08c' height='1em' width='1em' style={{ marginLeft: 10 }} />
         </Tooltip>
         <div className="violated-rules">
-          <div style={{ marginLeft: 16 }}>
+          <div style={{ marginLeft: 16, display: showRulesAndActions ? 'block' : 'none' }}>
             <p style={{ fontWeight: 800, margin: 0 }}>Violated Rules:</p>
             {this.state.violatedRules.map((d, i) => {
               return <Rule ruleContent={d} index={i + 1} key={i} />
@@ -120,14 +137,14 @@ export default class index extends Component {
           <InfoCircleOutlined color='#08c' height='1em' width='1em' style={{ marginLeft: 10 }} />
         </Tooltip>
         <div className="violated-rules">
-          <div style={{ marginLeft: 16 }}>
+          <div style={{ marginLeft: 16, display: showRulesAndActions ? 'block' : 'none' }}>
             <p style={{ fontWeight: 800, margin: 0 }}>Fix suggestions:</p>
             {this.state.optimizeActions.map((d, i) => {
               return <Action actionContent={d} index={i + 1} key={i} />
             })}
           </div>
           <br></br>
-          <Button onClick={this.showPreview} disabled={!enablePreview}>
+          <Button onClick={this.showPreview} disabled={!enablePreview || !this.state.optimizeActions.length}>
             Preview
           </Button>
           <Tooltip placement="rightTop" title={'Toggle Preview'}>
@@ -135,7 +152,7 @@ export default class index extends Component {
           </Tooltip>
 
           <Button onClick={this.acceptSuggestion} type="primary" style={{ marginLeft: 20, visibility: showAccept ? 'visible' : 'hidden' }}>Accept</Button>
-          <Button onClick={this.handleCancel} style={{visibility: showAccept ? 'visible' : 'hidden' }}>Reject</Button>
+          <Button onClick={this.handleCancel} style={{ visibility: showAccept ? 'visible' : 'hidden' }}>Reject</Button>
         </div>
       </div>
     )

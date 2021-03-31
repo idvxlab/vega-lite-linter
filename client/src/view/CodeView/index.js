@@ -37,7 +37,7 @@ export default class index extends Component {
 
     render() {
         let {spec, isPreview, linterSpec} = this.props;
-        let originalSpec = this.props.originalSpec;
+        // let originalSpec = this.props.originalSpec;
         const options = {
             renderSideBySide: false,
             readOnly: true
