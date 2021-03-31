@@ -138,7 +138,7 @@ export default class index extends Component {
         </Tooltip>
         <div className="violated-rules">
           <div style={{ marginLeft: 16, display: showRulesAndActions ? 'block' : 'none' }}>
-            <p style={{ fontWeight: 800, margin: 0 }}>Fix suggestions:</p>
+            <p style={{ fontWeight: 800, margin: 0 }}>Fix Suggestions:</p>
             {this.state.optimizeActions.map((d, i) => {
               return <Action actionContent={d} index={i + 1} key={i} />
             })}
