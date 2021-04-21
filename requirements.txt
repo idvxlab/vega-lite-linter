@@ -1,3 +1,4 @@
 clyngor
 pandas
 pulp
+vega_datasets

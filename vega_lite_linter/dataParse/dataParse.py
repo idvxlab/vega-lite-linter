@@ -5,6 +5,7 @@ from pandas.api.types import is_numeric_dtype
 from pandas.api.types import is_bool_dtype
 from pandas.api.types import is_datetime64_any_dtype
 from dateutil.parser import parse
+from vega_datasets import local_data
 
 PATH = os.path.dirname(__file__)
 def getFieldsFromData(vl):
@@ -32,16 +33,21 @@ def getFieldsFromData(vl):
             url = vl['data']['url']
             if url.startswith('data/'):
                 filename = url.split('/')[-1]
-                possibleFiles = os.listdir(PATH + '/../data')
-                if filename in possibleFiles:
-                    filetype = filename.split('.')[1] # TODO if invalid file name? i.e. without extension type
-                    if filetype == 'json': # TODO support json for now
-                        with open(PATH + '/../data/' + filename) as json_file:
-                            data = json.load(json_file)
-                            fields = getFields(data)
-                    elif filetype == 'csv':
-                        dataF = pd.read_csv(PATH + '/../data/' + filename, header=0)
-                        fields = getFields(dataF, True)
+                filenameShort = filename.split('.')[0]
+                if filenameShort in local_data.list_datasets(): # 内置
+                    dataF = getattr(local_data, filenameShort.replace('-', '_'))()
+                    fields = getFields(dataF, True)
+                else:
+                    possibleFiles = os.listdir(PATH + '/../data')
+                    if filename in possibleFiles:
+                        filetype = filename.split('.')[1] # TODO if invalid file name? i.e. without extension type
+                        if filetype == 'json': # TODO support json for now
+                            with open(PATH + '/../data/' + filename) as json_file:
+                                data = json.load(json_file)
+                                fields = getFields(data)
+                        elif filetype == 'csv':
+                            dataF = pd.read_csv(PATH + '/../data/' + filename, header=0)
+                            fields = getFields(dataF, True)
                 if url == "data/cars.json":
                     fields = [{'field': 'Name', 'fieldtype': 'string', 'type': 'nominal', 'cardinality': 311}, {'field': 'Miles_per_Gallon', 'fieldtype': 'number', 'type': 'quantitative', 'min': 9.0, 'max': 46.6, 'cardinality': 130}, {'field': 'Cylinders', 'fieldtype': 'string', 'type': 'ordinal', 'min': 3, 'max': 8, 'cardinality': 5}, {'field': 'Displacement', 'fieldtype': 'number', 'type': 'quantitative', 'min': 68.0, 'max': 455.0, 'cardinality': 83}, {'field': 'Horsepower', 'fieldtype': 'number', 'type': 'quantitative', 'min': 46.0, 'max': 230.0, 'cardinality': 94}, {'field': 'Weight_in_lbs', 'fieldtype': 'number', 'type': 'quantitative', 'min': 1613, 'max': 5140, 'cardinality': 356}, {'field': 'Acceleration', 'fieldtype': 'number', 'type': 'quantitative', 'min': 8.0, 'max': 24.8, 'cardinality': 96}, {'field': 'Year', 'fieldtype': 'datetime', 'type': 'temporal', 'cardinality': 12}, {'field': 'Origin', 'fieldtype': 'string', 'type': 'nominal', 'cardinality': 3}]
             
