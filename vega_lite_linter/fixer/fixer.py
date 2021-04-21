@@ -38,19 +38,19 @@ def fixer(vl, facts, v_rules, allFields):
             # 如果这个action intro 为空字符，说明无法执行这个动作
             # 从动作空间剔除掉
             if intro:
-                action['delete'] = False
+                action['_delete'] = False
             else:
-                action['delete'] = True
+                action['_delete'] = True
             
             w1 = 0.8
             w2 = 0.2
             action['score'] = w1 * action['reward'] - w2 * action['transition']
-            action['newvl'] = newvl
+            # action['newvl'] = newvl
             action['fixRules'] = fixRules
             action['rid_idx'] = index
             action['action_intro'] = intro
 
-    detailActionsFilter = [[action for action in rule if not action['delete']] for rule in detailActions]
+    detailActionsFilter = [[action for action in rule if not action['_delete']] for rule in detailActions]
 
     # 3. use linear programming to find optimal set of actions
     # add action attribute 'apply' 
@@ -71,7 +71,7 @@ def fixer(vl, facts, v_rules, allFields):
     res = {
         'fixable': True if optimizeActions else False,
         'optimize_spec': newvl if optimizeActions else {},
-        'optimize_actions': list(optimizeActionsSet),
+        'optimize_actions': [{'action': action[0], 'param1': action[1], 'param2': action[2], 'action_intro': action[3]} for action in list(optimizeActionsSet)],#list(optimizeActionsSet),
         'possible_actions': updateActions,
         'violate_rules': v_rules,
         'origin_spec': vl

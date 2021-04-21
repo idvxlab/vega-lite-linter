@@ -8,21 +8,24 @@ import json
 # print(demo)
 demo = {
     "data": {
-      "url": "data/seattle-weather.csv"
+        "url": "data/cars.json"
     },
     "mark": "bar",
     "encoding": {
-      "x": {
-        "field": "weather",
-        "aggregate": "count",
-        "type": "nominal",
-      },
-      "y": {
-        "aggregate": "count",
-        "type": "quantitative"
-      }
+        "x": {
+            "field": "Horsepower",
+            "type": "quantitative"
+        },
+        "y": {
+            "field": "Miles_per_Gallon",
+            "type": "quantitative"
+        },
+        "size": {
+            "field": "Cylinders",
+            "type": "ordinal"
+        }
     }
-  }
+}
 
 lint = Lint(demo)
 result = lint.lint()
@@ -34,12 +37,12 @@ print('fix rules: ', '-'*20)
 for key in fix:
     print('---- ', key, fix[key])
 
-if fix['fixable']:
-    newvl = fix['optimize_spec']
-    new_lint = Lint(newvl)
-    new_result = new_lint.lint()
-    print('new lint rules: ', '-'*20)
-    print(new_result)
+# if fix['fixable']:
+#     newvl = fix['optimize_spec']
+#     new_lint = Lint(newvl)
+#     new_result = new_lint.lint()
+#     print('new lint rules: ', '-'*20)
+#     print(new_result)
     # new_fix = new_lint.fix()
     # for key in new_fix:
     #     print('---- ', key, new_fix[key])

@@ -134,3 +134,4 @@ orientation(horizontal) :- mark(bar;tick;area;line), channel_discrete(y).
 #defined encoding/1.
 #defined channel/2.
 #defined field/2.
+#defined mark/1.

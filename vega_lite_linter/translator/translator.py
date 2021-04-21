@@ -1,7 +1,8 @@
 def translator(spec, allFields):
     facts = []
 
-    facts.append('mark(' + spec['mark'] + ').')
+    if 'mark' in spec:
+        facts.append('mark(' + spec['mark'] + ').')
 
     if 'data' in spec and 'url' in spec['data']:
         facts.append('data("' + spec['data']['url'] + '").')
@@ -83,6 +84,11 @@ def translator(spec, allFields):
                 if field == 'type':
                     # pass
                     facts.append('type' +'(' + eid + ',' + encFieldType + ').')
+                if field == 'stack':
+                    if fieldContent is True:
+                        facts.append(field + '(' + eid + ',zero).')
+                    else:
+                        facts.append(field +'(' + eid + ',' + fieldContent.lower() + ').')
                 elif field != 'bin':
                     facts.append(field +'(' + eid + ',' + fieldContent.lower() + ').')
                     # facts.append('field(' + fieldContent.lower() + ').')

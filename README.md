@@ -1,7 +1,29 @@
 # vega-lite-linter
-Fixing your visualization design written in Vega-Lite based on the answer set programming.
+Fixing your visualization design written in Vega-Lite based on the Answer Set Programming.
+
+## Setup
+### Step 1: install **Clingo**
+   First, you need to install Clingo.
+
+For MacOS
+```
+brew install clingo
+```
+
+Using Conda
+```
+conda install -c potassco clingo
+```
+
+For other system, please look up to https://potassco.org/clingo/
+
+### Step 2: install vega-lite-linter
+```
+pip install vega-lite-linter
+```
 
 ## Usage
+
 ```python
 from vega_lite_linter import Lint 
 
@@ -9,34 +31,37 @@ vega_json = {
     "data": {
         "url": "data/cars.json"
     },
-    "mark": "point",
+    "mark": "bar",
     "encoding": {
         "x": {
-            "field": "Acceleration",
+            "field": "Horsepower",
             "type": "quantitative"
         },
         "y": {
-            "field": "Origin",
-            "type": "nominal",
-            "scale": {
-                "zero": true
-            }
+            "field": "Miles_per_Gallon",
+            "type": "quantitative"
+        },
+        "size": {
+            "field": "Cylinders",
+            "type": "ordinal"
         }
     }
 }
 
+# initialize 
 lint = Lint(vega_json)
-# show rules that the input vega-lite json violates
+
+# show rules that the input vega-lite json violated
 violate_rules = lint.lint()
 
-# show quick-fix result
+# show fixing recommendation by vega-lite-linter
 fix = lint.fix()
 
 ```
+## License
+The software is available under the [MIT License](https://github.com/idvxlab/vega-lite-linter/blob/main/LICENSE).
 
 
-# build
-```
-python3 setup.py sdist bdist_wheel
-python3 -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*   
-```
+
+## Contact
+If you have any question, feel free to open new issues.
