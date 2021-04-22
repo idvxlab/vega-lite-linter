@@ -1,4 +1,4 @@
-vega-lite-linter==0.0.40
+vega-lite-linter==0.0.41
 flask
 flask-cors
 pulp
