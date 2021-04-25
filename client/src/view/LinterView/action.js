@@ -7,7 +7,7 @@ export default class action extends Component {
         // let action = actionArr.join('_');
         return (
             <div>
-                {this.props.actionContent[3]}
+                {this.props.actionContent['action_intro']}
             </div>
         )
     }
