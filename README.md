@@ -58,6 +58,10 @@ violate_rules = lint.lint()
 fix = lint.fix()
 
 ```
+
+<!-- More details can be found in [vega-lite-linter's project website](xxx). -->
+
+
 ## License
 The software is available under the [MIT License](https://github.com/idvxlab/vega-lite-linter/blob/main/LICENSE).
 

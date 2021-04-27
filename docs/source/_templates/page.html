@@ -1,0 +1,14 @@
+{% extends "!page.html" %}
+
+{% block code %}
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .snippet").show();
+        $(".toggle .snippet").click(function() {
+            $(this).parent().children().not(".snippet").toggle(400);
+            $(this).parent().children(".snippet").toggleClass("open");
+        })
+    });
+</script>
+{% endblock %}

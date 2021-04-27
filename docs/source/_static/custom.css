@@ -1,0 +1,47 @@
+table .row-odd {
+    background-color: #f8f8f8;
+}
+
+table {
+    width: 100%;
+}
+
+/* td:nth-child(1) {
+    width: 20% !important;
+}
+td:nth-child(2) {
+    width: 80% !important;
+} */
+
+td:nth-child(1) {
+    word-break: break-all;
+}
+
+td:nth-child(2) {
+    word-break: keep-all;
+}
+
+/* .row-even td:nth-child(1) { width: 20%;} */
+.rule {
+    width:100%;
+    table-layout: fixed;
+}
+.rule col:nth-child(1) {
+    width: 40% !important;
+}
+.rule col:nth-child(2) {
+    width: 60% !important;
+}
+/* .row-even td:nth-child(2) { width: 80% !important;} */
+
+/* colgroup {
+    display: none;
+} */
+
+details.example_code[open] summary::after {
+    content: attr(data-open);
+}
+
+details.example_code:not([open]) summary::after {
+    content: attr(data-close);
+}
