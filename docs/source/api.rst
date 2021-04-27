@@ -7,7 +7,7 @@ API Reference
 Initialization
 ===================
 
-At first, an `Lint` instance should be initialized given the target visualization specification::
+At first, an ``Lint`` instance should be initialized given the target visualization specification::
 
     lint = Lint(vegalite_json)
 
@@ -18,7 +18,7 @@ After initializing, the two functions listed below can be called on the instance
 
 ``lint()`` detects any issues in the given visualization specification.
 
-One detected issue will be presented as an**Rule**object containing:
+Each detected issue will be presented as an **Rule** object containing:
 
 * ``id`` : string. the linted rule id.
 * ``param1`` : string(optional). related parameters, usually the encoding channel where the rule is in.
@@ -32,7 +32,7 @@ One detected issue will be presented as an**Rule**object containing:
 
 The result of ``fix()`` contains:
 
-* ``fixable`` : boolean. the indicator of wheather the given visualization specification can be fixed by ``vega-lite-linter``.
+* ``fixable`` : boolean. the indicator of whether the given visualization specification can be fixed by ``vega-lite-linter``.
 * ``optimize_spec`` : object. the specification after revision.
 * ``optimize_actions`` : **Action** []. the recommended action set to fix the visualization.
 * ``possible_actions`` : **Action** [][]. all possible actions to fix the visualization, grouped by each issue.
@@ -49,7 +49,7 @@ The result of ``fix()`` contains:
 * ``reward`` : number. the reward of the action.
 * ``score`` : number. the score of the action, calculating by transition and reward.
 * ``action_intro`` : the description of the action.
-* ``apply`` : 0 | 1. the indicator of wheather the action is adopted in the ``optimize_actions``.
+* ``apply`` : 0 | 1. the indicator of whether the action is adopted in the ``optimize_actions``.
 
 ``data`` in specification
 ===================
@@ -101,7 +101,7 @@ Encoding
 +-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | field     | The data field encoded by the channel.                                                                                                                         |
 +-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| type      | The type of measurement                                                                                                                                        |
+| type      | The type of measurement.                                                                                                                                       |
 |           | Can be one of the following values: ``quantitative``, ``temporal``, ``ordinal``, or ``nominal``.                                                               |
 +-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | bin       | Binning discretizes numeric values into a set of bins.                                                                                                         |
@@ -119,13 +119,13 @@ Encoding
 
 ``scale`` property including:
 
-+-----------+------------------------------------------------------------------------------------------+
-| Property  | Value                                                                                    |
-+===========+==========================================================================================+
-| type      | The type of scale. Currently the algorithm detects errors related to ``log`` type.       |
-+-----------+------------------------------------------------------------------------------------------+
-| zero      | If ``true``, ensures that a zero baseline value is included in the scale domain.         |
-+-----------+------------------------------------------------------------------------------------------+
++-----------+---------------------------------------------------------------------------------------------------------+
+| Property  | Value                                                                                                   |
++===========+=========================================================================================================+
+| type      | The type of scale transformation. Currently the algorithm detects errors related to ``log`` type.       |
++-----------+---------------------------------------------------------------------------------------------------------+
+| zero      | If ``true``, ensure that a zero baseline value is included in the scale domain.                         |
++-----------+---------------------------------------------------------------------------------------------------------+
 
-Detail information about Vega-Lite properties can be found `here <https://vega.github.io/vega-lite/docs/>`_.
+More details about Vega-Lite properties can be found `here <https://vega.github.io/vega-lite/docs/>`_.
 

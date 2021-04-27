@@ -130,8 +130,8 @@ Example 3
 In this case, the original visualization(left) has violated three rules:
 
 - Channel size is not suitable for data with negative values.
-- Use log scale on data that are all positive.
-- Temporal only supports min and max.
+- Only use log scale on data that are all positive.
+- Temporal data only supports min and max aggregation.
 
 It can be fixed by actions:
 

@@ -38,6 +38,10 @@ td:nth-child(2) {
     display: none;
 } */
 
+details.example_code {
+    margin-top: 5px;
+}
+
 details.example_code[open] summary::after {
     content: attr(data-open);
 }
