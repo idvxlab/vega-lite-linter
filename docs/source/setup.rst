@@ -74,7 +74,7 @@ Using Altair
 
 `Altair <https://altair-viz.github.io/>`_ is a declarative statistical visualization library for Python, based on Vega and Vega-Lite.
 
-::
+.. code-block:: python
 
     from vega_lite_linter import Lint 
     import altair as alt
