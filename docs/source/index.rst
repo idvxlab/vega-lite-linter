@@ -33,6 +33,20 @@ An online Vega-Lite editor `VizLinter <http://vizlinter.idvxlab.com/>`_ is creat
   :width: 100%
 
 
+Credits
+============================================
+``vega-lite-linter`` was create by `iDVX Lab <https://idvxlab.com/>`_ and funded by `AntV <https://antv.vision/en>`_ .
+
+
+.. image:: ./_static/idvx.png
+  :height: 100px
+  :target: https://idvxlab.com/
+
+.. image:: ./_static/antv.png
+  :height: 100px
+  :target: https://antv.vision/en
+  :class: logo2
+
 
 .. toctree::
    :maxdepth: 2

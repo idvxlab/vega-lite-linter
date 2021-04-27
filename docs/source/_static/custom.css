@@ -49,3 +49,7 @@ details.example_code[open] summary::after {
 details.example_code:not([open]) summary::after {
     content: attr(data-close);
 }
+
+.logo2 {
+    margin-left: 20px;
+}
