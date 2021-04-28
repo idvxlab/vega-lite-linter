@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>vega-lite-linter | Docs</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link
+        href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+        rel='stylesheet' type='text/css'>
+    <!-- FontAwesome JS -->
+    <script defer src="assets/fontawesome/js/all.js"></script>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="assets/plugins/prism/prism.css">
+    <link rel="stylesheet" href="assets/plugins/elegant_font/css/style.css">
+
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+
+
+</head>
+
+<body>
+    <div class="page-wrapper">
+
+        <!-- ******Header****** -->
+        <header id="header" class="header">
+            <div class="container">
+                <div class="branding">
+                    <h1 class="logo">
+                        <a class="logo" href="index.html">
+                            vega-lite-linter
+                        </a>
+                    </h1>
+                </div>
+                <!--//branding-->
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active">Example</li>
+                </ol>
+            </div>
+            <!--//container-->
+        </header>
+        <!--//header-->
+
+        <div class="doc-wrapper">
+            <div class="container">
+                <div id="doc-header" class="doc-header text-center">
+                    <h1 class="doc-title"><span aria-hidden="true" class="icon icon_genius"></span>
+                        Example</h1>
+                </div>
+                <!--//doc-header-->
+                <div id="showcase" class="doc-body row">
+                    <div class="doc-content col-md-9 col-12 order-1">
+                        <div class="content-inner">
+                            <section id="application" class="doc-section">
+                                <h2 class="section-title">Application</h2>
+                                <div id="editor" class="section-block">
+                                    <h3 class="block-title">VizLinter: Online Vega-Lite Editor</h3>
+                                    <p>
+                                        An online Vega-Lite editor <a href="http://vizlinter.idvxlab.com/" target="_blank">VizLinter</a> is created with linting and fixing functions based on vega-lite-linter for any Vega-Lite developer to build and validate visualizations.
+                                        After writing or loading visualization specification in the editor panel, users can click the "Inspect Specs" button to view any 
+                                        Users can correct the specification according to the description of rules on their own or check our suggested actions by clicking the "Suggest Revision" button. 
+                                        To preview the automatic modifications done by these fixing advice, users can click the "Preview" button. The corresponding revised specification will show up in the code panel and users can decide to apply or reject the revisions through the "Accept" and "Reject" buttons.
+                                    </p>
+                                    <img class="img-fluid img-center" src="assets/images/editor.png" alt="OnlineEditor" >
+
+                                </div>
+                                <!--//section-block-->
+                            </section>
+                            <!--//doc-section-->
+
+                            <section id="examples" class="doc-section">
+                                <h2 class="section-title">Examples</h2>
+                                <div class="section-block">
+                                    <p>vega-lite-linter provides simple APIs for visualization developers to detect and
+                                        fix issues in the built visualizations.
+                                    </p>
+                                </div>
+                                <div id="api-initialization" class="section-block">
+                                    <h3 class="block-title">Initialization</h3>
+                                    <p>At first, an Lint instance should be initialized given the target visualization
+                                        specification:
+                                    </p>
+                                    <div class="code-block">
+                                        <pre class="language-python"><code>lint = Lint(vegalite_json)</code></pre>
+                                    </div>
+                                    <!--//code-block-->
+                                    <p>After initializing, the two functions listed below can be called on the instance
+                                        object.
+                                    </p>
+                                </div>
+
+                                <div id="api-lint" class="section-block">
+                                    <h3 class="block-title"><code class="language-python">lint()</code>: Detecting
+                                        Issues</h3>
+                                    <p>lint() detects any issues in the given visualization specification. Each detected
+                                        issue will be presented as an <strong>Rule</strong> object containing:
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-md-12 col-12">
+                                            <ul class="list">
+                                                <li><strong>id</strong>: string. the linted rule id.</li>
+                                                <li><strong>param1</strong>: string(optional). related parameters,
+                                                    usually the encoding channel where the rule is in.</li>
+                                                <li><strong>param2</strong>: string(optional). related parameters,
+                                                    usually the incorrect input where the rule happens.</li>
+                                                <li><strong>explain</strong>: string. the description of the rule.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!--//row-->
+                                </div>
+
+                                <div id="api-fix" class="section-block">
+                                    <h3 class="block-title"><code class="language-python">fix()</code>: Fixing Issues
+                                    </h3>
+                                    <p>fix() runs the algorithm to help revise the visualization specification into a
+                                        correct one.
+                                        The result of fix() contains:
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-md-12 col-12">
+                                            <ul class="list">
+                                                <li><strong>fixable</strong>: boolean. the indicator of whether the
+                                                    given visualization specification can be fixed by vega-lite-linter.
+                                                </li>
+                                                <li><strong>optimize_spec</strong>: object. the specification after
+                                                    revision.</li>
+                                                <li><strong>optimize_actions</strong>: <strong>Action</strong>[]. the
+                                                    recommended action set to fix the visualization.</li>
+                                                <li><strong>possible_actions</strong>: <strong>Action</strong>[][]. all
+                                                    possible actions to fix the visualization, grouped by each issue.
+                                                </li>
+                                                <li><strong>violate_rules</strong>: <strong>Rule</strong>[]. the
+                                                    detected rules in the original specification.</li>
+                                                <li><strong>origin_spec</strong>: object. the original specification.
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!--//row-->
+                                    <p><strong>Action</strong> object contains:
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-md-12 col-12">
+                                            <ul class="list">
+                                                <li><strong>action</strong>: string. the name of the action.</li>
+                                                <li><strong>param1</strong>: string. the encoding channel to perform the
+                                                    action.</li>
+                                                <li><strong>param2</strong>: string. the parameter to perform the
+                                                    action.</li>
+                                                <li><strong>rid</strong>: string. the rule id that the action solved.
+                                                </li>
+                                                <li><strong>transition</strong>: number. the transition cost of the
+                                                    action.</li>
+                                                <li><strong>reward</strong>: number. the reward of the action.</li>
+                                                <li><strong>score</strong>: number. number. the score of the action,
+                                                    calculating by transition and reward.</li>
+                                                <li><strong>action_intro</strong>: the description of the action.</li>
+                                                <li><strong>apply</strong>: 0 | 1. the indicator of whether the action
+                                                    is adopted in the optimize_actions.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!--//row-->
+                                </div>
+
+                                <!-- <div id="api-data" class="section-block">
+                                    <h3 class="block-title"><code class="language-python">data</code> in Specification</h3>
+                                    <p>vega-lite-linter helps detect some errors related to data by deriving data properties from raw data, such as data field type and min/max value of numerical data field.
+
+                                        Currently, vega-lite-linter supports such calculation with inline data specified using values property, or <a class="reference external" href="https://vega.github.io/vega-datasets/" target="_blank">build-in datasets</a> of Vega and Vega-Lite.
+                                    </p>
+                                    <a data-toggle="collapse" href="#builtindata" class="collapsed" aria-expanded="false">
+                                        Show built-in dataset: ▸
+                                    </a>
+                                    <div class="row collapse" id="builtindata">
+                                        <div class="col-md-12 col-12">
+                                            <ul class="list">
+        										<li>airports</li>
+                                                <li>anscombe</li>
+                                                <li>barley</li>
+                                                <li>burtin</li>
+                                                <li>cars</li>
+                                                <li>crimea</li>
+                                                <li>driving</li>
+                                                <li>iowa-electricity</li>
+                                                <li>iris</li>
+                                                <li>la-riots</li>
+                                                <li>seattle-temps</li>
+                                                <li>seattle-weather</li>
+                                                <li>sf-temps</li>
+                                                <li>stocks</li>
+                                                <li>us-employment</li>
+                                                <li>wheat</li>
+        									</ul>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                                <div id="api-vegalite" class="section-block">
+                                    <h3 class="block-title">Vega-Lite Properties</h3>
+                                    <p>The related Vega-Lite properties are listed as follows.
+                                    </p>
+                                    <h4>Data</h4>
+                                    <p>vega-lite-linter helps detect some errors related to data by deriving data
+                                        properties from raw data, such as data field type and min/max value of numerical
+                                        data field.
+
+                                        Currently, vega-lite-linter supports such calculation with inline data specified
+                                        using values property, or <a class="reference external"
+                                            href="https://vega.github.io/vega-datasets/" target="_blank">build-in
+                                            datasets</a> of Vega and Vega-Lite.
+                                    </p>
+                                    <p>
+                                        <a data-toggle="collapse" href="#builtindata" class="collapsed"
+                                            aria-expanded="false">
+                                            Show built-in dataset: ▸
+                                        </a>
+                                    </p>
+
+                                    <div class="row collapse" id="builtindata">
+                                        <div class="col-md-12 col-12">
+                                            <ul class="list">
+                                                <li>airports</li>
+                                                <li>anscombe</li>
+                                                <li>barley</li>
+                                                <li>burtin</li>
+                                                <li>cars</li>
+                                                <li>crimea</li>
+                                                <li>driving</li>
+                                                <li>iowa-electricity</li>
+                                                <li>iris</li>
+                                                <li>la-riots</li>
+                                                <li>seattle-temps</li>
+                                                <li>seattle-weather</li>
+                                                <li>sf-temps</li>
+                                                <li>stocks</li>
+                                                <li>us-employment</li>
+                                                <li>wheat</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!--//row-->
+
+                                    <h4>Mark</h4>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Property</th>
+                                                    <th>Value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>mark</td>
+                                                    <td><strong>Required</strong>. The mark type of the visualization.
+                                                        Can be one of the following values: area, bar, line, point and
+                                                        tick.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!--//table-responsive-->
+
+                                    <h4>Encoding</h4>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Property</th>
+                                                    <th>Value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>channel</td>
+                                                    <td><strong>Required</strong>. The encoding channel type, which is
+                                                        specified as the key of each encoding. Can be one of the
+                                                        following values: x, y, color, size.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>field</td>
+                                                    <td>The data field encoded by the channel.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>type</td>
+                                                    <td>The type of measurement. Can be one of the following values:
+                                                        quantitative, temporal, ordinal, or nominal.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>bin</td>
+                                                    <td>Binning discretizes numeric values into a set of bins. Can be
+                                                        one of the following values: true, false, or { maxBins:
+                                                        Maximum_number_of_bins(e.g., 10) }.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>aggregate</td>
+                                                    <td>Aggregating summary statistics on the data field. Can be one of
+                                                        the following values: count, mean, median, min, max, stdev, sum
+                                                        and etc.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>stack</td>
+                                                    <td>The type of stacking offset if the field should be stacked. Can
+                                                        be one of the following values: true, zero, normalize, center or
+                                                        false.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>scale</td>
+                                                    <td>Functions that transform a domain of data values.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!--//table-responsive-->
+                                    <p><code class="language-python"><span>scale</span></code> property including:
+                                    </p>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Property</th>
+                                                    <th>Value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>type</td>
+                                                    <td>The type of scale transformation. Currently the algorithm
+                                                        detects errors related to log type.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>zero</td>
+                                                    <td>If true, ensure that a zero baseline value is included in the
+                                                        scale domain.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!--//table-responsive-->
+
+                                    <p>More details about Vega-Lite properties can be found <a
+                                            class="reference external" href="https://vega.github.io/vega-lite/docs/"
+                                            target="_blank">here</a>.</p>
+
+
+                                </div>
+                            </section>
+                            <!--//doc-section-->
+                        </div>
+                        <!--//content-inner-->
+                    </div>
+                    <div class="doc-sidebar col-md-3 col-12 order-0 d-none d-md-flex">
+                        <div id="doc-nav" class="doc-nav">
+                            <nav id="doc-menu" class="nav doc-menu flex-column sticky">
+                                <a class="nav-link scrollto" href="#application">Application</a>
+                                <a class="nav-link scrollto" href="#examples">Examples</a>
+                            </nav>
+                            <!--//doc-menu-->
+                        </div>
+                    </div>
+                    <!--//doc-sidebar-->
+                </div>
+                <!--//doc-body-->
+            </div>
+            <!--//container-->
+        </div>
+        <!--//doc-wrapper-->
+
+
+    </div>
+    <!--//page-wrapper-->
+
+    <footer class="footer text-center">
+        <div class="container">
+            <p>
+                <!-- vega-lite-linter -->
+                <!-- <br> -->
+                <small>Copyright © 2021 <a href="https://idvxlab.com/">Intelligent Big Data Visualization Lab
+                        (iDV<sup>x</sup> Lab)</a> All Rights Reserved</small>
+
+            </p>
+            <!-- <br> -->
+            <!-- <br> -->
+            <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+            <small class="copyright">Designed with <i class="fas fa-heart"></i> by <a
+                    href="https://themes.3rdwavemedia.com/" target="_blank">Xiaoying Riley</a> for developers</small>
+
+        </div>
+        <!--//container-->
+    </footer>
+    <!--//footer-->
+
+    <!-- Main Javascript -->
+    <script type="text/javascript" src="assets/plugins/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/prism/prism.js"></script>
+    <script type="text/javascript" src="assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/stickyfill/dist/stickyfill.min.js"></script>
+    <script type="text/javascript" src="assets/js/main.js"></script>
+
+</body>
+
+</html>

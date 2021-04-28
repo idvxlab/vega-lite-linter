@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>vega-lite-linter | Docs</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">    
+    <link rel="shortcut icon" href="favicon.ico">  
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- FontAwesome JS -->
+    <script defer src="assets/fontawesome/js/all.js"></script>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">   
+    <!-- Plugins CSS -->    
+    <link rel="stylesheet" href="assets/plugins/prism/prism.css">
+    <link rel="stylesheet" href="assets/plugins/elegant_font/css/style.css">  
+      
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+    
+</head> 
+
+<body class="body-blue">
+    <div class="page-wrapper">
+        <!-- ******Header****** -->
+        <header id="header" class="header">
+            <div class="container">
+                <div class="branding">
+                    <h1 class="logo">
+                        <a class="logo" href="index.html">
+                            vega-lite-linter
+                        </a>
+                    </h1>
+                    
+                </div><!--//branding-->
+                
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active">Documentation</li>
+                </ol>
+                
+                <!-- <div class="top-search-box">
+	                 <form class="form-inline search-form justify-content-center" action="" method="get">
+	            
+			            <input type="text" placeholder="Search..." name="search" class="form-control search-input">
+			            
+			            <button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
+			            
+			        </form>
+                </div> -->
+                
+            </div><!--//container-->
+        </header><!--//header-->
+        <div class="doc-wrapper">
+            <div class="container">
+                <div id="doc-header" class="doc-header text-center">
+                    <h1 class="doc-title"><i class="icon icon_document_alt"></i> Documentation</h1>
+                </div><!--//doc-header-->
+                <div class="doc-body row">
+                    <div class="doc-content col-md-9 col-12 order-1">
+                        <div class="content-inner">
+                            <section id="setup" class="doc-section">
+                                <h2 class="section-title">Setup</h2>
+                                <div id="prerequisite"  class="section-block">
+                                    <h3 class="block-title">Prerequisite</h3>
+                                    <p>vega-lite-linter requires <a class="reference external" href="https://potassco.org/clingo/" target="_blank">Clingo</a> as the solver of <strong>Answer Set Programming</strong>, users must install it first.</p>
+                                    <div class="code-block">
+                                        <p>For Linux users:</p>
+                                        <pre class="language-shell"><code>apt-get install -y gringo</code></pre>
+                                        <p>For MacOs users:</p>
+                                        <pre class="language-bash"><code>brew install clingo</code></pre>
+                                        <p>Or using Conda:</p>
+                                        <pre class="language-shell"><code>conda install -c potassco clingo</code></pre>
+                                    </div><!--//code-block-->
+                                </div><!--//section-block-->
+                                <div id="installation"  class="section-block">
+                                    <h3 class="block-title">Installation</h3>
+                                    <p>vega-lite-linter is built on Python 3 and can be installed by:
+                                    </p>
+                                    <div class="code-block">
+                                        <pre class="language-shell"><code>pip install vega-lite-linter</code></pre>
+                                    </div><!--//code-block-->
+                                </div><!--//section-block-->
+                                <div id="sample"  class="section-block">
+                                    <h3 class="block-title">Sample Code</h3>
+                                    <p>After successfully installing Clingo and vega-lite-linter, you can use the below sample code to get started.
+                                    </p>
+                                    <p>More detailed examples can be found in Example.
+                                    </p>
+                                    <div class="code-block">
+                                        <pre class="language-python"><code>
+from vega_lite_linter import Lint
+
+vega_json = {
+    &#x22;data&#x22;: {
+        &#x22;url&#x22;: &#x22;data/cars.json&#x22;
+    },
+    &#x22;mark&#x22;: &#x22;bar&#x22;,
+    &#x22;encoding&#x22;: {
+        &#x22;x&#x22;: {
+            &#x22;field&#x22;: &#x22;Horsepower&#x22;,
+            &#x22;type&#x22;: &#x22;quantitative&#x22;
+        },
+        &#x22;y&#x22;: {
+            &#x22;field&#x22;: &#x22;Miles_per_Gallon&#x22;,
+            &#x22;type&#x22;: &#x22;quantitative&#x22;
+        },
+        &#x22;size&#x22;: {
+            &#x22;field&#x22;: &#x22;Cylinders&#x22;,
+            &#x22;type&#x22;: &#x22;ordinal&#x22;
+        }
+    }
+}
+
+# initialize
+lint = Lint(vega_json)
+
+# show rules that the input vega-lite json violated
+violate_rules = lint.lint()
+
+# show fixing recommendation by vega-lite-linter
+fix = lint.fix()
+                                        </code></pre>
+                                    </div><!--//code-block-->
+                                </div><!--//section-block-->
+                            </section><!--//doc-section-->
+
+                            <section id="api" class="doc-section">
+                                <h2 class="section-title">API Reference</h2>
+                                <div class="section-block">
+                                    <p>vega-lite-linter provides simple APIs for visualization developers to detect and fix issues in the built visualizations.
+                                    </p>
+                                </div>
+                                <div id="api-initialization" class="section-block">
+                                    <h3 class="block-title">Initialization</h3>
+                                    <p>At first, an Lint instance should be initialized given the target visualization specification:
+                                    </p>
+                                    <div class="code-block">
+                                        <pre class="language-python"><code>lint = Lint(vegalite_json)</code></pre>
+                                    </div><!--//code-block-->
+                                    <p>After initializing, the two functions listed below can be called on the instance object.
+                                    </p>
+                                </div>
+
+                                <div id="api-lint" class="section-block">
+                                    <h3 class="block-title"><code class="language-python">lint()</code>: Detecting Issues</h3>
+                                    <p>lint() detects any issues in the given visualization specification. Each detected issue will be presented as an <strong>Rule</strong> object containing:
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-md-12 col-12">
+                                            <ul class="list">
+        										<li><strong>id</strong>: string. the linted rule id.</li>
+        										<li><strong>param1</strong>: string(optional). related parameters, usually the encoding channel where the rule is in.</li>
+        										<li><strong>param2</strong>: string(optional). related parameters, usually the incorrect input where the rule happens.</li>
+        										<li><strong>explain</strong>: string. the description of the rule.</li>
+        									</ul>
+                                        </div>
+                                    </div><!--//row-->
+                                </div>
+
+                                <div id="api-fix" class="section-block">
+                                    <h3 class="block-title"><code class="language-python">fix()</code>: Fixing Issues</h3>
+                                    <p>fix() runs the algorithm to help revise the visualization specification into a correct one.
+                                            The result of fix() contains:
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-md-12 col-12">
+                                            <ul class="list">
+        										<li><strong>fixable</strong>: boolean. the indicator of whether the given visualization specification can be fixed by vega-lite-linter.</li>
+        										<li><strong>optimize_spec</strong>: object. the specification after revision.</li>
+        										<li><strong>optimize_actions</strong>: <strong>Action</strong>[]. the recommended action set to fix the visualization.</li>
+        										<li><strong>possible_actions</strong>: <strong>Action</strong>[][]. all possible actions to fix the visualization, grouped by each issue.</li>
+        										<li><strong>violate_rules</strong>: <strong>Rule</strong>[]. the detected rules in the original specification.</li>
+        										<li><strong>origin_spec</strong>: object. the original specification.</li>
+
+        									</ul>
+                                        </div>
+                                    </div><!--//row-->
+                                    <p><strong>Action</strong> object contains:
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-md-12 col-12">
+                                            <ul class="list">
+                                                <li><strong>action</strong>: string. the name of the action.</li>
+                                                <li><strong>param1</strong>: string. the encoding channel to perform the action.</li>
+                                                <li><strong>param2</strong>: string. the parameter to perform the action.</li>
+                                                <li><strong>rid</strong>: string. the rule id that the action solved.</li>
+                                                <li><strong>transition</strong>: number. the transition cost of the action.</li>
+                                                <li><strong>reward</strong>: number. the reward of the action.</li>
+                                                <li><strong>score</strong>: number. number. the score of the action, calculating by transition and reward.</li>
+                                                <li><strong>action_intro</strong>: the description of the action.</li>
+                                                <li><strong>apply</strong>: 0 | 1. the indicator of whether the action is adopted in the optimize_actions.</li>
+                                            </ul>
+                                        </div>
+                                    </div><!--//row-->
+                                </div>
+
+                                <!-- <div id="api-data" class="section-block">
+                                    <h3 class="block-title"><code class="language-python">data</code> in Specification</h3>
+                                    <p>vega-lite-linter helps detect some errors related to data by deriving data properties from raw data, such as data field type and min/max value of numerical data field.
+
+                                        Currently, vega-lite-linter supports such calculation with inline data specified using values property, or <a class="reference external" href="https://vega.github.io/vega-datasets/" target="_blank">build-in datasets</a> of Vega and Vega-Lite.
+                                    </p>
+                                    <a data-toggle="collapse" href="#builtindata" class="collapsed" aria-expanded="false">
+                                        Show built-in dataset: ▸
+                                    </a>
+                                    <div class="row collapse" id="builtindata">
+                                        <div class="col-md-12 col-12">
+                                            <ul class="list">
+        										<li>airports</li>
+                                                <li>anscombe</li>
+                                                <li>barley</li>
+                                                <li>burtin</li>
+                                                <li>cars</li>
+                                                <li>crimea</li>
+                                                <li>driving</li>
+                                                <li>iowa-electricity</li>
+                                                <li>iris</li>
+                                                <li>la-riots</li>
+                                                <li>seattle-temps</li>
+                                                <li>seattle-weather</li>
+                                                <li>sf-temps</li>
+                                                <li>stocks</li>
+                                                <li>us-employment</li>
+                                                <li>wheat</li>
+        									</ul>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                                <div id="api-vegalite" class="section-block">
+                                    <h3 class="block-title">Vega-Lite Properties</h3>
+                                    <p>The related Vega-Lite properties are listed as follows.
+                                    </p>
+                                    <h4>Data</h4>
+                                    <p>vega-lite-linter helps detect some errors related to data by deriving data properties from raw data, such as data field type and min/max value of numerical data field.
+
+                                        Currently, vega-lite-linter supports such calculation with inline data specified using values property, or <a class="reference external" href="https://vega.github.io/vega-datasets/" target="_blank">build-in datasets</a> of Vega and Vega-Lite.
+                                    </p>
+                                    <p>
+                                        <a data-toggle="collapse" href="#builtindata" class="collapsed" aria-expanded="false">
+                                            Show built-in dataset: ▸
+                                        </a>
+                                    </p>
+                                    
+                                    <div class="row collapse" id="builtindata">
+                                        <div class="col-md-12 col-12">
+                                            <ul class="list">
+        										<li>airports</li>
+                                                <li>anscombe</li>
+                                                <li>barley</li>
+                                                <li>burtin</li>
+                                                <li>cars</li>
+                                                <li>crimea</li>
+                                                <li>driving</li>
+                                                <li>iowa-electricity</li>
+                                                <li>iris</li>
+                                                <li>la-riots</li>
+                                                <li>seattle-temps</li>
+                                                <li>seattle-weather</li>
+                                                <li>sf-temps</li>
+                                                <li>stocks</li>
+                                                <li>us-employment</li>
+                                                <li>wheat</li>
+        									</ul>
+                                        </div>
+                                    </div><!--//row-->
+
+                                    <h4>Mark</h4>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Property</th>
+                                                    <th>Value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>mark</td>
+                                                    <td><strong>Required</strong>. The mark type of the visualization. Can be one of the following values: area, bar, line, point and tick.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+
+                                    <h4>Encoding</h4>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Property</th>
+                                                    <th>Value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>channel</td>
+                                                    <td><strong>Required</strong>. The encoding channel type, which is specified as the key of each encoding. Can be one of the following values: x, y, color, size.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>field</td>
+                                                    <td>The data field encoded by the channel.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>type</td>
+                                                    <td>The type of measurement. Can be one of the following values: quantitative, temporal, ordinal, or nominal.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>bin</td>
+                                                    <td>Binning discretizes numeric values into a set of bins. Can be one of the following values: true, false, or { maxBins: Maximum_number_of_bins(e.g., 10) }.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>aggregate</td>
+                                                    <td>Aggregating summary statistics on the data field. Can be one of the following values: count, mean, median, min, max, stdev, sum and etc.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>stack</td>
+                                                    <td>The type of stacking offset if the field should be stacked. Can be one of the following values: true, zero, normalize, center or false.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>scale</td>
+                                                    <td>Functions that transform a domain of data values.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+                                    <p><code class="language-python"><span>scale</span></code> property including:
+                                    </p>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Property</th>
+                                                    <th>Value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>type</td>
+                                                    <td>The type of scale transformation. Currently the algorithm detects errors related to log type.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>zero</td>
+                                                    <td>If true, ensure that a zero baseline value is included in the scale domain.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+
+                                    <p>More details about Vega-Lite properties can be found <a class="reference external" href="https://vega.github.io/vega-lite/docs/" target="_blank">here</a>.</p>
+
+                                    
+                                </div>
+                            </section><!--//doc-section-->
+                            <section id="rules" class="doc-section">
+                                <h2 class="section-title">Rules</h2>
+                                <div class="section-block">
+                                    <p>Rules in vega-lite-linter are borrowed and refined from <a class="reference external" href="https://uwdata.github.io/draco/" target="_blank">Draco</a>. Rules are grouped by four categories.
+                                    </p>
+                                </div>
+                                <div class="section-block">
+                                    <h3>Issue Type 1. Incompatibility issues within each encoding channel.</h3>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Rule</th>
+                                                    <th>Meaning</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>enc_type_valid_1</td>
+                                                    <td>Verify the consistency of data field and type 'quantitative'.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>enc_type_valid_2</td>
+                                                    <td>Verify the consistency of data field and type 'temporal'.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>bin_q_o</td>
+                                                    <td>Only use bin on quantitative or ordinal data.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>zero_q</td>
+                                                    <td>Only use log scale with quantitative data.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>log_discrete</td>
+                                                    <td>Only use log scale with non-discrete data.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>log_zero</td>
+                                                    <td>A log scale cannot have a zero baseline in the scale domain.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>log_non_positive</td>
+                                                    <td>Use log scale on data that are all positive.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>bin_and_aggregate</td>
+                                                    <td>Use both bin and aggregate on the data in the same time is illegal.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>aggregate_o_valid</td>
+                                                    <td>Oridnal data only supports min, max, and median aggregation.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>aggregate_t_valid</td>
+                                                    <td>Temporal only supports min and max aggregation.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>aggregate_nominal</td>
+                                                    <td>Nominal data cannot be aggregated.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>count_q_without_field_1</td>
+                                                    <td>Use count aggregation or declare a data field of an encoding, instead of doing both of them.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>count_q_without_field_2</td>
+                                                    <td>The encoding with count aggregation has to be 'quantitative' type.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>size_nominal</td>
+                                                    <td>Channel size implies order in the data, it is not suitable for nominal data.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>size_negative</td>
+                                                    <td>Channel size is not suitable for data with negative values.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>encoding_no_field_and_not_count</td>
+                                                    <td>Declare the data field or use count aggregation in each encoding.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>color_with_cardinality_gt_twenty</td>
+                                                    <td>Use at most 20 categorical colors in the visualization.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>stack_without_x_y</td>
+                                                    <td>Use stack on x or y channels.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>stack_discrete</td>
+                                                    <td>Use stack on continuous data.</td>
+                                                  </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+                                
+                                </div><!--//section-block-->
+                                <div class="section-block">
+                                    <h3>Issue Type 2. Incompatibility issues across multiple encoding channels.</h3>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Rule</th>
+                                                    <th>Meaning</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                  <tr>
+                                                    <td>repeat_channel</td>
+                                                    <td>Use each channel only once.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>no_encodings</td>
+                                                    <td>Use at least one encoding. Otherwise, the visualization doesn't show anything.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>same_field_x_and_y</td>
+                                                    <td>Use different fields for x axis and y axis.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>count_twice</td>
+                                                    <td>Use count aggregation once in the visualization.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>stack_without_summative_agg</td>
+                                                    <td>Only use summative aggretation (count, sum, distinct, valid, missing) with stack in the encoding.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>stack_without_discrete_color_1</td>
+                                                    <td>Only use stack with a color channel encoding discrete data in the visualization.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>stack_without_discrete_color_2</td>
+                                                    <td>Only use stack with a color channel encoding discrete data in the visualization.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>stack_without_discrete_color_3</td>
+                                                    <td>Only use stack with a color channel encoding discrete data in the visualization.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>stack_with_non_positional_non_agg</td>
+                                                    <td>When using stack in the visualization, apply aggregation in non-positional continuous channels (color, size) .</td>
+                                                  </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+                                
+                                </div><!--//section-block-->
+                                <div class="section-block">
+                                    <h3>Issue Type 3. Incompatibility issues between encoding channels and marks.</h3>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <colgroup>
+                                                <col style="width: 28%">
+                                                <col style="width: 72%">
+                                                </colgroup>
+                                            <thead>
+                                                <tr>
+                                                    <th>Rule</th>
+                                                    <th>Meaning</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                  <tr>
+                                                    <td>point_tick_bar_without_x_or_y</td>
+                                                    <td>Use x or y channel for mark 'point', 'tick', and 'bar'.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>line_area_without_x_y</td>
+                                                    <td>Use x and y channels for mark 'line' and 'area'.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>bar_tick_continuous_x_y</td>
+                                                    <td>Use no more than one continuous data in the x and y channels for mark 'bar' and 'tick'.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>bar_tick_area_line_without_continuous_x_y</td>
+                                                    <td>Mark 'bar', 'tick', 'line', 'area' require some continuous variable on x or y.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>bar_area_without_zero_1</td>
+                                                    <td>Mark 'bar' and 'area' require the scale of x axis to start at zero, when the x axis encodes quantitative data.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>bar_area_without_zero_2</td>
+                                                    <td>Mark 'bar' and 'area' require the scale of y axis to start at zero, when the y axis encodes quantitative data.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>size_without_point</td>
+                                                    <td>Use size channel with mark 'point' would be better.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>stack_without_bar_area</td>
+                                                    <td>Only use stacking for mark 'bar' and 'area'.</td>
+                                                  </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+                                
+                                </div><!--//section-block-->
+                                <div class="section-block">
+                                    <h3>Issue Type 4. Typo issues.</h3>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Rule</th>
+                                                    <th>Meaning</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                  <tr>
+                                                    <td>invalid_mark</td>
+                                                    <td>Use valid mark type, including 'area', 'bar', 'line', 'point', 'tick'.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>invalid_channel</td>
+                                                    <td>Use valid channels, including x, y, color, size.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>invalid_type</td>
+                                                    <td>Use valid types, including quantitative, nominal, ordinal, temporal.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>invalid_agg</td>
+                                                    <td>Use valid aggregation, including count, mean, median, min, max, stdev, sum, etc.</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>invalid_bin</td>
+                                                    <td>Use non-negative number for bin amounts (maxbins).</td>
+                                                  </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+                                
+                                </div><!--//section-block-->
+                            </section><!--//doc-section-->
+                        </div><!--//content-inner-->
+                    </div><!--//doc-content-->
+                    <div class="doc-sidebar col-md-3 col-12 order-0 d-none d-md-flex">
+                        <div id="doc-nav" class="doc-nav">
+	                        
+	                            <nav id="doc-menu" class="nav doc-menu flex-column sticky">
+	                                <a class="nav-link scrollto" href="#setup">Setup</a>
+                                    <nav class="doc-sub-menu nav flex-column">
+                                        <a class="nav-link scrollto" href="#prerequisite">Prerequisite</a>
+                                        <a class="nav-link scrollto" href="#installation">Installation</a>
+                                        <a class="nav-link scrollto" href="#sample">Sample Code</a>
+                                    </nav><!--//nav-->
+                                    <a class="nav-link scrollto" href="#api">API Reference</a>
+                                    <nav class="doc-sub-menu nav flex-column">
+                                        <a class="nav-link scrollto" href="#api-initialization">Initialization</a>
+                                        <a class="nav-link scrollto" href="#api-lint"><code class="language-python">lint()</code>: Detecting Issues</a>
+                                        <a class="nav-link scrollto" href="#api-fix"><code class="language-python">fix()</code>: Fixing Issues</a>
+                                        <a class="nav-link scrollto" href="#api-vegalite">Vega-Lite Properties</a>
+                                    </nav><!--//nav-->
+                                    <a class="nav-link scrollto" href="#rules">Rules</a>
+
+	                            </nav><!--//doc-menu-->
+	                        
+                        </div>
+                    </div><!--//doc-sidebar-->
+                </div><!--//doc-body-->              
+            </div><!--//container-->
+        </div><!--//doc-wrapper-->
+
+        
+    </div><!--//page-wrapper-->
+    
+    <footer class="footer text-center">
+        <div class="container">
+            <p>
+                <!-- vega-lite-linter -->
+                <!-- <br> -->
+                <small>Copyright © 2021 <a href="https://idvxlab.com/">Intelligent Big Data Visualization Lab
+                        (iDV<sup>x</sup> Lab)</a> All Rights Reserved</small>
+
+            </p>
+            <!-- <br> -->
+            <!-- <br> -->
+            <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+            <small class="copyright">Designed with <i class="fas fa-heart"></i> by <a
+                    href="https://themes.3rdwavemedia.com/" target="_blank">Xiaoying Riley</a> for developers</small>
+
+        </div>
+        <!--//container-->
+    </footer>
+    <!--//footer-->
+    
+     
+    <!-- Main Javascript -->          
+    <script type="text/javascript" src="assets/plugins/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/prism/prism.js"></script>    
+    <script type="text/javascript" src="assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>      
+    <script type="text/javascript" src="assets/plugins/stickyfill/dist/stickyfill.min.js"></script>                                                             
+    <script type="text/javascript" src="assets/js/main.js"></script>
+    
+</body>
+</html> 
+

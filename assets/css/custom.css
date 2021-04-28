@@ -1,7 +1,20 @@
-.github-button {
-    margin-top: 10px;
+.skip-padding {
+    padding-top: 0px;
 }
 
-.footer {
-    height: fit-content;
+.logo-img {
+    height: 100px;
+    margin: 10px 40px;
+}
+
+.logo-row {
+    justify-content: center;
+}
+/* 
+.cards-wrapper-center {
+    justify-content: center;
+} */
+
+.logo {
+    color: #85afe8 !important
 }

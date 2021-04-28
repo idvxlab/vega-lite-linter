@@ -41,16 +41,17 @@ p {
 }
 
 a {
-  color: #3aa7aa;
-  -webkit-transition: all 0.4s ease-in-out;
+  color: #5878a4;
+  /* -webkit-transition: all 0.4s ease-in-out;
   -moz-transition: all 0.4s ease-in-out;
   -ms-transition: all 0.4s ease-in-out;
-  -o-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out; */
 }
 
 a:hover {
   text-decoration: underline;
-  color: #339597;
+  color: #2aa8e9
+  /* #339597; */
 }
 
 a:focus {
@@ -91,15 +92,15 @@ code {
 }
 
 .btn-primary, a.btn-primary {
-  background: #40babd;
-  border: 1px solid #40babd;
+  background: #589dcd;
+  border: 1px solid #589dcd;
   color: #fff !important;
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .btn-primary.hover, .btn-primary:not(:disabled):not(.disabled):active:focus, a.btn-primary:hover, a.btn-primary:focus, a.btn-primary:active, a.btn-primary.active, a.btn-primary.hover, a.btn-primary:not(:disabled):not(.disabled):active:focus {
-  background: #3aa7aa;
+  background: #5878a4;
   color: #fff !important;
-  border: 1px solid #3aa7aa;
+  border: 1px solid #5878a4;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
@@ -249,7 +250,7 @@ select {
 .header {
   background: #494d55;
   color: rgba(255, 255, 255, 0.85);
-  border-top: 5px solid #40babd;
+  border-top: 5px solid #589dcd;
   padding: 30px 0;
 }
 
@@ -277,7 +278,7 @@ select {
 }
 
 .branding .text-highlight {
-  color: #40babd;
+  color: #589dcd;
 }
 
 .body-green .branding .text-highlight {
@@ -300,9 +301,9 @@ select {
   color: #EA5395;
 }
 
-.body-purple .branding .text-highlight {
+/* .body-purple .branding .text-highlight {
   color: #8A40A7;
-}
+} */
 
 .branding .text-bold {
   font-weight: 800;
@@ -311,7 +312,7 @@ select {
 
 .branding .icon {
   font-size: 24px;
-  color: #40babd;
+  color: #589dcd;
 }
 
 .body-green .branding .icon {
@@ -334,9 +335,9 @@ select {
   color: #EA5395;
 }
 
-.body-purple .branding .icon {
+/* .body-purple .branding .icon {
   color: #8A40A7;
-}
+} */
 
 .breadcrumb {
   background: none;
@@ -414,7 +415,7 @@ select {
 }
 
 .footer a {
-  color: #40babd;
+  color: #589dcd;
 }
 
 .footer .fa-heart {
@@ -444,7 +445,7 @@ select {
 }
 
 .doc-header .doc-title {
-  color: #40babd;
+  color: #589dcd;
   margin-top: 0;
   font-size: 36px;
 }
@@ -544,7 +545,7 @@ select {
 
 .question {
   font-weight: 400 !important;
-  color: #3aa7aa;
+  color: #5878a4;
 }
 
 .question .body-green {
@@ -654,7 +655,8 @@ select {
 }
 
 .table > thead > tr > th {
-  border-bottom-color: #8bd6d8;
+  border-bottom-color: #b5e1f7
+  /* #8bd6d8; */
 }
 
 .body-green .table > thead > tr > th {
@@ -869,18 +871,18 @@ select {
 .body-pink a:hover {
   color: #e42679;
 }
-
+/* 
 .body-purple .header {
   border-color: #8A40A7;
-}
+} */
 
-.body-purple a {
+/* .body-purple a {
   color: #8A40A7;
 }
 
 .body-purple a:hover {
   color: #6c3282;
-}
+} */
 
 .body-red .header {
   border-color: #f77b6b;
@@ -931,7 +933,7 @@ select {
 
 .doc-menu .nav-link.active {
   background: none;
-  color: #40babd;
+  color: #589dcd;
   font-weight: 600;
 }
 
@@ -996,7 +998,7 @@ select {
 
 .doc-sub-menu .nav-link.active {
   background: none;
-  color: #40babd;
+  color: #589dcd;
 }
 
 .body-green .doc-sub-menu .nav-link.active {
@@ -1044,7 +1046,7 @@ select {
 */
 /* ===== Promo block ===== */
 .promo-block {
-  background: #3aa7aa;
+  background: #5878a4;
 }
 
 .body-green .promo-block {
@@ -1238,7 +1240,7 @@ select {
 
 .landing-page .branding .icon {
   font-size: 32px;
-  color: #40babd;
+  color: #589dcd;
 }
 
 .landing-page .tagline {
@@ -1298,7 +1300,7 @@ select {
 }
 
 .cards-section .cards-wrapper {
-  max-width: 860px;
+  max-width: 800px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -1354,15 +1356,15 @@ select {
 }
 
 .cards-section .item-primary .item-inner {
-  border-top: 3px solid #40babd;
+  border-top: 3px solid #589dcd;
 }
 
-.cards-section .item-primary .item-inner:hover .title {
+/* .cards-section .item-primary .item-inner:hover .title {
   color: #2d8284;
-}
+} */
 
 .cards-section .item-primary .icon {
-  color: #40babd;
+  color: #589dcd;
 }
 
 .cards-section .item-green .item-inner {
