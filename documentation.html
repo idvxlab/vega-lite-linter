@@ -24,7 +24,7 @@
     
 </head> 
 
-<body class="body-blue">
+<body class="body-primary">
     <div class="page-wrapper">
         <!-- ******Header****** -->
         <header id="header" class="header">
@@ -137,7 +137,7 @@ fix = lint.fix()
                                 </div>
                                 <div id="api-initialization" class="section-block">
                                     <h3 class="block-title">Initialization</h3>
-                                    <p>At first, an Lint instance should be initialized given the target visualization specification:
+                                    <p>At first, a <code class="language-python">Lint</code> instance should be initialized given the target visualization specification:
                                     </p>
                                     <div class="code-block">
                                         <pre class="language-python"><code>lint = Lint(vegalite_json)</code></pre>
@@ -148,7 +148,7 @@ fix = lint.fix()
 
                                 <div id="api-lint" class="section-block">
                                     <h3 class="block-title"><code class="language-python">lint()</code>: Detecting Issues</h3>
-                                    <p>lint() detects any issues in the given visualization specification. Each detected issue will be presented as an <strong>Rule</strong> object containing:
+                                    <p><code class="language-python">lint()</code> detects any issues in the given visualization specification. Each detected issue will be presented as an <strong>Rule</strong> object containing:
                                     </p>
                                     <div class="row">
                                         <div class="col-md-12 col-12">
@@ -164,8 +164,8 @@ fix = lint.fix()
 
                                 <div id="api-fix" class="section-block">
                                     <h3 class="block-title"><code class="language-python">fix()</code>: Fixing Issues</h3>
-                                    <p>fix() runs the algorithm to help revise the visualization specification into a correct one.
-                                            The result of fix() contains:
+                                    <p><code class="language-python">fix()</code> runs the algorithm to help revise the visualization specification into a correct one.
+                                            The result of <code class="language-python">fix()</code> contains:
                                     </p>
                                     <div class="row">
                                         <div class="col-md-12 col-12">
@@ -199,39 +199,6 @@ fix = lint.fix()
                                     </div><!--//row-->
                                 </div>
 
-                                <!-- <div id="api-data" class="section-block">
-                                    <h3 class="block-title"><code class="language-python">data</code> in Specification</h3>
-                                    <p>vega-lite-linter helps detect some errors related to data by deriving data properties from raw data, such as data field type and min/max value of numerical data field.
-
-                                        Currently, vega-lite-linter supports such calculation with inline data specified using values property, or <a class="reference external" href="https://vega.github.io/vega-datasets/" target="_blank">build-in datasets</a> of Vega and Vega-Lite.
-                                    </p>
-                                    <a data-toggle="collapse" href="#builtindata" class="collapsed" aria-expanded="false">
-                                        Show built-in dataset: ▸
-                                    </a>
-                                    <div class="row collapse" id="builtindata">
-                                        <div class="col-md-12 col-12">
-                                            <ul class="list">
-        										<li>airports</li>
-                                                <li>anscombe</li>
-                                                <li>barley</li>
-                                                <li>burtin</li>
-                                                <li>cars</li>
-                                                <li>crimea</li>
-                                                <li>driving</li>
-                                                <li>iowa-electricity</li>
-                                                <li>iris</li>
-                                                <li>la-riots</li>
-                                                <li>seattle-temps</li>
-                                                <li>seattle-weather</li>
-                                                <li>sf-temps</li>
-                                                <li>stocks</li>
-                                                <li>us-employment</li>
-                                                <li>wheat</li>
-        									</ul>
-                                        </div>
-                                    </div>
-                                </div> -->
-
                                 <div id="api-vegalite" class="section-block">
                                     <h3 class="block-title">Vega-Lite Properties</h3>
                                     <p>The related Vega-Lite properties are listed as follows.
@@ -241,38 +208,45 @@ fix = lint.fix()
 
                                         Currently, vega-lite-linter supports such calculation with inline data specified using values property, or <a class="reference external" href="https://vega.github.io/vega-datasets/" target="_blank">build-in datasets</a> of Vega and Vega-Lite.
                                     </p>
-                                    <p>
+                                    <!-- <p>
                                         <a data-toggle="collapse" href="#builtindata" class="collapsed" aria-expanded="false">
                                             Show built-in dataset: ▸
                                         </a>
-                                    </p>
+                                    </p> -->
+                                    <details class="dataset" close="">
+                                        <summary data-open="Hide built-in datasets" data-close="Show built-in datasets"></summary>
+                                        <div class="row" id="builtindata">
+                                            <div class="col-md-12 col-12">
+                                                <ul class="list">
+                                                    <li>airports</li>
+                                                    <li>anscombe</li>
+                                                    <li>barley</li>
+                                                    <li>burtin</li>
+                                                    <li>cars</li>
+                                                    <li>crimea</li>
+                                                    <li>driving</li>
+                                                    <li>iowa-electricity</li>
+                                                    <li>iris</li>
+                                                    <li>la-riots</li>
+                                                    <li>seattle-temps</li>
+                                                    <li>seattle-weather</li>
+                                                    <li>sf-temps</li>
+                                                    <li>stocks</li>
+                                                    <li>us-employment</li>
+                                                    <li>wheat</li>
+                                                </ul>
+                                            </div>
+                                        </div><!--//row-->
+                                    </details>
                                     
-                                    <div class="row collapse" id="builtindata">
-                                        <div class="col-md-12 col-12">
-                                            <ul class="list">
-        										<li>airports</li>
-                                                <li>anscombe</li>
-                                                <li>barley</li>
-                                                <li>burtin</li>
-                                                <li>cars</li>
-                                                <li>crimea</li>
-                                                <li>driving</li>
-                                                <li>iowa-electricity</li>
-                                                <li>iris</li>
-                                                <li>la-riots</li>
-                                                <li>seattle-temps</li>
-                                                <li>seattle-weather</li>
-                                                <li>sf-temps</li>
-                                                <li>stocks</li>
-                                                <li>us-employment</li>
-                                                <li>wheat</li>
-        									</ul>
-                                        </div>
-                                    </div><!--//row-->
 
                                     <h4>Mark</h4>
                                     <div class="table-responsive">
-                                        <table class="table table-striped">
+                                        <table class="table vega table-striped">
+                                            <colgroup>
+                                                <col style="width: 28%">
+                                                <col style="width: 72%">
+                                                </colgroup>
                                             <thead>
                                                 <tr>
                                                     <th>Property</th>
@@ -290,7 +264,11 @@ fix = lint.fix()
 
                                     <h4>Encoding</h4>
                                     <div class="table-responsive">
-                                        <table class="table table-striped">
+                                        <table class="table vega table-striped">
+                                            <colgroup>
+                                                <col style="width: 28%">
+                                                <col style="width: 72%">
+                                                </colgroup>
                                             <thead>
                                                 <tr>
                                                     <th>Property</th>
@@ -332,7 +310,11 @@ fix = lint.fix()
                                     <p><code class="language-python"><span>scale</span></code> property including:
                                     </p>
                                     <div class="table-responsive">
-                                        <table class="table table-striped">
+                                        <table class="table vega table-striped">
+                                            <colgroup>
+                                                <col style="width: 28%">
+                                                <col style="width: 72%">
+                                                </colgroup>
                                             <thead>
                                                 <tr>
                                                     <th>Property</th>
@@ -366,7 +348,11 @@ fix = lint.fix()
                                 <div class="section-block">
                                     <h3>Issue Type 1. Incompatibility issues within each encoding channel.</h3>
                                     <div class="table-responsive">
-                                        <table class="table">
+                                        <table class="table rule table-striped">
+                                            <colgroup>
+                                                <col style="width: 28%">
+                                                <col style="width: 72%">
+                                                </colgroup>
                                             <thead>
                                                 <tr>
                                                     <th>Rule</th>
@@ -458,7 +444,11 @@ fix = lint.fix()
                                 <div class="section-block">
                                     <h3>Issue Type 2. Incompatibility issues across multiple encoding channels.</h3>
                                     <div class="table-responsive">
-                                        <table class="table">
+                                        <table class="table rule table-striped">
+                                            <colgroup>
+                                                <col style="width: 28%">
+                                                <col style="width: 72%">
+                                                </colgroup>
                                             <thead>
                                                 <tr>
                                                     <th>Rule</th>
@@ -510,7 +500,7 @@ fix = lint.fix()
                                 <div class="section-block">
                                     <h3>Issue Type 3. Incompatibility issues between encoding channels and marks.</h3>
                                     <div class="table-responsive">
-                                        <table class="table">
+                                        <table class="table rule table-striped">
                                             <colgroup>
                                                 <col style="width: 28%">
                                                 <col style="width: 72%">
@@ -562,7 +552,11 @@ fix = lint.fix()
                                 <div class="section-block">
                                     <h3>Issue Type 4. Typo issues.</h3>
                                     <div class="table-responsive">
-                                        <table class="table">
+                                        <table class="table rule table-striped">
+                                            <colgroup>
+                                                <col style="width: 28%">
+                                                <col style="width: 72%">
+                                                </colgroup>
                                             <thead>
                                                 <tr>
                                                     <th>Rule</th>
@@ -596,11 +590,31 @@ fix = lint.fix()
                                 
                                 </div><!--//section-block-->
                             </section><!--//doc-section-->
+
+                            <section id="credits" class="doc-section">
+                                <h2 class="section-title">Credits</h2>
+                                <div class="section-block">
+                                    <p>vega-lite-linter was created by <a class="reference external" href="https://idvxlab.com/">iDV<sup>x</sup> Lab</a> and funded by <a class="reference external" href="https://antv.vision/en">AntV</a>.</p>
+                                </div>
+                            </section><!--//doc-section-->
+
+                            <section id="contact" class="doc-section">
+                                <h2 class="section-title">Contact Us</h2>
+                                <div class="section-block">
+                                    <p>If you have any question, feel free to <a href="https://github.com/idvxlab/vega-lite-linter/issues/new/">open an issue</a>.</p>
+                                </div>
+                            </section><!--//doc-section-->
+
+                            <section id="license" class="doc-section">
+                                <h2 class="section-title">License</h2>
+                                <div class="section-block">
+                                    <p>The software is available under the <a href="https://github.com/idvxlab/vega-lite-linter/blob/main/LICENSE">MIT License</a>.</p>
+                                </div>
+                            </section><!--//doc-section-->
                         </div><!--//content-inner-->
                     </div><!--//doc-content-->
                     <div class="doc-sidebar col-md-3 col-12 order-0 d-none d-md-flex">
                         <div id="doc-nav" class="doc-nav">
-	                        
 	                            <nav id="doc-menu" class="nav doc-menu flex-column sticky">
 	                                <a class="nav-link scrollto" href="#setup">Setup</a>
                                     <nav class="doc-sub-menu nav flex-column">
@@ -616,6 +630,9 @@ fix = lint.fix()
                                         <a class="nav-link scrollto" href="#api-vegalite">Vega-Lite Properties</a>
                                     </nav><!--//nav-->
                                     <a class="nav-link scrollto" href="#rules">Rules</a>
+                                    <a class="nav-link scrollto" href="#credits">Credits</a>
+                                    <a class="nav-link scrollto" href="#contact">Contact Us</a>
+                                    <a class="nav-link scrollto" href="#license">License</a>
 
 	                            </nav><!--//doc-menu-->
 	                        

@@ -81,282 +81,259 @@
                             <section id="examples" class="doc-section">
                                 <h2 class="section-title">Examples</h2>
                                 <div class="section-block">
-                                    <p>vega-lite-linter provides simple APIs for visualization developers to detect and
+                                    vega-lite-linter provides simple APIs for visualization developers to detect and
                                         fix issues in the built visualizations.
-                                    </p>
                                 </div>
-                                <div id="api-initialization" class="section-block">
-                                    <h3 class="block-title">Initialization</h3>
-                                    <p>At first, an Lint instance should be initialized given the target visualization
-                                        specification:
+                                <div id="example1" class="section-block">
+                                    <h3 class="block-title">Example 1</h3>
+                                    <p>In this case, the original visualization(left) has violated one rule:
                                     </p>
-                                    <div class="code-block">
-                                        <pre class="language-python"><code>lint = Lint(vegalite_json)</code></pre>
-                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 col-12">
+                                            <ul class="list">
+                                                <li>Channel <code class="language-python">size</code> implies order in the data, it is not suitable for nominal data.</li>
+                                            </ul>
+                                        </div>
+                                    </div><!--//row-->
                                     <!--//code-block-->
-                                    <p>After initializing, the two functions listed below can be called on the instance
-                                        object.
+                                    <p>It can be fixed by changing the channel <code class="language-python">size</code> to <code class="language-python">color</code>.
                                     </p>
+                                    <img class="img-fluid img-center" src="assets/images/examples/example1.png">
+                                    <details class="example_code" close="">
+                                        <summary data-open="Hide code snippet" data-close="Show code snippet"></summary>
+                                        <div class="" id="code1">
+                                            <pre class="language-python"><code>
+from vega_lite_linter import Lint
+
+vega_json = {
+    &#x22;data&#x22;: {
+        &#x22;url&#x22;: &#x22;data/cars.json&#x22;
+    },
+    &#x22;mark&#x22;: &#x22;point&#x22;,
+    &#x22;encoding&#x22;: {
+        &#x22;x&#x22;: {
+            &#x22;field&#x22;: &#x22;Horsepower&#x22;,
+            &#x22;type&#x22;: &#x22;quantitative&#x22;
+        },
+        &#x22;y&#x22;: {
+            &#x22;field&#x22;: &#x22;Acceleration&#x22;,
+            &#x22;type&#x22;: &#x22;quantitative&#x22;
+        },
+        &#x22;size&#x22;: {
+            &#x22;field&#x22;: &#x22;Origin&#x22;,
+            &#x22;type&#x22;: &#x22;nominal&#x22;
+        }
+    }
+}
+
+# initialize
+lint = Lint(vega_json)
+
+# show rules that the input vega-lite json violated
+violate_rules = lint.lint()
+
+# show fixing recommendation by vega-lite-linter
+fix = lint.fix()
+
+print(fix[&#x27;optimize_spec&#x27;])
+                                            </code></pre>
+                                        </div><!--//code-block-->
+                                        </details>
                                 </div>
 
-                                <div id="api-lint" class="section-block">
-                                    <h3 class="block-title"><code class="language-python">lint()</code>: Detecting
-                                        Issues</h3>
-                                    <p>lint() detects any issues in the given visualization specification. Each detected
-                                        issue will be presented as an <strong>Rule</strong> object containing:
+                                <div id="example2" class="section-block">
+                                    <h3 class="block-title">Example 2</h3>
+                                    <p>In this case, the original visualization(left) has violated one rule:
                                     </p>
                                     <div class="row">
                                         <div class="col-md-12 col-12">
                                             <ul class="list">
-                                                <li><strong>id</strong>: string. the linted rule id.</li>
-                                                <li><strong>param1</strong>: string(optional). related parameters,
-                                                    usually the encoding channel where the rule is in.</li>
-                                                <li><strong>param2</strong>: string(optional). related parameters,
-                                                    usually the incorrect input where the rule happens.</li>
-                                                <li><strong>explain</strong>: string. the description of the rule.</li>
+                                                <li>Only use stacking for mark <code class="language-python">bar</code> and <code class="language-python">area</code>.</li>
                                             </ul>
                                         </div>
-                                    </div>
-                                    <!--//row-->
+                                    </div><!--//row-->
+                                    <!--//code-block-->
+                                    <p>It can be fixed by changing the mark type from <code class="language-python">point</code> to <code class="language-python">bar</code>.
+                                    </p>
+                                    <img class="img-fluid img-center" src="assets/images/examples/example2.png">
+                                    <details class="example_code" close="">
+                                        <summary data-open="Hide code snippet" data-close="Show code snippet"></summary>
+                                        <div class="" id="code1">
+                                            <pre class="language-python"><code>
+from vega_lite_linter import Lint
+
+from vega_lite_linter import Lint
+
+vega_json = {
+    &#x22;data&#x22;: {
+        &#x22;url&#x22;: &#x22;data/cars.json&#x22;
+    },
+    &#x22;mark&#x22;: &#x22;point&#x22;,
+    &#x22;encoding&#x22;: {
+        &#x22;x&#x22;: {
+            &#x22;field&#x22;: &#x22;Cylinders&#x22;,
+            &#x22;type&#x22;: &#x22;ordinal&#x22;
+        },
+        &#x22;y&#x22;: {
+            &#x22;field&#x22;: &#x22;Horsepower&#x22;,
+            &#x22;type&#x22;: &#x22;quantitative&#x22;,
+            &#x22;aggregate&#x22;: &#x22;sum&#x22;,
+            &#x22;stack&#x22;: True
+        },
+        &#x22;color&#x22;: {
+            &#x22;field&#x22;: &#x22;Origin&#x22;,
+            &#x22;type&#x22;: &#x22;nominal&#x22;
+        }
+    }
+}
+
+# initialize
+lint = Lint(vega_json)
+
+# show rules that the input vega-lite json violated
+violate_rules = lint.lint()
+
+# show fixing recommendation by vega-lite-linter
+fix = lint.fix()
+
+print(fix[&#x27;optimize_spec&#x27;])
+                                            </code></pre>
+                                        </div><!--//code-block-->
+                                        </details>
                                 </div>
 
-                                <div id="api-fix" class="section-block">
-                                    <h3 class="block-title"><code class="language-python">fix()</code>: Fixing Issues
-                                    </h3>
-                                    <p>fix() runs the algorithm to help revise the visualization specification into a
-                                        correct one.
-                                        The result of fix() contains:
+                                <div id="example3" class="section-block">
+                                    <h3 class="block-title">Example 3</h3>
+                                    <p>In this case, the original visualization(left) has violated three rule:
                                     </p>
                                     <div class="row">
                                         <div class="col-md-12 col-12">
                                             <ul class="list">
-                                                <li><strong>fixable</strong>: boolean. the indicator of whether the
-                                                    given visualization specification can be fixed by vega-lite-linter.
-                                                </li>
-                                                <li><strong>optimize_spec</strong>: object. the specification after
-                                                    revision.</li>
-                                                <li><strong>optimize_actions</strong>: <strong>Action</strong>[]. the
-                                                    recommended action set to fix the visualization.</li>
-                                                <li><strong>possible_actions</strong>: <strong>Action</strong>[][]. all
-                                                    possible actions to fix the visualization, grouped by each issue.
-                                                </li>
-                                                <li><strong>violate_rules</strong>: <strong>Rule</strong>[]. the
-                                                    detected rules in the original specification.</li>
-                                                <li><strong>origin_spec</strong>: object. the original specification.
-                                                </li>
-
+                                                <li>Channel <code class="language-python">size</code> is not suitable for data with negative values.</li>
+                                                <li>Only use <code class="language-python">log</code> scale on data that are all positive.</li>
+                                                <li>Temporal data only supports min and max aggregation. </li>
                                             </ul>
                                         </div>
-                                    </div>
-                                    <!--//row-->
-                                    <p><strong>Action</strong> object contains:
+                                    </div><!--//row-->
+                                    <!--//code-block-->
+                                    <p>It can be fixed by actions:
                                     </p>
                                     <div class="row">
                                         <div class="col-md-12 col-12">
                                             <ul class="list">
-                                                <li><strong>action</strong>: string. the name of the action.</li>
-                                                <li><strong>param1</strong>: string. the encoding channel to perform the
-                                                    action.</li>
-                                                <li><strong>param2</strong>: string. the parameter to perform the
-                                                    action.</li>
-                                                <li><strong>rid</strong>: string. the rule id that the action solved.
-                                                </li>
-                                                <li><strong>transition</strong>: number. the transition cost of the
-                                                    action.</li>
-                                                <li><strong>reward</strong>: number. the reward of the action.</li>
-                                                <li><strong>score</strong>: number. number. the score of the action,
-                                                    calculating by transition and reward.</li>
-                                                <li><strong>action_intro</strong>: the description of the action.</li>
-                                                <li><strong>apply</strong>: 0 | 1. the indicator of whether the action
-                                                    is adopted in the optimize_actions.</li>
+                                                <li>Removing <code class="language-python">log</code> scale in the channel <code class="language-python">y</code>.</li>
+                                                <li>Using min aggregation for the data in the channel <code class="language-python">x</code> instead.</li>
+                                                <li>Changing channel <code class="language-python">size</code> to <code class="language-python">color</code>. </li>
                                             </ul>
                                         </div>
-                                    </div>
-                                    <!--//row-->
+                                    </div><!--//row-->
+                                    <img class="img-fluid img-center" src="assets/images/examples/example3.png">
+                                    <details class="example_code" close="">
+                                        <summary data-open="Hide code snippet" data-close="Show code snippet"></summary>
+                                        <div class="" id="code1">
+                                            <pre class="language-python"><code>
+from vega_lite_linter import Lint
+
+vega_json = {
+    &#x22;data&#x22;: {
+        &#x22;url&#x22;: &#x22;data/seattle-weather.csv&#x22;
+    },
+    &#x22;mark&#x22;: &#x22;point&#x22;,
+    &#x22;encoding&#x22;: {
+        &#x22;x&#x22;: {
+            &#x22;field&#x22;: &#x22;date&#x22;,
+            &#x22;type&#x22;: &#x22;temporal&#x22;,
+            &#x22;aggregate&#x22;: &#x22;mean&#x22;
+        },
+        &#x22;y&#x22;: {
+            &#x22;field&#x22;: &#x22;temp_max&#x22;,
+            &#x22;type&#x22;: &#x22;quantitative&#x22;,
+            &#x22;scale&#x22;: {
+                &#x22;type&#x22;: &#x22;log&#x22;
+            }
+        },
+        &#x22;size&#x22;: {
+            &#x22;field&#x22;: &#x22;temp_min&#x22;,
+            &#x22;type&#x22;: &#x22;quantitative&#x22;
+        }
+    }
+}
+
+# initialize
+lint = Lint(vega_json)
+
+# show rules that the input vega-lite json violated
+violate_rules = lint.lint()
+
+# show fixing recommendation by vega-lite-linter
+fix = lint.fix()
+
+print(fix[&#x27;optimize_spec&#x27;])
+                                            </code></pre>
+                                        </div><!--//code-block-->
+                                        </details>
                                 </div>
 
-                                <!-- <div id="api-data" class="section-block">
-                                    <h3 class="block-title"><code class="language-python">data</code> in Specification</h3>
-                                    <p>vega-lite-linter helps detect some errors related to data by deriving data properties from raw data, such as data field type and min/max value of numerical data field.
-
-                                        Currently, vega-lite-linter supports such calculation with inline data specified using values property, or <a class="reference external" href="https://vega.github.io/vega-datasets/" target="_blank">build-in datasets</a> of Vega and Vega-Lite.
+                                <div id="example4" class="section-block">
+                                    <h3 class="block-title">Example 4</h3>
+                                    <p>In this case, the original visualization(left) has violated three rule:
                                     </p>
-                                    <a data-toggle="collapse" href="#builtindata" class="collapsed" aria-expanded="false">
-                                        Show built-in dataset: ▸
-                                    </a>
-                                    <div class="row collapse" id="builtindata">
+                                    <div class="row">
                                         <div class="col-md-12 col-12">
                                             <ul class="list">
-        										<li>airports</li>
-                                                <li>anscombe</li>
-                                                <li>barley</li>
-                                                <li>burtin</li>
-                                                <li>cars</li>
-                                                <li>crimea</li>
-                                                <li>driving</li>
-                                                <li>iowa-electricity</li>
-                                                <li>iris</li>
-                                                <li>la-riots</li>
-                                                <li>seattle-temps</li>
-                                                <li>seattle-weather</li>
-                                                <li>sf-temps</li>
-                                                <li>stocks</li>
-                                                <li>us-employment</li>
-                                                <li>wheat</li>
-        									</ul>
-                                        </div>
-                                    </div>
-                                </div> -->
-
-                                <div id="api-vegalite" class="section-block">
-                                    <h3 class="block-title">Vega-Lite Properties</h3>
-                                    <p>The related Vega-Lite properties are listed as follows.
-                                    </p>
-                                    <h4>Data</h4>
-                                    <p>vega-lite-linter helps detect some errors related to data by deriving data
-                                        properties from raw data, such as data field type and min/max value of numerical
-                                        data field.
-
-                                        Currently, vega-lite-linter supports such calculation with inline data specified
-                                        using values property, or <a class="reference external"
-                                            href="https://vega.github.io/vega-datasets/" target="_blank">build-in
-                                            datasets</a> of Vega and Vega-Lite.
-                                    </p>
-                                    <p>
-                                        <a data-toggle="collapse" href="#builtindata" class="collapsed"
-                                            aria-expanded="false">
-                                            Show built-in dataset: ▸
-                                        </a>
-                                    </p>
-
-                                    <div class="row collapse" id="builtindata">
-                                        <div class="col-md-12 col-12">
-                                            <ul class="list">
-                                                <li>airports</li>
-                                                <li>anscombe</li>
-                                                <li>barley</li>
-                                                <li>burtin</li>
-                                                <li>cars</li>
-                                                <li>crimea</li>
-                                                <li>driving</li>
-                                                <li>iowa-electricity</li>
-                                                <li>iris</li>
-                                                <li>la-riots</li>
-                                                <li>seattle-temps</li>
-                                                <li>seattle-weather</li>
-                                                <li>sf-temps</li>
-                                                <li>stocks</li>
-                                                <li>us-employment</li>
-                                                <li>wheat</li>
+                                                <li>Use count aggregation once in the visualization.</li>
+                                                <li>Use count aggregation or declare a data field of an encoding, instead of doing both of them.</li>
+                                                <li>Nominal data cannot be aggregated. </li>
                                             </ul>
                                         </div>
-                                    </div>
-                                    <!--//row-->
-
-                                    <h4>Mark</h4>
-                                    <div class="table-responsive">
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Property</th>
-                                                    <th>Value</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>mark</td>
-                                                    <td><strong>Required</strong>. The mark type of the visualization.
-                                                        Can be one of the following values: area, bar, line, point and
-                                                        tick.</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <!--//table-responsive-->
-
-                                    <h4>Encoding</h4>
-                                    <div class="table-responsive">
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Property</th>
-                                                    <th>Value</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>channel</td>
-                                                    <td><strong>Required</strong>. The encoding channel type, which is
-                                                        specified as the key of each encoding. Can be one of the
-                                                        following values: x, y, color, size.</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>field</td>
-                                                    <td>The data field encoded by the channel.</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>type</td>
-                                                    <td>The type of measurement. Can be one of the following values:
-                                                        quantitative, temporal, ordinal, or nominal.</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>bin</td>
-                                                    <td>Binning discretizes numeric values into a set of bins. Can be
-                                                        one of the following values: true, false, or { maxBins:
-                                                        Maximum_number_of_bins(e.g., 10) }.</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>aggregate</td>
-                                                    <td>Aggregating summary statistics on the data field. Can be one of
-                                                        the following values: count, mean, median, min, max, stdev, sum
-                                                        and etc.</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>stack</td>
-                                                    <td>The type of stacking offset if the field should be stacked. Can
-                                                        be one of the following values: true, zero, normalize, center or
-                                                        false.</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>scale</td>
-                                                    <td>Functions that transform a domain of data values.</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <!--//table-responsive-->
-                                    <p><code class="language-python"><span>scale</span></code> property including:
+                                    </div><!--//row-->
+                                    <!--//code-block-->
+                                    <p>It can be fixed by removing the aggregation in the channel <code class="language-python">x</code>.
                                     </p>
-                                    <div class="table-responsive">
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Property</th>
-                                                    <th>Value</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>type</td>
-                                                    <td>The type of scale transformation. Currently the algorithm
-                                                        detects errors related to log type.</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>zero</td>
-                                                    <td>If true, ensure that a zero baseline value is included in the
-                                                        scale domain.</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <!--//table-responsive-->
+                                    <img class="img-fluid img-center" src="assets/images/examples/example4.png">
+                                    <details class="example_code" close="">
+                                        <summary data-open="Hide code snippet" data-close="Show code snippet"></summary>
+                                        <div class="" id="code1">
+                                            <pre class="language-python"><code>
+from vega_lite_linter import Lint
 
-                                    <p>More details about Vega-Lite properties can be found <a
-                                            class="reference external" href="https://vega.github.io/vega-lite/docs/"
-                                            target="_blank">here</a>.</p>
+vega_json = {
+    &#x22;data&#x22;: {
+        &#x22;url&#x22;: &#x22;data/seattle-weather.csv&#x22;
+    },
+    &#x22;mark&#x22;: &#x22;bar&#x22;,
+    &#x22;encoding&#x22;: {
+        &#x22;x&#x22;: {
+            &#x22;field&#x22;: &#x22;weather&#x22;,
+            &#x22;type&#x22;: &#x22;nominal&#x22;,
+            &#x22;aggregate&#x22;: &#x22;count&#x22;
+        },
+        &#x22;y&#x22;: {
+            &#x22;type&#x22;: &#x22;quantitative&#x22;,
+            &#x22;aggregate&#x22;: &#x22;count&#x22;
+        }
+    }
+}
 
+# initialize
+lint = Lint(vega_json)
 
+# show rules that the input vega-lite json violated
+violate_rules = lint.lint()
+
+# show fixing recommendation by vega-lite-linter
+fix = lint.fix()
+
+print(fix[&#x27;optimize_spec&#x27;])
+                                            </code></pre>
+                                        </div><!--//code-block-->
+                                        </details>
                                 </div>
+
+
+                                
+
+                                
                             </section>
                             <!--//doc-section-->
                         </div>
