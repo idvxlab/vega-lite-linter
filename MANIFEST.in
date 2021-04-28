@@ -1,3 +1,0 @@
-include vega_lite_linter/data/*.json
-include vega_lite_linter/data/*.csv
-include vega_lite_linter/linter/rules/*.lp
