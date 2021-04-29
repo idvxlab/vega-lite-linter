@@ -2,9 +2,20 @@
     padding-top: 0px;
 }
 
-.logo-img {
-    height: 100px;
-    margin: 10px 40px;
+.img-teaser {
+    margin: 16px 0;
+}
+
+.logo-idvx {
+    /* height: 100px; */
+    width: 280px;
+    margin: 20px;
+}
+
+.logo-antv {
+    /* height: 100px; */
+    width: 200px;
+    margin: 20px;
 }
 
 .logo-row {
@@ -17,6 +28,7 @@
 
 .logo {
     color: #85afe8 !important
+    /* color: #589dcd !important */
 }
 
 details.example_code {
@@ -56,7 +68,7 @@ details.dataset:not([open]) summary::after {
     table-layout: fixed;
 }
 .rule col:nth-child(1) {
-    width: 255px !important;
+    width: 258px !important;
 }
 
 .rule td:nth-child(1) {
@@ -71,4 +83,17 @@ details.dataset:not([open]) summary::after {
     color: #85afe8;
     margin-top: 0;
     font-size: 36px;
+}
+
+/* copyright */
+.copyright {
+    color: #484b50;
+}
+
+.fa-heart {
+    color: #7c3655 !important;
+}
+
+.copyright a {
+    color: #4a7694;
 }
