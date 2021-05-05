@@ -74,7 +74,7 @@
                                 <h2 class="section-title">Setup</h2>
                                 <div id="prerequisite"  class="section-block">
                                     <h3 class="block-title">Prerequisite</h3>
-                                    <p>vega-lite-linter requires <a class="reference external" href="https://potassco.org/clingo/" target="_blank">Clingo</a> as the solver of <strong>Answer Set Programming</strong>, users must install it first.</p>
+                                    <p>Since <i>vega-lite-linter</i> requires <a class="reference external" href="https://potassco.org/clingo/" target="_blank">Clingo</a> as the solver of <strong>Answer Set Programming</strong>, you are required to install it first.</p>
                                     <div class="code-block">
                                         <p>For Linux users:</p>
                                         <pre class="language-shell"><code>apt-get install -y gringo</code></pre>
@@ -83,20 +83,23 @@
                                         <p>Or using Conda:</p>
                                         <pre class="language-shell"><code>conda install -c potassco clingo</code></pre>
                                     </div><!--//code-block-->
+                                    <p>More information for downloading Clingo can be found <a class="reference external" href="https://potassco.org/clingo/" target="_blank">here</a>.</p>
+
                                 </div><!--//section-block-->
                                 <div id="installation"  class="section-block">
                                     <h3 class="block-title">Installation</h3>
-                                    <p>vega-lite-linter is built on Python 3 and can be installed by:
+                                    <p><i>Vega-lite-linter</i> is built on Python 3 and can be installed by:
                                     </p>
-                                    <div class="code-block">
+                                    <!-- <div class="code-block"> -->
                                         <pre class="language-shell"><code>pip install vega-lite-linter</code></pre>
-                                    </div><!--//code-block-->
+                                    <!-- </div> -->
+                                    <!--//code-block-->
                                 </div><!--//section-block-->
                                 <div id="sample"  class="section-block">
                                     <h3 class="block-title">Sample Code</h3>
-                                    <p>After successfully installing Clingo and vega-lite-linter, you can use the below sample code to get started.
+                                    <p>After successfully installing Clingo and <i>vega-lite-linter</i>, you can use the below sample code to get started.
                                     </p>
-                                    <p>More detailed examples can be found in Example.
+                                    <p>More detailed examples can be found in <a class="link" href="documentation.html">Examples</a>.
                                     </p>
                                     <div class="code-block">
                                         <pre class="language-python"><code>
@@ -139,7 +142,7 @@ fix = lint.fix()
                             <section id="api" class="doc-section">
                                 <h2 class="section-title">API Reference</h2>
                                 <div class="section-block">
-                                    <p>vega-lite-linter provides simple APIs for visualization developers to detect and fix issues in the built visualizations.
+                                    <p><i>Vega-lite-linter</i> provides simple APIs for visualization developers to detect and fix issues in the built visualizations.
                                     </p>
                                 </div>
                                 <div id="api-initialization" class="section-block">
@@ -149,7 +152,7 @@ fix = lint.fix()
                                     <div class="code-block">
                                         <pre class="language-python"><code>lint = Lint(vegalite_json)</code></pre>
                                     </div><!--//code-block-->
-                                    <p>After initializing, the two functions listed below can be called on the instance object.
+                                    <p>After initialization, the two functions listed below can be called on the instance object.
                                     </p>
                                 </div>
 
@@ -160,10 +163,10 @@ fix = lint.fix()
                                     <div class="row">
                                         <div class="col-md-12 col-12">
                                             <ul class="list">
-        										<li><strong>id</strong>: string. the linted rule id.</li>
-        										<li><strong>param1</strong>: string(optional). related parameters, usually the encoding channel where the rule is in.</li>
-        										<li><strong>param2</strong>: string(optional). related parameters, usually the incorrect input where the rule happens.</li>
-        										<li><strong>explain</strong>: string. the description of the rule.</li>
+        										<li><strong>id</strong>: string. The linted rule id.</li>
+        										<li><strong>param1</strong>: string(optional). Related parameters, usually the encoding channel where the rule is related.</li>
+        										<li><strong>param2</strong>: string(optional). Related parameters, usually the incorrect input where the rule is violated.</li>
+        										<li><strong>explain</strong>: string. The description of the rule.</li>
         									</ul>
                                         </div>
                                     </div><!--//row-->
@@ -177,12 +180,12 @@ fix = lint.fix()
                                     <div class="row">
                                         <div class="col-md-12 col-12">
                                             <ul class="list">
-        										<li><strong>fixable</strong>: boolean. the indicator of whether the given visualization specification can be fixed by vega-lite-linter.</li>
-        										<li><strong>optimize_spec</strong>: object. the specification after revision.</li>
-        										<li><strong>optimize_actions</strong>: <strong>Action</strong>[]. the recommended action set to fix the visualization.</li>
-        										<li><strong>possible_actions</strong>: <strong>Action</strong>[][]. all possible actions to fix the visualization, grouped by each issue.</li>
-        										<li><strong>violate_rules</strong>: <strong>Rule</strong>[]. the detected rules in the original specification.</li>
-        										<li><strong>origin_spec</strong>: object. the original specification.</li>
+        										<li><strong>fixable</strong>: boolean. The indicator of whether the given visualization specification can be fixed by <i>vega-lite-linter</i>.</li>
+        										<li><strong>optimize_spec</strong>: object. The specification after revision.</li>
+        										<li><strong>optimize_actions</strong>: <strong>Action</strong>[]. The recommended action set to fix the visualization.</li>
+        										<li><strong>possible_actions</strong>: <strong>Action</strong>[][]. All possible actions to fix the visualization, grouped by each issue.</li>
+        										<li><strong>violate_rules</strong>: <strong>Rule</strong>[]. The detected rules in the original specification.</li>
+        										<li><strong>origin_spec</strong>: object. The original specification.</li>
 
         									</ul>
                                         </div>
@@ -192,15 +195,15 @@ fix = lint.fix()
                                     <div class="row">
                                         <div class="col-md-12 col-12">
                                             <ul class="list">
-                                                <li><strong>action</strong>: string. the name of the action.</li>
-                                                <li><strong>param1</strong>: string. the encoding channel to perform the action.</li>
-                                                <li><strong>param2</strong>: string. the parameter to perform the action.</li>
-                                                <li><strong>rid</strong>: string. the rule id that the action solved.</li>
-                                                <li><strong>transition</strong>: number. the transition cost of the action.</li>
-                                                <li><strong>reward</strong>: number. the reward of the action.</li>
-                                                <li><strong>score</strong>: number. number. the score of the action, calculating by transition and reward.</li>
-                                                <li><strong>action_intro</strong>: the description of the action.</li>
-                                                <li><strong>apply</strong>: 0 | 1. the indicator of whether the action is adopted in the optimize_actions.</li>
+                                                <li><strong>action</strong>: string. The name of the action.</li>
+                                                <li><strong>param1</strong>: string. The encoding channel to perform the action.</li>
+                                                <li><strong>param2</strong>: string. The parameter to perform the action.</li>
+                                                <li><strong>rid</strong>: string. The rule id that the action solved.</li>
+                                                <li><strong>transition</strong>: number. The transition cost of the action.</li>
+                                                <li><strong>reward</strong>: number. The reward of the action.</li>
+                                                <li><strong>score</strong>: number. The score of the action, calculating by transition and reward.</li>
+                                                <li><strong>action_intro</strong>: string. The description of the action.</li>
+                                                <li><strong>apply</strong>: 0 | 1. The indicator of whether the action is adopted in the optimize_actions.</li>
                                             </ul>
                                         </div>
                                     </div><!--//row-->
@@ -211,9 +214,9 @@ fix = lint.fix()
                                     <p>The related Vega-Lite properties are listed as follows.
                                     </p>
                                     <h4>Data</h4>
-                                    <p>vega-lite-linter helps detect some errors related to data by deriving data properties from raw data, such as data field type and min/max value of numerical data field.
+                                    <p><i>Vega-lite-linter</i> helps detect some errors related to data by deriving data properties from raw data, such as data field type and min/max value of numerical data field.
 
-                                        Currently, vega-lite-linter supports such calculation with inline data specified using values property, or <a class="reference external" href="https://vega.github.io/vega-datasets/" target="_blank">build-in datasets</a> of Vega and Vega-Lite.
+                                        Currently, <i>vega-lite-linter</i> supports such calculation with inline data specified using values property, or <a class="reference external" href="https://vega.github.io/vega-datasets/" target="_blank">build-in datasets</a> of Vega and Vega-Lite.
                                     </p>
                                     <!-- <p>
                                         <a data-toggle="collapse" href="#builtindata" class="collapsed" aria-expanded="false">
@@ -263,7 +266,7 @@ fix = lint.fix()
                                             <tbody>
                                                 <tr>
                                                     <td>mark</td>
-                                                    <td><strong>Required</strong>. The mark type of the visualization. Can be one of the following values: area, bar, line, point and tick.</td>
+                                                    <td><strong>Required</strong>. The mark type of the visualization. Can be one of the following values: area, bar, line, point, and tick.</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -314,7 +317,7 @@ fix = lint.fix()
                                             </tbody>
                                         </table>
                                     </div><!--//table-responsive-->
-                                    <p><code class="language-python"><span>scale</span></code> property including:
+                                    <p>The <code class="language-python"><span>scale</span></code> property includes:
                                     </p>
                                     <div class="table-responsive">
                                         <table class="table vega table-striped">
@@ -331,7 +334,7 @@ fix = lint.fix()
                                             <tbody>
                                                 <tr>
                                                     <td>type</td>
-                                                    <td>The type of scale transformation. Currently the algorithm detects errors related to log type.</td>
+                                                    <td>The type of scale transformation. Currently, the algorithm detects errors related to log type.</td>
                                                 </tr>
                                                 <tr>
                                                     <td>zero</td>
@@ -349,7 +352,7 @@ fix = lint.fix()
                             <section id="rules" class="doc-section">
                                 <h2 class="section-title">Rules</h2>
                                 <div class="section-block">
-                                    <p>Rules in vega-lite-linter are borrowed and refined from <a class="reference external" href="https://uwdata.github.io/draco/" target="_blank">Draco</a>. Rules are grouped by four categories.
+                                    <p>Rules in <i>vega-lite-linter</i> are referred to and refined from <a class="reference external" href="https://uwdata.github.io/draco/" target="_blank">Draco</a>. The rules are grouped into four categories.
                                     </p>
                                 </div>
                                 <div class="section-block">
@@ -481,7 +484,7 @@ fix = lint.fix()
                                                   </tr>
                                                   <tr>
                                                     <td>stack_without_summative_agg</td>
-                                                    <td>Only use summative aggretation (count, sum, distinct, valid, missing) with stack in the encoding.</td>
+                                                    <td>Only use summative aggregation (count, sum, distinct, valid, missing) with stack in the encoding.</td>
                                                   </tr>
                                                   <tr>
                                                     <td>stack_without_discrete_color_1</td>
@@ -537,19 +540,19 @@ fix = lint.fix()
                                                   </tr>
                                                   <tr>
                                                     <td>bar_area_without_zero_1</td>
-                                                    <td>Mark 'bar' and 'area' require the scale of x axis to start at zero, when the x axis encodes quantitative data.</td>
+                                                    <td>Mark 'bar' and 'area' require the scale of the x-axis to start at zero, when the x-axis encodes quantitative data.</td>
                                                   </tr>
                                                   <tr>
                                                     <td>bar_area_without_zero_2</td>
-                                                    <td>Mark 'bar' and 'area' require the scale of y axis to start at zero, when the y axis encodes quantitative data.</td>
+                                                    <td>Mark 'bar' and 'area' require the scale of the y-axis to start at zero, when the y-axis encodes quantitative data.</td>
                                                   </tr>
                                                   <tr>
                                                     <td>size_without_point</td>
-                                                    <td>Use size channel with mark 'point' would be better.</td>
+                                                    <td>Use the size channel with the mark 'point' would be better.</td>
                                                   </tr>
                                                   <tr>
                                                     <td>stack_without_bar_area</td>
-                                                    <td>Only use stacking for mark 'bar' and 'area'.</td>
+                                                    <td>Only use stacking for the mark 'bar' and 'area'.</td>
                                                   </tr>
                                             </tbody>
                                         </table>
@@ -601,14 +604,14 @@ fix = lint.fix()
                             <section id="credits" class="doc-section">
                                 <h2 class="section-title">Credits</h2>
                                 <div class="section-block">
-                                    <p>vega-lite-linter was created by <a class="reference external" href="https://idvxlab.com/" target="_blank">iDV<sup>x</sup> Lab</a> and funded by <a class="reference external" href="https://antv.vision/en" target="_blank">AntV</a>.</p>
+                                    <p><i>Vega-lite-linter</i> was invented by <a class="reference external" href="https://idvxlab.com/" target="_blank">iDV<sup>x</sup> Lab</a> and sponsored by <a class="reference external" href="https://antv.vision/en" target="_blank">AntV</a>.</p>
                                 </div>
                             </section><!--//doc-section-->
 
                             <section id="contact" class="doc-section">
                                 <h2 class="section-title">Contact Us</h2>
                                 <div class="section-block">
-                                    <p>If you have any question, feel free to <a href="https://github.com/idvxlab/vega-lite-linter/issues/new/" target="_blank">open an issue</a> or contact idvx.lab [at] gmail.com .</p>
+                                    <p>If you have any questions, please feel free to <a href="https://github.com/idvxlab/vega-lite-linter/issues/new/" target="_blank">open an issue</a> or contact idvx.lab [at] gmail.com.</p>
                                 </div>
                             </section><!--//doc-section-->
 

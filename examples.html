@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>vega-lite-linter | Docs</title>
+    <title>vega-lite-linter | Examples</title>
     <!-- Meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -44,7 +44,7 @@
                 <!--//branding-->
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Example</li>
+                    <li class="breadcrumb-item active">Examples</li>
                 </ol>
 
                 <div class="top-search-box">
@@ -81,10 +81,10 @@
                                 <div id="editor" class="section-block">
                                     <h3 class="block-title">VizLinter: Online Vega-Lite Editor</h3>
                                     <p>
-                                        An online Vega-Lite editor <a href="http://vizlinter.idvxlab.com/" target="_blank">VizLinter</a> is created with linting and fixing functions based on vega-lite-linter for any Vega-Lite developer to build and validate visualizations.
-                                        After writing or loading visualization specification in the editor panel, users can click the "Inspect Specs" button to view any 
+                                        An online Vega-Lite editor <a href="http://vizlinter.idvxlab.com/" target="_blank">VizLinter</a> is developed with the linting and fixing functions based on <i>vega-lite-linter</i> for Vega-Lite developers to build and validate visualizations.
+                                        After writing or loading visualization specifications in the editor panel, users can click the "Inspect Specs" button to view any violated rules of the current visualization specification.
                                         Users can correct the specification according to the description of rules on their own or check our suggested actions by clicking the "Suggest Revision" button. 
-                                        To preview the automatic modifications done by these fixing advice, users can click the "Preview" button. The corresponding revised specification will show up in the code panel and users can decide to apply or reject the revisions through the "Accept" and "Reject" buttons.
+                                        To preview the automatic modifications done by VizLinter, users can click the "Preview" button. The corresponding revised specification will be shown in the code panel and users can decide whether to apply or to reject the revisions via the "Accept" and "Reject" buttons.
                                     </p>
                                     <img class="img-fluid img-center" src="assets/images/editor.png" alt="OnlineEditor" >
 
@@ -96,12 +96,12 @@
                             <section id="examples" class="doc-section">
                                 <h2 class="section-title">Examples</h2>
                                 <div class="section-block">
-                                    vega-lite-linter provides simple APIs for visualization developers to detect and
+                                    <i>Vega-lite-linter</i> provides simple APIs for visualization developers to detect and
                                         fix issues in the built visualizations.
                                 </div>
                                 <div id="example1" class="section-block">
                                     <h3 class="block-title">Example 1</h3>
-                                    <p>In this case, the original visualization(left) has violated one rule:
+                                    <p>In this case, the original visualization(left) violates one rule:
                                     </p>
                                     <div class="row">
                                         <div class="col-md-12 col-12">
@@ -158,7 +158,7 @@ print(fix[&#x27;optimize_spec&#x27;])
 
                                 <div id="example2" class="section-block">
                                     <h3 class="block-title">Example 2</h3>
-                                    <p>In this case, the original visualization(left) has violated one rule:
+                                    <p>In this case, the original visualization(left) violates one rule:
                                     </p>
                                     <div class="row">
                                         <div class="col-md-12 col-12">
@@ -219,7 +219,7 @@ print(fix[&#x27;optimize_spec&#x27;])
 
                                 <div id="example3" class="section-block">
                                     <h3 class="block-title">Example 3</h3>
-                                    <p>In this case, the original visualization(left) has violated three rule:
+                                    <p>In this case, the original visualization(left) violates three rule:
                                     </p>
                                     <div class="row">
                                         <div class="col-md-12 col-12">
@@ -291,7 +291,7 @@ print(fix[&#x27;optimize_spec&#x27;])
 
                                 <div id="example4" class="section-block">
                                     <h3 class="block-title">Example 4</h3>
-                                    <p>In this case, the original visualization(left) has violated three rule:
+                                    <p>In this case, the original visualization(left) violates three rules:
                                     </p>
                                     <div class="row">
                                         <div class="col-md-12 col-12">
