@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">    
-    <link rel="shortcut icon" href="./assets/images/idvx_icon.ico">  
+    <link rel="shortcut icon" href="./assets/images/favicon.ico">  
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <!-- FontAwesome JS -->
     <script defer src="assets/fontawesome/js/all.js"></script>
@@ -74,7 +74,7 @@
                                 <h2 class="section-title">Setup</h2>
                                 <div id="prerequisite"  class="section-block">
                                     <h3 class="block-title">Prerequisite</h3>
-                                    <p>Since <i>vega-lite-linter</i> requires <a class="reference external" href="https://potassco.org/clingo/" target="_blank">Clingo</a> as the solver of <strong>Answer Set Programming</strong>, you are required to install it first.</p>
+                                    <p>Since <strong>vega-lite-linter</strong> requires <a class="reference external" href="https://potassco.org/clingo/" target="_blank">Clingo</a> as the solver of <strong>Answer Set Programming</strong>, you are required to install it first.</p>
                                     <div class="code-block">
                                         <p>For Linux users:</p>
                                         <pre class="language-shell"><code>apt-get install -y gringo</code></pre>
@@ -88,7 +88,7 @@
                                 </div><!--//section-block-->
                                 <div id="installation"  class="section-block">
                                     <h3 class="block-title">Installation</h3>
-                                    <p><i>Vega-lite-linter</i> is built on Python 3 and can be installed by:
+                                    <p><strong>Vega-lite-linter</strong> is built on Python 3 and can be installed by:
                                     </p>
                                     <!-- <div class="code-block"> -->
                                         <pre class="language-shell"><code>pip install vega-lite-linter</code></pre>
@@ -97,9 +97,9 @@
                                 </div><!--//section-block-->
                                 <div id="sample"  class="section-block">
                                     <h3 class="block-title">Sample Code</h3>
-                                    <p>After successfully installing Clingo and <i>vega-lite-linter</i>, you can use the below sample code to get started.
+                                    <p>After successfully installing Clingo and <strong>vega-lite-linter</strong>, you can use the below sample code to get started.
                                     </p>
-                                    <p>More detailed examples can be found in <a class="link" href="documentation.html">Examples</a>.
+                                    <p>More detailed examples can be found in <a class="link reference external" href="documentation.html">Examples</a>.
                                     </p>
                                     <div class="code-block">
                                         <pre class="language-python"><code>
@@ -142,7 +142,7 @@ fix = lint.fix()
                             <section id="api" class="doc-section">
                                 <h2 class="section-title">API Reference</h2>
                                 <div class="section-block">
-                                    <p><i>Vega-lite-linter</i> provides simple APIs for visualization developers to detect and fix issues in the built visualizations.
+                                    <p><strong>Vega-lite-linter</strong> provides simple APIs for visualization developers to detect and fix issues in the built visualizations.
                                     </p>
                                 </div>
                                 <div id="api-initialization" class="section-block">
@@ -180,7 +180,7 @@ fix = lint.fix()
                                     <div class="row">
                                         <div class="col-md-12 col-12">
                                             <ul class="list">
-        										<li><strong>fixable</strong>: boolean. The indicator of whether the given visualization specification can be fixed by <i>vega-lite-linter</i>.</li>
+        										<li><strong>fixable</strong>: boolean. The indicator of whether the given visualization specification can be fixed by <strong>vega-lite-linter</strong>.</li>
         										<li><strong>optimize_spec</strong>: object. The specification after revision.</li>
         										<li><strong>optimize_actions</strong>: <strong>Action</strong>[]. The recommended action set to fix the visualization.</li>
         										<li><strong>possible_actions</strong>: <strong>Action</strong>[][]. All possible actions to fix the visualization, grouped by each issue.</li>
@@ -214,9 +214,9 @@ fix = lint.fix()
                                     <p>The related Vega-Lite properties are listed as follows.
                                     </p>
                                     <h4>Data</h4>
-                                    <p><i>Vega-lite-linter</i> helps detect some errors related to data by deriving data properties from raw data, such as data field type and min/max value of numerical data field.
+                                    <p><strong>Vega-lite-linter</strong> helps detect some errors related to data by deriving data properties from raw data, such as data field type and min/max value of numerical data field.
 
-                                        Currently, <i>vega-lite-linter</i> supports such calculation with inline data specified using values property, or <a class="reference external" href="https://vega.github.io/vega-datasets/" target="_blank">build-in datasets</a> of Vega and Vega-Lite.
+                                        Currently, <strong>vega-lite-linter</strong> supports such calculation with inline data specified using values property, or <a class="reference external" href="https://vega.github.io/vega-datasets/" target="_blank">build-in datasets</a> of Vega and Vega-Lite.
                                     </p>
                                     <!-- <p>
                                         <a data-toggle="collapse" href="#builtindata" class="collapsed" aria-expanded="false">
@@ -352,7 +352,7 @@ fix = lint.fix()
                             <section id="rules" class="doc-section">
                                 <h2 class="section-title">Rules</h2>
                                 <div class="section-block">
-                                    <p>Rules in <i>vega-lite-linter</i> are referred to and refined from <a class="reference external" href="https://uwdata.github.io/draco/" target="_blank">Draco</a>. The rules are grouped into four categories.
+                                    <p>Rules in <strong>vega-lite-linter</strong> are referred to and refined from <a class="reference external" href="https://uwdata.github.io/draco/" target="_blank">Draco</a>. The rules are grouped into four categories.
                                     </p>
                                 </div>
                                 <div class="section-block">
@@ -604,21 +604,21 @@ fix = lint.fix()
                             <section id="credits" class="doc-section">
                                 <h2 class="section-title">Credits</h2>
                                 <div class="section-block">
-                                    <p><i>Vega-lite-linter</i> was invented by <a class="reference external" href="https://idvxlab.com/" target="_blank">iDV<sup>x</sup> Lab</a> and sponsored by <a class="reference external" href="https://antv.vision/en" target="_blank">AntV</a>.</p>
+                                    <p><strong>Vega-lite-linter</strong> was invented by <a class="reference external" href="https://idvxlab.com/" target="_blank">iDV<sup>x</sup> Lab</a> and sponsored by <a class="reference external" href="https://antv.vision/en" target="_blank">AntV</a>.</p>
                                 </div>
                             </section><!--//doc-section-->
 
                             <section id="contact" class="doc-section">
                                 <h2 class="section-title">Contact Us</h2>
                                 <div class="section-block">
-                                    <p>If you have any questions, please feel free to <a href="https://github.com/idvxlab/vega-lite-linter/issues/new/" target="_blank">open an issue</a> or contact idvx.lab [at] gmail.com.</p>
+                                    <p>If you have any questions, please feel free to <a class="reference external" href="https://github.com/idvxlab/vega-lite-linter/issues/new/" target="_blank">open an issue</a> or contact idvx.lab [at] gmail.com.</p>
                                 </div>
                             </section><!--//doc-section-->
 
                             <section id="license" class="doc-section">
                                 <h2 class="section-title">License</h2>
                                 <div class="section-block">
-                                    <p>The software is available under the <a href="https://github.com/idvxlab/vega-lite-linter/blob/main/LICENSE" target="_blank">MIT License</a>.</p>
+                                    <p>The software is available under the <a class="reference external" href="https://github.com/idvxlab/vega-lite-linter/blob/main/LICENSE" target="_blank">MIT License</a>.</p>
                                 </div>
                             </section><!--//doc-section-->
                         </div><!--//content-inner-->
@@ -660,7 +660,7 @@ fix = lint.fix()
             <p>
                 <!-- vega-lite-linter -->
                 <!-- <br> -->
-                <small>Copyright © 2021 <a href="https://idvxlab.com/" target="_blank">Intelligent Big Data Visualization Lab
+                <small>Copyright © 2021 <a class="reference external" href="https://idvxlab.com/" target="_blank">Intelligent Big Data Visualization Lab
                         (iDV<sup>x</sup> Lab)</a> All rights reserved.</small>
 
             </p>
@@ -668,7 +668,7 @@ fix = lint.fix()
             <!-- <br> -->
             <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
             <small class="copyright">Designed with <i class="fas fa-heart" style="color: red"></i> by <a
-                    href="https://themes.3rdwavemedia.com/" target="_blank">Xiaoying Riley</a> for developers</small>
+                class="reference external" href="https://themes.3rdwavemedia.com/" target="_blank">Xiaoying Riley</a> for developers</small>
 
         </div>
         <!--//container-->

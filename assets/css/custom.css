@@ -97,3 +97,11 @@ details.dataset:not([open]) summary::after {
 .copyright a {
     color: #4a7694;
 }
+
+.logo {
+    font-weight: 600;
+}
+
+.reference {
+    font-style: italic;
+}
