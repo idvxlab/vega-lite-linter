@@ -3,11 +3,16 @@ Fixing your visualization design written in Vega-Lite based on the Answer Set Pr
 
 ## Setup
 ### Step 1: install **Clingo**
-   First, you need to install Clingo.
+  Since vega-lite-linter requires **Clingo** as the solver of Answer Set Programming, you are required to install it first.
 
 For MacOS
 ```
 brew install clingo
+```
+
+For Linux
+```
+apt-get install -y gringo
 ```
 
 Using Conda
@@ -21,6 +26,8 @@ For other system, please look up to https://potassco.org/clingo/
 ```
 pip install vega-lite-linter
 ```
+
+More instruction about can be found on [vega-lite-linter's project website](http://vegalite-linter.idvxlab.com/index.html).
 
 ## Usage
 
@@ -61,6 +68,8 @@ fix = lint.fix()
 
 <!-- More details can be found in [vega-lite-linter's project website](xxx). -->
 
+## Credits
+Vega-lite-linter was invented by the [iDV<sup>x</sup> Lab](https://idvxlab.com/) together with [AntV](https://antv.vision/en). If you are looking for a visualization linter that uses other chart libraries, have a look at [ChartLinter](https://ava.antv.vision/en/docs/guide/chart-linter/intro).
 
 ## License
 The software is available under the [MIT License](https://github.com/idvxlab/vega-lite-linter/blob/main/LICENSE).
