@@ -77,4 +77,4 @@ The software is available under the [MIT License](https://github.com/idvxlab/veg
 
 
 ## Contact
-If you have any question, feel free to [open an issue](https://github.com/idvxlab/vega-lite-linter/issues/new/) or contact [idvxlab](https://idvxlab.com/).
+If you have any question, feel free to [open an issue](https://github.com/idvxlab/vega-lite-linter/issues/new/) or contact idvxlab [at] gmail<span>.</span>com.
