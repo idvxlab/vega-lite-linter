@@ -71,7 +71,7 @@ fix = lint.fix()
 ## Credits
 Vega-lite-linter was invented by the [iDV<sup>x</sup> Lab](https://idvxlab.com/) together with [AntV](https://antv.vision/en). 
 
-Based on our technology, [AntV](https://antv.vision/en) and [iDV<sup>x</sup> Lab](https://idvxlab.com/) also developed [ChartLinter](https://ava.antv.vision/en/docs/guide/chart-linter/intro) in Javascript to support visualization charts beyond Vegalite.
+Based on our technology, [AntV](https://antv.vision/en) and [iDV<sup>x</sup> Lab](https://idvxlab.com/) also developed [ChartLinter](https://ava.antv.vision/en/docs/guide/chart-linter/intro) in Javascript to support visualization charts beyond Vega-Lite.
 
 ## License
 The software is available under the [MIT License](https://github.com/idvxlab/vega-lite-linter/blob/main/LICENSE).
