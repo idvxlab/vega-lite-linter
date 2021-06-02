@@ -57,8 +57,10 @@
                     </h1>
                 </div>
                 <!--//branding-->
-                <div class="tagline">
-                    <p>Automatically detecting and fixing design problems in visualization charts
+                <div class="tagline tagliness" style="width: 80%; margin:auto">
+                    <p>
+                        A smart visual designer for automatic diagnosis and improving your design of visualization charts written in Vega-Lite.
+                        <!-- Automatically detecting and fixing design problems in visualization charts -->
                         <!-- Finding and fixing design issues in visualization charts -->
                     </p>
                     <p>iDV<sup>x</sup> Lab</p>
@@ -100,9 +102,12 @@
             <div class="container">
                 <h2 class="title">Welcome to <strong>vega-lite-linter</strong></h2>
                 <div class="intro">
+                    <img class="img-fluid img-center img-teaser" src="assets/images/pipeline.png" alt="pipeline" >
+
                     <p class="text-justify">
                         Despite the growing popularity of data visualization, users may create imperfect visualizations with chart construction errors, for example, applying the wrong type of data field with the encoding channel. 
-                        <strong>Vega-lite-linter</strong> is a package to help users detect flaws and rectify already-built but defective visualizations. The package consists of two components: 
+                        <strong>Vega-lite-linter</strong> is a package to help users detect flaws and rectify already-built but defective visualizations. 
+                        As shown in the above figure, the package consists of two components: 
                         (1) a visualization linter, which applies well-recognized principles to inspect the legitimacy of rendered visualizations, and 
                         (2) a visualization fixer, which automatically corrects the detected violations according to the linter. 
                         Given a visualization specification written in <a class="reference external" href="https://vega.github.io/vega-lite/" target="_blank">Vega-Lite</a>, <strong>vega-lite-linter</strong> can automatically detect design problems and provide revision suggestions for the visualization.
@@ -204,7 +209,10 @@
             <div class="container">
                 <h2 class="title">Credits</h2>
                 <div class="intro">
-                    <p class="text-justify"><strong>Vega-lite-linter</strong> was invented by the <a class="reference external" href="https://idvxlab.com/" target="_blank">iDV<sup>x</sup> Lab</a> together with <a class="reference external" href="https://antv.vision/en" target="_blank">AntV</a>. If you are looking for a visualization linter that uses other chart libraries, have a look at <a class="reference external" href="https://ava.antv.vision/en/docs/guide/chart-linter/intro" target="_blank">ChartLinter</a>.</p>
+                    <p class="text-justify"><strong>Vega-lite-linter</strong> was invented by the <a class="reference external" href="https://idvxlab.com/" target="_blank">iDV<sup>x</sup> Lab</a> together with <a class="reference external" href="https://antv.vision/en" target="_blank">AntV</a>. 
+                        Based on our technology, <a class="reference external" href="https://antv.vision/en" target="_blank">AntV</a> and <a class="reference external" href="https://idvxlab.com/" target="_blank">iDV<sup>x</sup> Lab</a> also developed <a class="reference external" href="https://ava.antv.vision/en/docs/guide/chart-linter/intro" target="_blank">ChartLinter</a> in Javascript to support visualization charts beyond Vega-Lite.
+                        <!-- If you are looking for a visualization linter that uses other chart libraries, have a look at <a class="reference external" href="https://ava.antv.vision/en/docs/guide/chart-linter/intro" target="_blank">ChartLinter</a>. -->
+                    </p>
                     <div class="row logo-row">
                         <a href="https://idvxlab.com/" target="_blank">
                             <img class="logo-idvx" src="assets/images/idvx.png" >

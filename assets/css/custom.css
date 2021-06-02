@@ -105,3 +105,8 @@ details.dataset:not([open]) summary::after {
 .reference {
     font-style: italic;
 }
+
+.tagliness {
+    width: 85%;
+    margin:auto;
+}
