@@ -1,5 +1,5 @@
 # vega-lite-linter
-Fixing your visualization design written in Vega-Lite based on the Answer Set Programming.
+A smart visual designer for automatic diagnosis and improving your design of visualization charts written in Vega-Lite.
 
 ## Setup
 ### Step 1: install **Clingo**
@@ -69,7 +69,9 @@ fix = lint.fix()
 <!-- More details can be found in [vega-lite-linter's project website](xxx). -->
 
 ## Credits
-Vega-lite-linter was invented by the [iDV<sup>x</sup> Lab](https://idvxlab.com/) together with [AntV](https://antv.vision/en). If you are looking for a visualization linter that uses other chart libraries, have a look at [ChartLinter](https://ava.antv.vision/en/docs/guide/chart-linter/intro).
+Vega-lite-linter was invented by the [iDV<sup>x</sup> Lab](https://idvxlab.com/) together with [AntV](https://antv.vision/en). 
+
+Based on our technology, [AntV](https://antv.vision/en) and [iDV<sup>x</sup> Lab](https://idvxlab.com/) also developed [ChartLinter](https://ava.antv.vision/en/docs/guide/chart-linter/intro) in Javascript to support visualization charts beyond Vegalite.
 
 ## License
 The software is available under the [MIT License](https://github.com/idvxlab/vega-lite-linter/blob/main/LICENSE).
