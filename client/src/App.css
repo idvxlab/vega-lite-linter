@@ -64,3 +64,8 @@
   border-top: solid 2px rgba(0,0,0,0.2);
   height: 50%;
 }
+
+.pjBtn:hover {
+  text-decoration: underline;
+  /* color: #7b25ba !important; */
+}

@@ -107,7 +107,7 @@ export default class index extends Component {
                 <Layout>
                     <Header className="header" style={{ backgroundColor: "#fff" }}>
                         <div>
-                            <p className="title">VizFixer</p>
+                            <p className="title">VizLinter</p>
                         </div>
                     </Header>
                     <Layout style={{ height: 'calc(100vh - 144px)', borderBottom: '2px solid rgba(0,0,0,0.2)' }}>

@@ -1,7 +1,8 @@
 // import logo from './logo.svg';
 import React from 'react';
 import './App.css';
-import { Layout, Select } from 'antd';
+import { Layout, Select, Button } from 'antd';
+import { LinkOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css'
 
 import ChartView from './view/ChartView/index'
@@ -67,9 +68,17 @@ export default class App extends React.Component {
       <div className="App">
         <Layout>
           <Header className="header" style={{ backgroundColor: "#fff" }}>
-            <div>
-              <p className="title">VizFixer</p>
+            <div style={{display: 'inline-block'}}>
+              <p className="title">VizLinter</p>
             </div>
+            <div style={{display: 'inline-block', float: 'right', marginRight: 10}}>
+            {/* <Button></Button> */}
+            <a className="pjBtn" href="https://vegalite-linter.idvxlab.com" target="_blank" style = {{ color: '#000', verticalAlign: 'center'}}>
+              <LinkOutlined style = {{ color: '#7b25ba', fontSize: 20, marginRight: 5}}/>
+              Project Page
+            </a>
+            </div>
+            
           </Header>
           <Layout>
             <Sider className="CodeView-container" theme="light" width={500}>
